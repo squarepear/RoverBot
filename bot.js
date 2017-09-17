@@ -255,6 +255,7 @@ bot.on("message", async message => {
 				if (message.mentions.users.first() != null) {
 					var usr = message.mentions.users.first();
 					var usrinfo = getUserInfo(usr.id);
+					console.log(usrinfo);
 					if (usrinfo.FriendCode != null) {
 						message.channel.send(usr.username + "'s info is: \n Friend Code: `" + usrinfo.FriendCode + "` \n Name: `" + usrinfo.Name + "` \n Town: `" + usrinfo.Town + "` \n Fruit: `" + usrinfo.Fruit + "` \n Note: `" + usrinfo.Note + "`");
 					} else {
