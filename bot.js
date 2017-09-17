@@ -55,7 +55,7 @@ bot.on('message', async message => {
           message.channel.send(data.items[0].url)
         })
         .fail(function (e) {
-          message.channel.send('There isn\'t any wiki page about ' + args)
+          message.channel.send('There isn\'t any wiki page about `' + args + '`')
           console.log(e.stack)
         })
       } else {
@@ -83,7 +83,7 @@ bot.on('message', async message => {
         .addField('!fruit [mention]', 'Get someone elses Native Fruit')
         .addField('!note [code]', 'Add your Note')
         .addField('!note [mention]', 'Get someone elses Note')
-        .setFooter('This bot is made by <@237985610084777994> with help from <@189769721653100546> and GitHub Contributors!')
+        .addField('Author', 'This bot is made by <@237985610084777994> with help from <@189769721653100546> and GitHub Contributors!')
         .setThumbnail(message.guild.iconURL)
       message.channel.send({ embed: help })
       break
@@ -280,22 +280,28 @@ bot.on('message', async message => {
       }
       break
 
-    // !info
+    /* !info
+    Lazy Programming. Just use try and catch */
 
     case 'INFO':
-      if (args.length === 1) {
-        if (message.mentions.users.first() != null) {
-          usr = message.mentions.users.first()
-          usrinfo = getUserInfo(usr.id)
-
-          //  IF User havent set any info
-          if (usrinfo.FriendCode === undefined) {
-            message.channel.send('This user haven\'t set their details yet! Notify the user so that they will enter the details!')
-            console.log('!info undefined friendcode')
-            return
+      try {
+        if (args.length === 1) {
+          if (message.mentions.users.first() != null) {
+            usr = message.mentions.users.first()
+            usrinfo = getUserInfo(usr.id)
+            console.log(usrinfo)
+            if (usrinfo.FriendCode !== null) {
+              message.channel.send(usr.username + "'s info is: \n Friend Code: `" + usrinfo.FriendCode + '` \n Name: `' + usrinfo.Name + '` \n Town: `' + usrinfo.Town + '` \n Fruit: `' + usrinfo.Fruit + '` \n Note: `' + usrinfo.Note + '`')
+            } else {
+              message.channel.send(usr.username + ' has not set a Friend Code yet')
+            }
+          } else {
+            message.channel.send('Usage: `!info [mention]`')
           }
-          console.log(usrinfo)
-          if (usrinfo.FriendCode !== null) {
+        } else if (args.length === 0) {
+          usr = user
+          usrinfo = getUserInfo(usr.id)
+          if (usrinfo.FriendCode != null) {
             message.channel.send(usr.username + "'s info is: \n Friend Code: `" + usrinfo.FriendCode + '` \n Name: `' + usrinfo.Name + '` \n Town: `' + usrinfo.Town + '` \n Fruit: `' + usrinfo.Fruit + '` \n Note: `' + usrinfo.Note + '`')
           } else {
             message.channel.send(usr.username + ' has not set a Friend Code yet')
@@ -303,17 +309,8 @@ bot.on('message', async message => {
         } else {
           message.channel.send('Usage: `!info [mention]`')
         }
-      } else if (args.length === 0) {
-        usr = user
-        usrinfo = getUserInfo(usr.id)
-        if (usrinfo.FriendCode != null) {
-          message.channel.send(usr.username + "'s info is: \n Friend Code: `" + usrinfo.FriendCode + '` \n Name: `' + usrinfo.Name + '` \n Town: `' + usrinfo.Town + '` \n Fruit: `' + usrinfo.Fruit + '` \n Note: `' + usrinfo.Note + '`')
-        } else {
-          message.channel.send(usr.username + ' has not set a Friend Code yet')
-        }
-      } else {
-        message.channel.send('Usage: `!info [mention]`')
-      }
+      } catch (e) { message.channel.send('The user haven\'t give any information to the bot!') }
+
       break
 
     // if prefix + not valid command
