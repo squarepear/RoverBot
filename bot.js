@@ -55,6 +55,7 @@ bot.on('message', async message => {
           message.channel.send(data.items[0].url)
         })
         .fail(function (e) {
+          message.channel.send('Error! Please notify my creator so that he can fix me!')
           console.log(e.stack)
         })
       } else {
@@ -68,7 +69,7 @@ bot.on('message', async message => {
     case 'HELP':
       let help = new Discord.RichEmbed()
         .setColor(getRandomColor())
-        .setAuthor('Help:')
+        .setTitle('Commands available')
         .addField('!help', 'Get a list of commands')
         .addField('!wiki [search]', 'Search the Wiki')
         .addField('!info (mention)', 'Get user info')
@@ -82,6 +83,8 @@ bot.on('message', async message => {
         .addField('!fruit [mention]', 'Get someone elses Native Fruit')
         .addField('!note [code]', 'Add your Note')
         .addField('!note [mention]', 'Get someone elses Note')
+        .addBlankField()
+        .addField('Author', 'The bot is originally created by <@237985610084777994> with help from GitHub Contributor!')
         .setThumbnail(message.guild.iconURL)
       message.channel.send({ embed: help })
       break
@@ -324,15 +327,15 @@ function getUserInfo (userID) {
 function setUserInfo (userID, info) {
   var row = db.prepare(`SELECT * FROM USERINFO WHERE UserID=?`).get(userID)
 
-  if (row == null) {
+  if (row === null) {
     db.prepare(`INSERT INTO USERINFO (UserID) VALUES (?)`).run(userID)
     row = db.prepare(`SELECT * FROM USERINFO WHERE UserID=?`).get(userID)
   }
-  if (info.FriendCode != null) { row.FriendCode = info.FriendCode.trim() }
-  if (info.Name != null) { row.Name = info.Name.trim() }
-  if (info.Town != null) { row.Town = info.Town.trim() }
-  if (info.Fruit != null) { row.Fruit = info.Fruit.trim() }
-  if (info.Note != null) { row.Note = info.Note.trim() }
+  if (info.FriendCode !== null || undefined) { row.FriendCode = info.FriendCode.trim() }
+  if (info.Name !== null || undefined) { row.Name = info.Name.trim() }
+  if (info.Town !== null || undefined) { row.Town = info.Town.trim() }
+  if (info.Fruit !== null || undefined) { row.Fruit = info.Fruit.trim() }
+  if (info.Note !== null || undefined) { row.Note = info.Note.trim() }
 
   db.prepare(`UPDATE USERINFO SET FriendCode = @FriendCode, Name = @Name, Town = @Town, Fruit = @Fruit, Note = @Note WHERE UserID=?`).run(userID, row)
 }
