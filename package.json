@@ -1,0 +1,21 @@
+{
+  "name": "roverbot",
+  "version": "1.0.0",
+  "description": "Discord bot for AC:CF discord server",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node bot.js"
+  },
+  "engines": {
+    "node": "8.2.0",
+    "npm": "5.3.0"
+  },
+  "author": "SquarePear",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.1.0",
+    "node-wikia": "0.0.3",
+    "better-sqlite3": "4.0.2"
+  }
+}
