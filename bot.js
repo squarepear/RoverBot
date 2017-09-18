@@ -41,7 +41,7 @@ bot.on('message', async message => {
     // !userinfo
     case 'USERINFO':
       let userinfo = new Discord.RichEmbed()
-        .setColor(getRandomColor())
+        .setColor('RANDOM')
         .setAuthor(user.username)
         .setDescription(`#${user.discriminator}`)
         .addField('Created on: ', user.createdAt)
@@ -68,7 +68,7 @@ bot.on('message', async message => {
 
     case 'HELP':
       let help = new Discord.RichEmbed()
-        .setColor(getRandomColor())
+        .setColor('RANDOM')
         .setTitle('⁉️ Commands available')
         .addField('!help', 'Get a list of commands')
         .addField('!wiki [search]', 'Search the Wiki')
@@ -362,15 +362,6 @@ function setUserInfo (userID, info) {
   if (info.Note != null) { row.Note = info.Note.trim() }
 
   db.prepare(`UPDATE USERINFO SET FriendCode = @FriendCode, Name = @Name, Town = @Town, Fruit = @Fruit, Note = @Note WHERE UserID=?`).run(userID, row)
-}
-
-function getRandomColor () {
-  var letters = '0123456789ABCDEF'
-  var color = '#'
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)]
-  }
-  return color
 }
 
 bot.login(botConfig.token)
