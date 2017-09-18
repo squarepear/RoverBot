@@ -36,7 +36,7 @@ bot.on('message', async message => {
   let messageArray = message.content.trim().split(' ')
   let command = messageArray[0].replace(botConfig.prefix, '')
   let args = messageArray.slice(1)
-
+  // Commands code starts here!
   switch (command.toUpperCase()) {
     // !userinfo
     case 'USERINFO':
@@ -253,7 +253,7 @@ bot.on('message', async message => {
         }
       } else if (message.mentions.users.first() == null && args.length > 0) {
         setUserInfo(user.id, { Note: args.join(' ') })
-        message.channel.send('Your Note is now `' + args.join(' ') + '`')
+        message.channel.send('✅ Your Note is now `' + args.join(' ') + '`')
       } else if (message.mentions.users.first() != null && args.length === 1) {
         usr = message.mentions.users.first()
         usrinfo = getUserInfo(usr.id)
@@ -301,23 +301,40 @@ bot.on('message', async message => {
       }
       break
 
-      /* TODO
-      !eval
-      OI BE CAREFUL HERE! ONLY ALLOW SQUARE PEAR AND ANGELOANAN TO DO !EVAL OR THE SERVER MIGHT BE BROKEN!
-    // Check if user is squarepear or angeloanan
-      if (message.author.id !== '189769721653100546' || '237985610084777994') break // First is angeloanan second is squarepear
-      var evalcommand =
-      var evalreturn = eval
-      var evalmsg = new Discord.RichEmbed()
-      .setColor('RED')
-      .setTitle('Eval Result')
-      .setDescription('This is the result of an eval that you\'ve requested')
-      .addField('Input Code', '`' + message + '`')
-      .addField('Return', '`' + evalreturn + '`')
+      /* !eval
+      OI BE CAREFUL HERE! ONLY ALLOW SQUARE PEAR AND ANGELOANAN TO DO !EVAL OR THE SERVER MIGHT BE BROKEN! */
+
+    case 'EVAL':
+        // Check if user is squarepear or angeloanan
+      if (!message.author.id === '189769721653100546' || '237985610084777994') break // First is angeloanan second is squarepear
+
+        /* Set this things
+          input = command input
+          output = command output
+        */
+
+      let input = args
+      // Catch error
+      try { var output = eval(input) } catch (e) {  // Standard JS doesn't approve this line because of eval()
+        let evalmsg = new Discord.RichEmbed()
+        .setColor('RED')
+        .setTitle('Eval Error')
+        .setDescription('This code returns with an error!')
+        .addField('Input Code', '`' + input + '`')
+        .addField('Error', '`' + e + '`')
+        message.channel.send({ embed: evalmsg })
+      }
+      // If there isn't any error
+      let evalmsg = new Discord.RichEmbed()
+      .setColor('GREEN')
+      .setTitle('Eval Success')
+      .setDescription('This code ran successfully!')
+      .addField('Input Code', '`' + input + '`')
+      .addField('Return', '`' + output + '`')
       .setFooter('This is an eval')
       message.channel.send({ embed: evalmsg })
       break
-*/
+
     // if prefix + not valid command
     default:
       message.channel.send('❌ The command is invalid! Do `!help` if you need help.')
@@ -325,7 +342,7 @@ bot.on('message', async message => {
   }
 })
 
-// FUNCTIONS!
+// PREMADE FUNCTIONS!
 
 function getUserInfo (userID) {
   return db.prepare(`SELECT * FROM USERINFO WHERE UserID=?`).get(userID)
