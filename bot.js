@@ -306,35 +306,36 @@ bot.on('message', async message => {
 
     case 'EVAL':
         // Check if user is squarepear or angeloanan
-      if (!message.author.id === '189769721653100546' || '237985610084777994') return // First is angeloanan second is squarepear
-      console.log('Someone have just run an eval command!')
-        /* Set this things
-          input = command input
-          output = command output
-        */
+      if (message.author.id === '189769721653100546' || '237985610084777994') { // First is angeloanan second is squarepear
+        console.log('Someone have just run an eval command!')
+          /* Set this things
+            input = command input
+            output = command output
+          */
 
-      let input = args
-      // Catch error
-      try { var output = eval(input) } catch (e) {  // Standard JS doesn't approve this line because of eval()
+        let input = args
+        // Catch error
+        try { var output = eval(input) } catch (e) {  // Standard JS doesn't approve this line because of eval()
+          let evalmsg = new Discord.RichEmbed()
+          .setColor('RED')
+          .setTitle('Eval Error')
+          .setDescription('This code returns with an error!')
+          .addField('Input Code', '`' + input + '`')
+          .addField('Error', '`' + e + '`')
+          message.channel.send({ embed: evalmsg })
+          console.log('The eval returned with an error!')
+        }
+        // If there isn't any error
         let evalmsg = new Discord.RichEmbed()
-        .setColor('RED')
-        .setTitle('Eval Error')
-        .setDescription('This code returns with an error!')
+        .setColor('GREEN')
+        .setTitle('Eval Success')
+        .setDescription('This code ran successfully!')
         .addField('Input Code', '`' + input + '`')
-        .addField('Error', '`' + e + '`')
+        .addField('Return', '`' + output + '`')
+        .setFooter('This is an eval')
         message.channel.send({ embed: evalmsg })
-        console.log('The eval returned with an error!')
+        console.log('The eval returned with a success!')
       }
-      // If there isn't any error
-      let evalmsg = new Discord.RichEmbed()
-      .setColor('GREEN')
-      .setTitle('Eval Success')
-      .setDescription('This code ran successfully!')
-      .addField('Input Code', '`' + input + '`')
-      .addField('Return', '`' + output + '`')
-      .setFooter('This is an eval')
-      message.channel.send({ embed: evalmsg })
-      console.log('The eval returned with a success!')
       break
 
     // if prefix + not valid command
