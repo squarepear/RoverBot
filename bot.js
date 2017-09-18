@@ -309,8 +309,9 @@ bot.on('message', async message => {
         } else {
           message.channel.send('Usage: `!info [mention]`')
         }
-      } catch (e) { message.channel.send('The user haven\'t give any information to the bot!') }
-
+      } catch (e) {
+        message.channel.send('The user haven\'t give any information to the bot!')
+      }
       break
 
     // if prefix + not valid command
