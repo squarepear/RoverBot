@@ -306,8 +306,8 @@ bot.on('message', async message => {
 
     case 'EVAL':
         // Check if user is squarepear or angeloanan
-      if (!message.author.id === '189769721653100546' || '237985610084777994') break // First is angeloanan second is squarepear
-
+      if (!message.author.id === '189769721653100546' || '237985610084777994') return // First is angeloanan second is squarepear
+      console.log('Someone have just run an eval command!')
         /* Set this things
           input = command input
           output = command output
@@ -323,6 +323,7 @@ bot.on('message', async message => {
         .addField('Input Code', '`' + input + '`')
         .addField('Error', '`' + e + '`')
         message.channel.send({ embed: evalmsg })
+        console.log('The eval returned with an error!')
       }
       // If there isn't any error
       let evalmsg = new Discord.RichEmbed()
@@ -333,6 +334,7 @@ bot.on('message', async message => {
       .addField('Return', '`' + output + '`')
       .setFooter('This is an eval')
       message.channel.send({ embed: evalmsg })
+      console.log('The eval returned with a success!')
       break
 
     // if prefix + not valid command
