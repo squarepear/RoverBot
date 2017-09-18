@@ -259,18 +259,18 @@ bot.on('message', async message => {
       if (args.length === 0) {
         usr = user
         usrinfo = getUserInfo(usr.id)
-        if (usrinfo.Note !== null) {
+        if (usrinfo.Note != null) {
           message.channel.send(usr.username + "'s Note is: `" + usrinfo.Note + '`')
         } else {
           message.channel.send(usr.username + ' has not set a Note yet')
         }
-      } else if (message.mentions.users.first() === null && args.length > 0) {
+      } else if (message.mentions.users.first() == null && args.length > 0) {
         setUserInfo(user.id, { Note: args.join(' ') })
         message.channel.send('Your Note is now `' + args.join(' ') + '`')
-      } else if (message.mentions.users.first() !== null && args.length === 1) {
+      } else if (message.mentions.users.first() != null && args.length === 1) {
         usr = message.mentions.users.first()
         usrinfo = getUserInfo(usr.id)
-        if (usrinfo.Note !== null) {
+        if (usrinfo.Note != null) {
           message.channel.send(usr.username + "'s Note is: `" + usrinfo.Note + '`')
         } else {
           message.channel.send(usr.username + ' has not set a Note yet')
@@ -290,7 +290,7 @@ bot.on('message', async message => {
             usr = message.mentions.users.first()
             usrinfo = getUserInfo(usr.id)
             console.log(usrinfo)
-            if (usrinfo.FriendCode !== null) {
+            if (usrinfo.FriendCode != null) {
               message.channel.send(usr.username + "'s info is: \n Friend Code: `" + usrinfo.FriendCode + '` \n Name: `' + usrinfo.Name + '` \n Town: `' + usrinfo.Town + '` \n Fruit: `' + usrinfo.Fruit + '` \n Note: `' + usrinfo.Note + '`')
             } else {
               message.channel.send(usr.username + ' has not set a Friend Code yet')
@@ -331,15 +331,15 @@ function getUserInfo (userID) {
 function setUserInfo (userID, info) {
   var row = db.prepare(`SELECT * FROM USERINFO WHERE UserID=?`).get(userID)
 
-  if (row === null) {
+  if (row == null) {
     db.prepare(`INSERT INTO USERINFO (UserID) VALUES (?)`).run(userID)
     row = db.prepare(`SELECT * FROM USERINFO WHERE UserID=?`).get(userID)
   }
-  if (info.FriendCode !== null) { row.FriendCode = info.FriendCode.trim() }
-  if (info.Name !== null) { row.Name = info.Name.trim() }
-  if (info.Town !== null) { row.Town = info.Town.trim() }
-  if (info.Fruit !== null) { row.Fruit = info.Fruit.trim() }
-  if (info.Note !== null) { row.Note = info.Note.trim() }
+  if (info.FriendCode != null) { row.FriendCode = info.FriendCode.trim() }
+  if (info.Name != null) { row.Name = info.Name.trim() }
+  if (info.Town != null) { row.Town = info.Town.trim() }
+  if (info.Fruit != null) { row.Fruit = info.Fruit.trim() }
+  if (info.Note != null) { row.Note = info.Note.trim() }
 
   db.prepare(`UPDATE USERINFO SET FriendCode = @FriendCode, Name = @Name, Town = @Town, Fruit = @Fruit, Note = @Note WHERE UserID=?`).run(userID, row)
 }
