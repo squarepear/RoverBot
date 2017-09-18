@@ -72,16 +72,16 @@ bot.on('message', async message => {
         .setTitle('⁉️ Commands available')
         .addField('!help', 'Get a list of commands')
         .addField('!wiki [search]', 'Search the Wiki')
-        .addField('!info (mention)', 'Get user info')
+        .addField('!info [mention]', 'Get user info')
         .addField('!fc [code]', 'Add your Friend Code')
         .addField('!fc [mention]', 'Get someone elses Friend Code')
-        .addField('!name [code]', 'Add your Name')
+        .addField('!name [name]', 'Add your Name')
         .addField('!name [mention]', 'Get someone elses Name')
-        .addField('!town [code]', 'Add your Town')
+        .addField('!town [town]', 'Add your Town')
         .addField('!town [mention]', 'Get someone elses Town')
-        .addField('!fruit [code]', 'Add your Native Fruit')
+        .addField('!fruit [fruit]', 'Add your Native Fruit')
         .addField('!fruit [mention]', 'Get someone elses Native Fruit')
-        .addField('!note [code]', 'Add your Note')
+        .addField('!note [note]', 'Add your Note')
         .addField('!note [mention]', 'Get someone elses Note')
         .addField('Author', 'This bot is made by <@237985610084777994> with help from <@189769721653100546> and GitHub Contributors!')
         .setThumbnail(message.guild.iconURL)
@@ -167,7 +167,7 @@ bot.on('message', async message => {
           if (usrinfo.Town != null) {
             message.channel.send(usr.username + "'s Town is: `" + usrinfo.Town + '`')
           } else {
-            message.channel.send('❌ ' + usr.username + ' has not set a Town yet')
+            message.channel.send('❌ ' + usr.username + ' has not set a Town Name yet')
           }
         } else {
           setUserInfo(user.id, { Town: args[0] })
@@ -297,7 +297,7 @@ bot.on('message', async message => {
           message.channel.send('Usage: `!info [mention]`')
         }
       } catch (e) {
-        message.channel.send('❌ The user haven\'t give any information to the bot!')
+        message.channel.send('❌ The user hasn\'t given any information to the bot!')
       }
       break
 
