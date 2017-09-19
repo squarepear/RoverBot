@@ -174,7 +174,8 @@ bot.on('message', async message => {
           message.channel.send('✅ Your Town is now `' + args[0] + '`')
         }
       } else {
-        message.channel.send('Usage: `!town [town]` or `!town [mention]`')
+        setUserInfo(user.id, { Town: args.join(" ") })
+        message.channel.send('✅ Your Town is now `' + args.join(" ") + '`')
       }
       break
 
