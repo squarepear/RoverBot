@@ -140,8 +140,8 @@ bot.on('message', async message => {
             message.channel.send('❌ ' + usr.username + ' has not set a Name yet')
           }
       } else if (args.join(" ").length <= 8 && message.mentions.users.first() == null) {
-        setUserInfo(user.id, { Name: args[0].join(" ") })
-        message.channel.send('✅ Your Name is now `' + args[0].join(" ") + '`')
+        setUserInfo(user.id, { Name: args.join(" ") })
+        message.channel.send('✅ Your Name is now `' + args.join(" ") + '`')
       } else {
         message.channel.send('Usage: `!name [name]` or `!name [mention]`')
       }
