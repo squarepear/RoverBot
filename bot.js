@@ -160,22 +160,19 @@ bot.on('message', async message => {
         } else {
           message.channel.send('❌ ' + usr.username + ' has not set a Town Name yet!')
         }
-      } else if (args.length === 1) {
-        if (message.mentions.users.first() != null) {
-          usr = message.mentions.users.first()
-          usrinfo = getUserInfo(usr.id)
-          if (usrinfo.Town != null) {
-            message.channel.send(usr.username + "'s Town is: `" + usrinfo.Town + '`')
-          } else {
-            message.channel.send('❌ ' + usr.username + ' has not set a Town Name yet')
-          }
+      } else if (args.length === 1 && message.mentions.users.first() != null) {
+        usr = message.mentions.users.first()
+        usrinfo = getUserInfo(usr.id)
+        if (usrinfo.Town != null) {
+          message.channel.send(usr.username + "'s Town is: `" + usrinfo.Town + '`')
         } else {
-          setUserInfo(user.id, { Town: args[0] })
-          message.channel.send('✅ Your Town is now `' + args[0] + '`')
+          message.channel.send('❌ ' + usr.username + ' has not set a Town Name yet')
         }
-      } else {
+      } else if (args.join(" ").length <= 8 && message.mentions.users.first() == null) {
         setUserInfo(user.id, { Town: args.join(" ") })
         message.channel.send('✅ Your Town is now `' + args.join(" ") + '`')
+      } else {
+        message.channel.send('Usage: `!town [town]` or `!town [mention]`')
       }
       break
 
@@ -244,27 +241,31 @@ bot.on('message', async message => {
     // !note
 
     case 'NOTE':
-      if (args.length === 0) {
-        usr = user
-        usrinfo = getUserInfo(usr.id)
-        if (usrinfo.Note != null) {
-          message.channel.send(usr.username + "'s Note is: `" + usrinfo.Note + '`')
+      try {
+        if (args.length === 0) {
+          usr = user
+          usrinfo = getUserInfo(usr.id)
+          if (usrinfo.Note != null) {
+            message.channel.send(usr.username + "'s Note is: `" + usrinfo.Note + '`')
+          } else {
+            message.channel.send('❌ ' + usr.username + ' has not set a Note yet')
+          }
+        } else if (message.mentions.users.first() == null && args.length > 0) {
+          setUserInfo(user.id, { Note: args.join(' ') })
+          message.channel.send('✅ Your Note is now `' + args.join(' ') + '`')
+        } else if (message.mentions.users.first() != null && args.length === 1) {
+          usr = message.mentions.users.first()
+          usrinfo = getUserInfo(usr.id)
+          if (usrinfo.Note != null) {
+            message.channel.send(usr.username + "'s Note is: `" + usrinfo.Note + '`')
+          } else {
+            message.channel.send('❌ ' + usr.username + ' has not set a Note yet')
+          }
         } else {
-          message.channel.send('❌ ' + usr.username + ' has not set a Note yet')
+          message.channel.send('Usage: `!note [note]` or `!note [mention]`')
         }
-      } else if (message.mentions.users.first() == null && args.length > 0) {
-        setUserInfo(user.id, { Note: args.join(' ') })
-        message.channel.send('✅ Your Note is now `' + args.join(' ') + '`')
-      } else if (message.mentions.users.first() != null && args.length === 1) {
-        usr = message.mentions.users.first()
-        usrinfo = getUserInfo(usr.id)
-        if (usrinfo.Note != null) {
-          message.channel.send(usr.username + "'s Note is: `" + usrinfo.Note + '`')
-        } else {
+      } catch (e) {
           message.channel.send('❌ ' + usr.username + ' has not set a Note yet')
-        }
-      } else {
-        message.channel.send('Usage: `!note [note]` or `!note [mention]`')
       }
       break
 
@@ -308,8 +309,8 @@ bot.on('message', async message => {
     case 'EVAL':
         // Check if user is squarepear or angeloanan
       if (message.author.id === '189769721653100546' || '237985610084777994') { // First is angeloanan second is squarepear
-        console.log('Someone have just run an eval command!')
-          /* Set this things
+        console.log('Someone has just ran an eval command!')
+          /* Set these things
             input = command input
             output = command output
           */
