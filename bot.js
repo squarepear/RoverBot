@@ -142,6 +142,8 @@ bot.on('message', async message => {
       } else if (args.join(" ").length <= 8 && message.mentions.users.first() == null) {
         setUserInfo(user.id, { Name: args.join(" ") })
         message.channel.send('✅ Your Name is now `' + args.join(" ") + '`')
+      } else if (args.join(" ").length > 8 && message.mentions.users.first() == null) {
+        message.channel.send('❌ Your Name can\'t be longer than 8 letters')
       } else {
         message.channel.send('Usage: `!name [name]` or `!name [mention]`')
       }
@@ -169,6 +171,8 @@ bot.on('message', async message => {
       } else if (args.join(" ").length <= 8 && message.mentions.users.first() == null) {
         setUserInfo(user.id, { Town: args.join(" ") })
         message.channel.send('✅ Your Town is now `' + args.join(" ") + '`')
+      } else if (args.join(" ").length > 8 && message.mentions.users.first() == null) {
+        message.channel.send('❌ Your Town Name can\'t be longer than 8 letters')
       } else {
         message.channel.send('Usage: `!town [town]` or `!town [mention]`')
       }
