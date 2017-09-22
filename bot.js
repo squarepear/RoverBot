@@ -132,17 +132,17 @@ bot.on('message', async message => {
           message.channel.send('❌ ' + usr.username + ' has not set a Name yet')
         }
       } else if (args.length === 1 && message.mentions.users.first() != null) {
-          usr = message.mentions.users.first()
-          usrinfo = getUserInfo(usr.id)
-          if (usrinfo.Name != null) {
-            message.channel.send(usr.username + "'s Name is: `" + usrinfo.Name + '`')
-          } else {
-            message.channel.send('❌ ' + usr.username + ' has not set a Name yet')
-          }
-      } else if (args.join(" ").length <= 8 && message.mentions.users.first() == null) {
-        setUserInfo(user.id, { Name: args.join(" ") })
-        message.channel.send('✅ Your Name is now `' + args.join(" ") + '`')
-      } else if (args.join(" ").length > 8 && message.mentions.users.first() == null) {
+        usr = message.mentions.users.first()
+        usrinfo = getUserInfo(usr.id)
+        if (usrinfo.Name != null) {
+          message.channel.send(usr.username + "'s Name is: `" + usrinfo.Name + '`')
+        } else {
+          message.channel.send('❌ ' + usr.username + ' has not set a Name yet')
+        }
+      } else if (args.join(' ').length <= 8 && message.mentions.users.first() == null) {
+        setUserInfo(user.id, { Name: args.join(' ') })
+        message.channel.send('✅ Your Name is now `' + args.join(' ') + '`')
+      } else if (args.join(' ').length > 8 && message.mentions.users.first() == null) {
         message.channel.send('❌ Your Name can\'t be longer than 8 letters')
       } else {
         message.channel.send('Usage: `!name [name]` or `!name [mention]`')
@@ -168,10 +168,10 @@ bot.on('message', async message => {
         } else {
           message.channel.send('❌ ' + usr.username + ' has not set a Town Name yet')
         }
-      } else if (args.join(" ").length <= 8 && message.mentions.users.first() == null) {
-        setUserInfo(user.id, { Town: args.join(" ") })
-        message.channel.send('✅ Your Town is now `' + args.join(" ") + '`')
-      } else if (args.join(" ").length > 8 && message.mentions.users.first() == null) {
+      } else if (args.join(' ').length <= 8 && message.mentions.users.first() == null) {
+        setUserInfo(user.id, { Town: args.join(' ') })
+        message.channel.send('✅ Your Town is now `' + args.join(' ') + '`')
+      } else if (args.join(' ').length > 8 && message.mentions.users.first() == null) {
         message.channel.send('❌ Your Town Name can\'t be longer than 8 letters')
       } else {
         message.channel.send('Usage: `!town [town]` or `!town [mention]`')
@@ -267,7 +267,7 @@ bot.on('message', async message => {
           message.channel.send('Usage: `!note [note]` or `!note [mention]`')
         }
       } catch (e) {
-          message.channel.send('❌ ' + usr.username + ' has not set a Note yet')
+        message.channel.send('❌ ' + usr.username + ' has not set a Note yet')
       }
       break
 
