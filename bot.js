@@ -1,6 +1,6 @@
 // Setting variables
 
-console.log('Hello World! I\'m starting!')
+console.log('[INFO] I\'m starting up! Please wait until the next message!');
 
 const botConfig = require('./botconfig.json')
 const Discord = require('discord.js')
@@ -15,11 +15,12 @@ var db = new Database('userInfo.db')
 
 // Launching bot
 bot.on('ready', async () => {
-  console.log(`${bot.user.username} is ready!`)
+  console.log(`[INFO] I\'m logged on as ${bot.user.username}!`)
+  console.log('[INFO] I\'m ready!');
 
   try {
     let link = await bot.generateInvite(['READ_MESSAGES', 'SEND_MESSAGES'])
-    console.log(link)
+    console.log('[INFO] Here is my invite link: ' + link);
   } catch (e) {
     console.log(e.stack)
   }
@@ -47,16 +48,18 @@ bot.on('message', async message => {
         .addField('Created on: ', user.createdAt)
         .setThumbnail(user.avatarURL)
       message.channel.send({ embed: userinfo })
+      console.log(`[USERINFO] ${user.username} has requested his details!`);
       break
     // !wiki
     case 'WIKI':
       if (args.length > 0) {
         wikia.getSearchList({'query': args.join(' ')}).then(function (data) {
           message.channel.send(data.items[0].url)
+          console.log(`[WIKI] ${user.username} has requested a wiki about ${args.join(' ')} successfully!`);
         })
         .fail(function (e) {
           message.channel.send('❌ There isn\'t any wiki page about `' + args + '`')
-          console.log(e.stack)
+          console.log(`[WIKI] ${user.username} has requested a wiki about ${args.join(' ')} and failed!`)
         })
       } else {
         message.channel.send(botConfig.wiki)
@@ -86,6 +89,7 @@ bot.on('message', async message => {
         .addField('Author', 'This bot is made by <@237985610084777994> with help from <@189769721653100546> and GitHub Contributors!')
         .setThumbnail(message.guild.iconURL)
       message.channel.send({ embed: help })
+      console.log(`[HELP] ${user.username} has requested help!`);
       break
 
     // !fc
