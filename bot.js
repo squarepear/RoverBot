@@ -37,7 +37,7 @@ bot.on('message', async message => {
   let messageArray = message.content.trim().split(' ')
   let command = messageArray[0].replace(botConfig.prefix, '')
   let args = messageArray.slice(1)
-  let server = m.server;
+  let server = message.server;
   // Commands code starts here!
   switch (command.toUpperCase()) {
     // !userinfo
