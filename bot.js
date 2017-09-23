@@ -109,7 +109,7 @@ bot.on('message', async message => {
         if (fcpattern.test(args[0])) {
           setUserInfo(user.id, { FriendCode: args[0] })
           message.channel.send(' Your Friend Code is now `' + args[0] + '`')
-          member.setRoles( 'Villager', 'Added friend code')
+          member.setRoles( [server.roles.find('name', 'Villager')] , 'Added friend code')
         } else if (message.mentions.users.first() != null) {
           usr = message.mentions.users.first()
           usrinfo = getUserInfo(usr.id)
