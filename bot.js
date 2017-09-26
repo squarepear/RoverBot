@@ -109,7 +109,8 @@ bot.on('message', async message => {
         if (fcpattern.test(args[0])) {
           setUserInfo(user.id, { FriendCode: args[0] })
           message.channel.send(' Your Friend Code is now `' + args[0] + '`')
-          member.setRoles( [server.roles.find('name', 'Villager')] , 'Added friend code')
+          member.addRole( server.roles.find('name', 'Villager') , 'Added friend code')
+          member.removeRole( server.roles.find('name', 'Newbie') , 'Added friend code')
         } else if (message.mentions.users.first() != null) {
           usr = message.mentions.users.first()
           usrinfo = getUserInfo(usr.id)
@@ -210,32 +211,32 @@ bot.on('message', async message => {
             case 'ALL':
             case 'FULL':
               setUserInfo(user.id, { Fruit: 'All' })
-              message.channel.send(' Your Fruit is now `All`')
+              message.channel.send('Your Fruit is now `All`')
               break
             case 'PEACH':
             case 'PEACHES':
               setUserInfo(user.id, { Fruit: 'Peach' })
-              message.channel.send(' Your Fruit is now `Peach`')
+              message.channel.send('🍑 Your Fruit is now `Peach`')
               break
             case 'PEAR':
             case 'PEARS':
               setUserInfo(user.id, { Fruit: 'Pear' })
-              message.channel.send(' Your Fruit is now `Pear`')
+              message.channel.send('🍐 Your Fruit is now `Pear`')
               break
             case 'APPLE':
             case 'APPLES':
               setUserInfo(user.id, { Fruit: 'Apple' })
-              message.channel.send(' Your Fruit is now `Apple`')
+              message.channel.send('🍎 Your Fruit is now `Apple`')
               break
             case 'ORANGE':
             case 'ORANGES':
               setUserInfo(user.id, { Fruit: 'Orange' })
-              message.channel.send(' Your Fruit is now `Orange`')
+              message.channel.send('🍊 Your Fruit is now `Orange`')
               break
             case 'CHERRY':
             case 'CHERRIES':
               setUserInfo(user.id, { Fruit: 'Cherry' })
-              message.channel.send(' Your Fruit is now `Cherry`')
+              message.channel.send('🍒 Your Fruit is now `Cherry`')
               break
             default:
               message.channel.send(' Invalid Fruit!')
