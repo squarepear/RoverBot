@@ -70,25 +70,61 @@ bot.on('message', async message => {
     // DONT FORGET TO ADD NEW COMMANDS HERE!
 
     case 'HELP':
-      let help = new Discord.RichEmbed()
-        .setColor('RANDOM')
-        .setTitle('⁉️ Commands available')
-        .addField('!help', 'Get a list of commands')
-        .addField('!wiki [search]', 'Search the Wiki')
-        .addField('!info [mention]', 'Get user info')
-        .addField('!fc [code]', 'Add your Friend Code')
-        .addField('!fc [mention]', 'Get someone elses Friend Code')
-        .addField('!name [name]', 'Add your Name')
-        .addField('!name [mention]', 'Get someone elses Name')
-        .addField('!town [town]', 'Add your Town')
-        .addField('!town [mention]', 'Get someone elses Town')
-        .addField('!fruit [fruit]', 'Add your Native Fruit')
-        .addField('!fruit [mention]', 'Get someone elses Native Fruit')
-        .addField('!note [note]', 'Add your Note')
-        .addField('!note [mention]', 'Get someone elses Note')
-        .addField('Author', 'This bot is made by <@237985610084777994> with help from <@189769721653100546> and GitHub Contributors!')
-        .setThumbnail(message.guild.iconURL)
-      message.channel.send({ embed: help })
+      if (args.length == null) { // If no arguments, do this!
+        // Set things first
+        var helpCategory, helpUsage, helpMore, helpCategoryGeneral, helpCategoryACCF
+
+        helpCategory += '- **General**: General commands - for you when you need to know stuff \n'
+        helpCategory += '- **ACCF**: ACCF commands for ACCF informations'
+
+        helpUsage += '**To find out what commands are in a category**, use `!help [Category]`. \n'
+        helpUsage += 'If you need additional information for each command, use `!command [Command].`'
+
+        helpMore += 'Need more help? Just ask directly to the creator of the bot or ask mods!'
+
+        helpCategoryGeneral += '``` \n'
+        helpCategoryGeneral += 'General - General commands                      \n'
+        helpCategoryGeneral += '                                                \n'
+        helpCategoryGeneral += 'Commands                  Description           \n'
+        helpCategoryGeneral += '------------------------- ----------------------\n'
+        helpCategoryGeneral += 'help [Category / Command] Displays help message \n'
+        helpCategoryGeneral += 'wiki [Wiki page name]     Shows ACCF wiki page  \n'
+        helpCategoryGeneral += '```'
+
+        helpCategoryACCF += '```\n'
+        helpCategoryACCF += 'ACCF - Villager informations                                      \n'
+        helpCategoryACCF += '                                                                  \n'
+        helpCategoryACCF += 'Commands                               Description                \n'
+        helpCategoryACCF += '-------------------------------------- ---------------------------\n'
+        helpCategoryACCF += 'info [Optional mentions]               Shows town informations    \n'
+        helpCategoryACCF += 'name [Mentions / Your character name]  Show / Set character name  \n'
+        helpCategoryACCF += 'town [Mentions / Your town name]       Show / Set town name       \n'
+        helpCategoryACCF += 'fruit [Mentions / Your fruit type]     Show / Set fruit type      \n'
+        helpCategoryACCF += 'note [Mentions / Your note to players] Show / Set notes to players\n'
+        helpCategoryACCF += '```\n'
+
+        let helpMessage = new Discord.RichEmbed()
+          .setColor('RANDOM')
+          .setAuthor('RoverBot Help', bot.user.avatarURL)
+          .setDescription('Help has been sent!')
+          .addField('🗒️ Categories', helpCategory)
+          .addField('Usage', helpUsage)
+          .addField('More help?'. helpMore)
+          .addFooter('Author', 'This bot is made by <@237985610084777994> with help from <@189769721653100546> and GitHub Contributors!')
+        message.channel.send({ embed: helpMessage })
+
+      }else { // If people sends Categories
+        switch (args[0].toUpperCase) {
+          case 'GENERAL':
+            message.channel.send(helpCategoryGeneral)
+            break
+          case 'ACCF':
+            message.channel.send(helpCategoryACCF)
+            break
+          default:
+            message.channel.send('❌ Category invalid!')
+        }
+      }
       console.log(`[HELP] ${user.username} has requested help!`);
       break
 
