@@ -106,7 +106,7 @@ bot.on('message', async message => {
       helpCategoryACCF += 'note [Mentions / Your note to players] Show / Set notes to players\n'
       helpCategoryACCF += '```\n'
 
-      if (args.length == null) { // If no arguments, do this!
+      if (args.length == 0) { // If no arguments, do this!
         let helpMessage = new Discord.RichEmbed()
           .setColor('RANDOM')
           .setAuthor('RoverBot Help', bot.user.avatarURL)
