@@ -369,6 +369,7 @@ app.get('/', function (req, res) {
 app.post('/github/update', function (req, res) {
   res.send('POST request to the homepage')
   cmd.run('git pull')
+  cmd.run('npm install')
 })
 
 // PREMADE FUNCTIONS!
