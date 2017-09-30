@@ -109,12 +109,12 @@ bot.on('message', async message => {
       if (args.length == 0) { // If no arguments, do this!
         let helpMessage = new Discord.RichEmbed()
           .setColor('RANDOM')
-          .setAuthor('RoverBot Help')
+          .setAuthor('RoverBot Help', bot.user.avatarURL)
           .setDescription('Help has been sent!')
           .addField('🗒️ Categories', helpCategory)
           .addField('Usage', helpUsage)
           .addField('More help?', helpMore)
-          .setFooter('Author', 'This bot is made by <@237985610084777994> with help from <@189769721653100546> and GitHub Contributors!')
+          .addField('Author', 'This bot is made by <@237985610084777994> with help from <@189769721653100546> and GitHub Contributors!')
         message.channel.send({ embed: helpMessage })
 
       }else { // If people sends Categories
