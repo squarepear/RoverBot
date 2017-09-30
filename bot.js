@@ -6,6 +6,9 @@ const botConfig = require('./botconfig.json')
 const Discord = require('discord.js')
 const Wikia = require('node-wikia')
 const Database = require('better-sqlite3')
+const exec = require('child_process')
+var express = require('express')
+var app = express()
 
 const bot = new Discord.Client()
 const fcpattern = new RegExp(/^(\d{4}-\d{4}-\d{4})$/g)
@@ -357,6 +360,23 @@ bot.on('message', async message => {
   }
 })
 
+// Express stuff for auto updating with GitHub
+
+app.get('/', function (req, res) {
+  res.send('GET request to the homepage')
+})
+
+app.post('/github/update', function (req, res) {
+  res.send('POST request to the homepage')
+  exec('"git pull"', (err, stdout, stderr) => {
+    if (err) {
+      console.error(err)
+    } else {
+      console.log('Successfully updated!')
+    }
+  })
+})
+
 // PREMADE FUNCTIONS!
 
 function getUserInfo (userID) {
@@ -378,5 +398,7 @@ function setUserInfo (userID, info) {
 
   db.prepare(`UPDATE USERINFO SET FriendCode = @FriendCode, Name = @Name, Town = @Town, Fruit = @Fruit, Note = @Note WHERE UserID=?`).run(userID, row)
 }
+
+app.listen(3000)
 
 bot.login(botConfig.token)
