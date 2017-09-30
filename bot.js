@@ -106,7 +106,7 @@ bot.on('message', async message => {
       helpCategoryACCF += 'note [Mentions / Your note to players] Show / Set notes to players\n'
       helpCategoryACCF += '```\n'
 
-      if (args.length == 0) { // If no arguments, do this!
+      if (args.length == null) { // If no arguments, do this!
         // Set things first
 
         let helpMessage = new Discord.RichEmbed()
@@ -120,7 +120,7 @@ bot.on('message', async message => {
         message.channel.send({ embed: helpMessage })
 
       }else { // If people sends Categories
-        switch (args[0].toUpperCase) {
+        switch (args[0].toUpperCase()) {
           case 'GENERAL':
             message.channel.send(helpCategoryGeneral)
             break
