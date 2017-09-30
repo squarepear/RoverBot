@@ -111,7 +111,7 @@ bot.on('message', async message => {
           .setColor('RANDOM')
           .setAuthor('RoverBot Help', bot.user.avatarURL)
           .setDescription('Help has been sent!')
-          .addField('🗒️ Categories', helpCategory)
+          .addField(' Categories', helpCategory)
           .addField('Usage', helpUsage)
           .addField('More help?', helpMore)
           .addField('Author', 'This bot is made by <@237985610084777994> with help from <@189769721653100546> and GitHub Contributors!')
@@ -126,7 +126,7 @@ bot.on('message', async message => {
             message.channel.send(helpCategoryACCF)
             break
           default:
-            message.channel.send('❌ Category invalid!')
+            message.channel.send(' Category invalid!')
         }
       }
       console.log(`[HELP] ${user.username} has requested help!`);
@@ -354,39 +354,39 @@ bot.on('message', async message => {
       /* !eval
       OI BE CAREFUL HERE! ONLY ALLOW SQUARE PEAR AND ANGELOANAN TO DO !EVAL OR THE SERVER MIGHT BE BROKEN! */
 
-    case 'EVAL':
+    //case 'EVAL':
         // Check if user is squarepear or angeloanan
-      if (message.author.id === '189769721653100546' || '237985610084777994') { // First is angeloanan second is squarepear
-        console.log('Someone has just ran an eval command!')
+     // if (message.author.id === '189769721653100546' || '237985610084777994') { // First is angeloanan second is squarepear
+   //     console.log('Someone has just ran an eval command!')
           /* Set these things
             input = command input
             output = command output
           */
 
-        let input = args
+  //      let input = args
         // Catch error
-        try { var output = eval(input) } catch (e) {  // Standard JS doesn't approve this line because of eval()
-          let evalmsg = new Discord.RichEmbed()
-          .setColor('RED')
-          .setTitle('Eval Error')
-          .setDescription('This code returns with an error!')
-          .addField('Input Code', '`' + input + '`')
-          .addField('Error', '`' + e + '`')
-          message.channel.send({ embed: evalmsg })
-          console.log('The eval returned with an error!')
-        }
-        // If there isn't any error
-        let evalmsg = new Discord.RichEmbed()
-        .setColor('GREEN')
-        .setTitle('Eval Success')
-        .setDescription('This code ran successfully!')
-        .addField('Input Code', '`' + input + '`')
-        .addField('Return', '`' + output + '`')
-        .setFooter('This is an eval')
-        message.channel.send({ embed: evalmsg })
-        console.log('The eval returned with a success!')
-      }
-      break
+   //     try { var output = eval(input) } catch (e) {  // Standard JS doesn't approve this line because of eval()
+    //      let evalmsg = new Discord.RichEmbed()
+   //       .setColor('RED')
+  //        .setTitle('Eval Error')
+   //       .setDescription('This code returns with an error!')
+   //       .addField('Input Code', '`' + input + '`')
+      //    .addField('Error', '`' + e + '`')
+        //  message.channel.send({ embed: evalmsg })
+      //    console.log('The eval returned with an error!')
+   //     }
+       // If there isn't any error
+     //   let evalmsg = new Discord.RichEmbed()
+   //     .setColor('GREEN')
+  //      .setTitle('Eval Success')
+   //     .setDescription('This code ran successfully!')
+   //     .addField('Input Code', '`' + input + '`')
+     //   .addField('Return', '`' + output + '`')
+   //     .setFooter('This is an eval')
+     //   message.channel.send({ embed: evalmsg })
+     //   console.log('The eval returned with a success!')
+    //  }
+   //   break
 
     // if prefix + not valid command
     default:
