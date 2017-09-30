@@ -75,7 +75,7 @@ bot.on('message', async message => {
     // DONT FORGET TO ADD NEW COMMANDS HERE!
 
     case 'HELP':
-      var helpCategory, helpUsage, helpMore, helpCategoryGeneral, helpCategoryACCF
+      let helpCategory, helpUsage, helpMore, helpCategoryGeneral, helpCategoryACCF
 
       helpCategory += '- **General**: General commands - for you when you need to know stuff \n'
       helpCategory += '- **ACCF**: ACCF commands for ACCF informations'
@@ -107,15 +107,13 @@ bot.on('message', async message => {
       helpCategoryACCF += '```\n'
 
       if (args.length == null) { // If no arguments, do this!
-        // Set things first
-
         let helpMessage = new Discord.RichEmbed()
           .setColor('RANDOM')
           .setAuthor('RoverBot Help', bot.user.avatarURL)
           .setDescription('Help has been sent!')
           .addField('🗒️ Categories', helpCategory)
           .addField('Usage', helpUsage)
-          .addField('More help?'. helpMore)
+          .addField('More help?', helpMore)
           .addFooter('Author', 'This bot is made by <@237985610084777994> with help from <@189769721653100546> and GitHub Contributors!')
         message.channel.send({ embed: helpMessage })
 
