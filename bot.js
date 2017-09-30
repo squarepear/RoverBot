@@ -75,7 +75,7 @@ bot.on('message', async message => {
     // DONT FORGET TO ADD NEW COMMANDS HERE!
 
     case 'HELP':
-      let helpCategory, helpUsage, helpMore, helpCategoryGeneral, helpCategoryACCF
+      var helpCategory, helpUsage, helpMore, helpCategoryGeneral, helpCategoryACCF
 
       helpCategory += '- **General**: General commands - for you when you need to know stuff \n'
       helpCategory += '- **ACCF**: ACCF commands for ACCF informations'
