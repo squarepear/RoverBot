@@ -109,7 +109,7 @@ bot.on('message', async message => {
       if (args.length == 0) { // If no arguments, do this!
         let helpMessage = new Discord.RichEmbed()
           .setColor('RANDOM')
-          .setAuthor('RoverBot Help', 'https://cdn.discordapp.com/avatars/356109937828560906/a058dae101cb1da7530578d0ebf0ba2e.png')
+          .setAuthor('RoverBot Help')
           .setDescription('Help has been sent!')
           .addField('🗒️ Categories', helpCategory)
           .addField('Usage', helpUsage)
