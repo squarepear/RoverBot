@@ -114,7 +114,7 @@ bot.on('message', async message => {
           .addField('🗒️ Categories', helpCategory)
           .addField('Usage', helpUsage)
           .addField('More help?', helpMore)
-          .addFooter('Author', 'This bot is made by <@237985610084777994> with help from <@189769721653100546> and GitHub Contributors!')
+          .setFooter('Author', 'This bot is made by <@237985610084777994> with help from <@189769721653100546> and GitHub Contributors!')
         message.channel.send({ embed: helpMessage })
 
       }else { // If people sends Categories
