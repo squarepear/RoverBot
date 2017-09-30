@@ -77,15 +77,15 @@ bot.on('message', async message => {
     case 'HELP':
       var helpCategory, helpUsage, helpMore, helpCategoryGeneral, helpCategoryACCF
 
-      helpCategory += '- **General**: General commands - for you when you need to know stuff \n'
+      helpCategory = '- **General**: General commands - for you when you need to know stuff \n'
       helpCategory += '- **ACCF**: ACCF commands for ACCF informations'
 
-      helpUsage += '**To find out what commands are in a category**, use `!help [Category]`. \n'
+      helpUsage = '**To find out what commands are in a category**, use `!help [Category]`. \n'
       helpUsage += 'If you need additional information for each command, use `!command [Command].`'
 
-      helpMore += 'Need more help? Just ask directly to the creator of the bot or ask mods!'
+      helpMore = 'Need more help? Just ask directly to the creator of the bot or ask mods!'
 
-      helpCategoryGeneral += '``` \n'
+      helpCategoryGeneral = '``` \n'
       helpCategoryGeneral += 'General - General commands                      \n'
       helpCategoryGeneral += '                                                \n'
       helpCategoryGeneral += 'Commands                  Description           \n'
@@ -94,7 +94,7 @@ bot.on('message', async message => {
       helpCategoryGeneral += 'wiki [Wiki page name]     Shows ACCF wiki page  \n'
       helpCategoryGeneral += '```'
 
-      helpCategoryACCF += '```\n'
+      helpCategoryACCF = '```\n'
       helpCategoryACCF += 'ACCF - Villager informations                                      \n'
       helpCategoryACCF += '                                                                  \n'
       helpCategoryACCF += 'Commands                               Description                \n'
@@ -104,7 +104,7 @@ bot.on('message', async message => {
       helpCategoryACCF += 'town [Mentions / Your town name]       Show / Set town name       \n'
       helpCategoryACCF += 'fruit [Mentions / Your fruit type]     Show / Set fruit type      \n'
       helpCategoryACCF += 'note [Mentions / Your note to players] Show / Set notes to players\n'
-      helpCategoryACCF += '```\n'
+      helpCategoryACCF += '```'
 
       if (args.length == 0) { // If no arguments, do this!
         let helpMessage = new Discord.RichEmbed()
