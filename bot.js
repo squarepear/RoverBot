@@ -75,38 +75,39 @@ bot.on('message', async message => {
     // DONT FORGET TO ADD NEW COMMANDS HERE!
 
     case 'HELP':
-      if (args.length == null) { // If no arguments, do this!
+      var helpCategory, helpUsage, helpMore, helpCategoryGeneral, helpCategoryACCF
+
+      helpCategory += '- **General**: General commands - for you when you need to know stuff \n'
+      helpCategory += '- **ACCF**: ACCF commands for ACCF informations'
+
+      helpUsage += '**To find out what commands are in a category**, use `!help [Category]`. \n'
+      helpUsage += 'If you need additional information for each command, use `!command [Command].`'
+
+      helpMore += 'Need more help? Just ask directly to the creator of the bot or ask mods!'
+
+      helpCategoryGeneral += '``` \n'
+      helpCategoryGeneral += 'General - General commands                      \n'
+      helpCategoryGeneral += '                                                \n'
+      helpCategoryGeneral += 'Commands                  Description           \n'
+      helpCategoryGeneral += '------------------------- ----------------------\n'
+      helpCategoryGeneral += 'help [Category / Command] Displays help message \n'
+      helpCategoryGeneral += 'wiki [Wiki page name]     Shows ACCF wiki page  \n'
+      helpCategoryGeneral += '```'
+
+      helpCategoryACCF += '```\n'
+      helpCategoryACCF += 'ACCF - Villager informations                                      \n'
+      helpCategoryACCF += '                                                                  \n'
+      helpCategoryACCF += 'Commands                               Description                \n'
+      helpCategoryACCF += '-------------------------------------- ---------------------------\n'
+      helpCategoryACCF += 'info [Optional mentions]               Shows town informations    \n'
+      helpCategoryACCF += 'name [Mentions / Your character name]  Show / Set character name  \n'
+      helpCategoryACCF += 'town [Mentions / Your town name]       Show / Set town name       \n'
+      helpCategoryACCF += 'fruit [Mentions / Your fruit type]     Show / Set fruit type      \n'
+      helpCategoryACCF += 'note [Mentions / Your note to players] Show / Set notes to players\n'
+      helpCategoryACCF += '```\n'
+
+      if (args.length == 0) { // If no arguments, do this!
         // Set things first
-        var helpCategory, helpUsage, helpMore, helpCategoryGeneral, helpCategoryACCF
-
-        helpCategory += '- **General**: General commands - for you when you need to know stuff \n'
-        helpCategory += '- **ACCF**: ACCF commands for ACCF informations'
-
-        helpUsage += '**To find out what commands are in a category**, use `!help [Category]`. \n'
-        helpUsage += 'If you need additional information for each command, use `!command [Command].`'
-
-        helpMore += 'Need more help? Just ask directly to the creator of the bot or ask mods!'
-
-        helpCategoryGeneral += '``` \n'
-        helpCategoryGeneral += 'General - General commands                      \n'
-        helpCategoryGeneral += '                                                \n'
-        helpCategoryGeneral += 'Commands                  Description           \n'
-        helpCategoryGeneral += '------------------------- ----------------------\n'
-        helpCategoryGeneral += 'help [Category / Command] Displays help message \n'
-        helpCategoryGeneral += 'wiki [Wiki page name]     Shows ACCF wiki page  \n'
-        helpCategoryGeneral += '```'
-
-        helpCategoryACCF += '```\n'
-        helpCategoryACCF += 'ACCF - Villager informations                                      \n'
-        helpCategoryACCF += '                                                                  \n'
-        helpCategoryACCF += 'Commands                               Description                \n'
-        helpCategoryACCF += '-------------------------------------- ---------------------------\n'
-        helpCategoryACCF += 'info [Optional mentions]               Shows town informations    \n'
-        helpCategoryACCF += 'name [Mentions / Your character name]  Show / Set character name  \n'
-        helpCategoryACCF += 'town [Mentions / Your town name]       Show / Set town name       \n'
-        helpCategoryACCF += 'fruit [Mentions / Your fruit type]     Show / Set fruit type      \n'
-        helpCategoryACCF += 'note [Mentions / Your note to players] Show / Set notes to players\n'
-        helpCategoryACCF += '```\n'
 
         let helpMessage = new Discord.RichEmbed()
           .setColor('RANDOM')
