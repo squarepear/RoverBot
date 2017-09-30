@@ -85,7 +85,7 @@ bot.on('message', async message => {
 
       helpMore = 'Need more help? Just ask directly to the creator of the bot or ask mods!'
 
-      helpCategoryGeneral = '``` \n'
+      helpCategoryGeneral = '```\n'
       helpCategoryGeneral += 'General - General commands                      \n'
       helpCategoryGeneral += '                                                \n'
       helpCategoryGeneral += 'Commands                  Description           \n'
