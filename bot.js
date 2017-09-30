@@ -107,6 +107,9 @@ bot.on('message', async message => {
       helpCategoryACCF += '```\n'
 
       if (args.length == 0) { // If no arguments, do this!
+        console.log('Oi')
+        console.log(bot.user.avatarURL)
+        console.log('Oi')
         let helpMessage = new Discord.RichEmbed()
           .setColor('RANDOM')
           .setAuthor('RoverBot Help', bot.user.avatarURL)
