@@ -6,6 +6,9 @@ const botConfig = require('./botconfig.json')
 const Discord = require('discord.js')
 const Wikia = require('node-wikia')
 const Database = require('better-sqlite3')
+const cmd = require('node-cmd')
+var express = require('express')
+var app = express()
 
 const bot = new Discord.Client()
 const fcpattern = new RegExp(/^(\d{4}-\d{4}-\d{4})$/g)
@@ -34,9 +37,11 @@ bot.on('message', async message => {
   if (!message.content.startsWith(botConfig.prefix)) return
 
   let user = message.author
+  let member = message.member
   let messageArray = message.content.trim().split(' ')
   let command = messageArray[0].replace(botConfig.prefix, '')
   let args = messageArray.slice(1)
+  let server = message.guild;
   // Commands code starts here!
   switch (command.toUpperCase()) {
     // !userinfo
@@ -58,7 +63,7 @@ bot.on('message', async message => {
           console.log(`[WIKI] ${user.username} has requested a wiki about ${args.join(' ')} successfully!`);
         })
         .fail(function (e) {
-          message.channel.send('❌ There isn\'t any wiki page about `' + args + '`')
+          message.channel.send(' There isn\'t any wiki page about `' + args + '`')
           console.log(`[WIKI] ${user.username} has requested a wiki about ${args.join(' ')} and failed!`)
         })
       } else {
@@ -137,22 +142,24 @@ bot.on('message', async message => {
         if (usrinfo.FriendCode != null) {
           message.channel.send(usr.username + "'s Friend Code is: `" + usrinfo.FriendCode + '`')
         } else {
-          message.channel.send('❌ ' + usr.username + ' has not set a Friend Code yet!')
+          message.channel.send(' ' + usr.username + ' has not set a Friend Code yet!')
         }
       } else if (args.length === 1) {
         if (fcpattern.test(args[0])) {
           setUserInfo(user.id, { FriendCode: args[0] })
-          message.channel.send('✅ Your Friend Code is now `' + args[0] + '`')
+          message.channel.send(' Your Friend Code is now `' + args[0] + '`')
+          member.addRole( server.roles.find('name', 'Villager') , 'Added friend code')
+          member.removeRole( server.roles.find('name', 'Newbie') , 'Added friend code')
         } else if (message.mentions.users.first() != null) {
           usr = message.mentions.users.first()
           usrinfo = getUserInfo(usr.id)
           if (usrinfo.FriendCode != null) {
             message.channel.send(usr.username + "'s Friend Code is: `" + usrinfo.FriendCode + '`')
           } else {
-            message.channel.send('❌' + usr.username + ' has not set a Friend Code yet')
+            message.channel.send('' + usr.username + ' has not set a Friend Code yet')
           }
         } else {
-          message.channel.send('❌ Invalid Friend Code or User!')
+          message.channel.send(' Invalid Friend Code or User!')
           message.channel.send('The code format should be `xxxx-xxxx-xxxx`')
         }
       } else {
@@ -169,7 +176,7 @@ bot.on('message', async message => {
         if (usrinfo.Name != null) {
           message.channel.send(usr.username + "'s Name is: `" + usrinfo.Name + '`')
         } else {
-          message.channel.send('❌ ' + usr.username + ' has not set a Name yet')
+          message.channel.send(' ' + usr.username + ' has not set a Name yet')
         }
       } else if (args.length === 1 && message.mentions.users.first() != null) {
         usr = message.mentions.users.first()
@@ -177,13 +184,13 @@ bot.on('message', async message => {
         if (usrinfo.Name != null) {
           message.channel.send(usr.username + "'s Name is: `" + usrinfo.Name + '`')
         } else {
-          message.channel.send('❌ ' + usr.username + ' has not set a Name yet')
+          message.channel.send(' ' + usr.username + ' has not set a Name yet')
         }
       } else if (args.join(' ').length <= 8 && message.mentions.users.first() == null) {
         setUserInfo(user.id, { Name: args.join(' ') })
-        message.channel.send('✅ Your Name is now `' + args.join(' ') + '`')
+        message.channel.send(' Your Name is now `' + args.join(' ') + '`')
       } else if (args.join(' ').length > 8 && message.mentions.users.first() == null) {
-        message.channel.send('❌ Your Name can\'t be longer than 8 letters')
+        message.channel.send(' Your Name can\'t be longer than 8 letters')
       } else {
         message.channel.send('Usage: `!name [name]` or `!name [mention]`')
       }
@@ -198,7 +205,7 @@ bot.on('message', async message => {
         if (usrinfo.Town != null) {
           message.channel.send(usr.username + "'s Town is: `" + usrinfo.Town + '`')
         } else {
-          message.channel.send('❌ ' + usr.username + ' has not set a Town Name yet!')
+          message.channel.send(' ' + usr.username + ' has not set a Town Name yet!')
         }
       } else if (args.length === 1 && message.mentions.users.first() != null) {
         usr = message.mentions.users.first()
@@ -206,13 +213,13 @@ bot.on('message', async message => {
         if (usrinfo.Town != null) {
           message.channel.send(usr.username + "'s Town is: `" + usrinfo.Town + '`')
         } else {
-          message.channel.send('❌ ' + usr.username + ' has not set a Town Name yet')
+          message.channel.send(' ' + usr.username + ' has not set a Town Name yet')
         }
       } else if (args.join(' ').length <= 8 && message.mentions.users.first() == null) {
         setUserInfo(user.id, { Town: args.join(' ') })
-        message.channel.send('✅ Your Town is now `' + args.join(' ') + '`')
+        message.channel.send(' Your Town is now `' + args.join(' ') + '`')
       } else if (args.join(' ').length > 8 && message.mentions.users.first() == null) {
-        message.channel.send('❌ Your Town Name can\'t be longer than 8 letters')
+        message.channel.send(' Your Town Name can\'t be longer than 8 letters')
       } else {
         message.channel.send('Usage: `!town [town]` or `!town [mention]`')
       }
@@ -227,7 +234,7 @@ bot.on('message', async message => {
         if (usrinfo.Fruit != null) {
           message.channel.send(usr.username + "'s Fruit is: `" + usrinfo.Fruit + '`')
         } else {
-          message.channel.send('❌ ' + usr.username + ' has not set a Fruit yet')
+          message.channel.send(' ' + usr.username + ' has not set a Fruit yet')
         }
       } else if (args.length === 1) {
         if (message.mentions.users.first() != null) {
@@ -236,14 +243,14 @@ bot.on('message', async message => {
           if (usrinfo.Fruit != null) {
             message.channel.send(usr.username + "'s Fruit is: `" + usrinfo.Fruit + '`')
           } else {
-            message.channel.send('❌ ' + usr.username + ' has not set a Fruit yet')
+            message.channel.send(' ' + usr.username + ' has not set a Fruit yet')
           }
         } else {
           switch (args[0].toUpperCase()) {
             case 'ALL':
             case 'FULL':
               setUserInfo(user.id, { Fruit: 'All' })
-              message.channel.send('☑️ Your Fruit is now `All`')
+              message.channel.send('Your Fruit is now `All`')
               break
             case 'PEACH':
             case 'PEACHES':
@@ -271,7 +278,7 @@ bot.on('message', async message => {
               message.channel.send('🍒 Your Fruit is now `Cherry`')
               break
             default:
-              message.channel.send('❌ Invalid Fruit!')
+              message.channel.send(' Invalid Fruit!')
               break
           }
         }
@@ -290,24 +297,24 @@ bot.on('message', async message => {
           if (usrinfo.Note != null) {
             message.channel.send(usr.username + "'s Note is: `" + usrinfo.Note + '`')
           } else {
-            message.channel.send('❌ ' + usr.username + ' has not set a Note yet')
+            message.channel.send(' ' + usr.username + ' has not set a Note yet')
           }
         } else if (message.mentions.users.first() == null && args.length > 0) {
           setUserInfo(user.id, { Note: args.join(' ') })
-          message.channel.send('✅ Your Note is now `' + args.join(' ') + '`')
+          message.channel.send(' Your Note is now `' + args.join(' ') + '`')
         } else if (message.mentions.users.first() != null && args.length === 1) {
           usr = message.mentions.users.first()
           usrinfo = getUserInfo(usr.id)
           if (usrinfo.Note != null) {
             message.channel.send(usr.username + "'s Note is: `" + usrinfo.Note + '`')
           } else {
-            message.channel.send('❌ ' + usr.username + ' has not set a Note yet')
+            message.channel.send(' ' + usr.username + ' has not set a Note yet')
           }
         } else {
           message.channel.send('Usage: `!note [note]` or `!note [mention]`')
         }
       } catch (e) {
-        message.channel.send('❌ ' + usr.username + ' has not set a Note yet')
+        message.channel.send(' ' + usr.username + ' has not set a Note yet')
       }
       break
 
@@ -324,7 +331,7 @@ bot.on('message', async message => {
             if (usrinfo.FriendCode != null) {
               message.channel.send(usr.username + "'s info is: \n Friend Code: `" + usrinfo.FriendCode + '` \n Name: `' + usrinfo.Name + '` \n Town: `' + usrinfo.Town + '` \n Fruit: `' + usrinfo.Fruit + '` \n Note: `' + usrinfo.Note + '`')
             } else {
-              message.channel.send('❌ ' + usr.username + ' has not set a Friend Code yet')
+              message.channel.send(' ' + usr.username + ' has not set a Friend Code yet')
             }
           } else {
             message.channel.send('Usage: `!info [mention]`')
@@ -335,13 +342,13 @@ bot.on('message', async message => {
           if (usrinfo.FriendCode != null) {
             message.channel.send(usr.username + "'s info is: \n Friend Code: `" + usrinfo.FriendCode + '` \n Name: `' + usrinfo.Name + '` \n Town: `' + usrinfo.Town + '` \n Fruit: `' + usrinfo.Fruit + '` \n Note: `' + usrinfo.Note + '`')
           } else {
-            message.channel.send('❌ ' + usr.username + ' has not set a Friend Code yet')
+            message.channel.send(' ' + usr.username + ' has not set a Friend Code yet')
           }
         } else {
           message.channel.send('Usage: `!info [mention]`')
         }
       } catch (e) {
-        message.channel.send('❌ The user hasn\'t given any information to the bot!')
+        message.channel.send(' The user hasn\'t given any information to the bot!')
       }
       break
 
@@ -384,9 +391,21 @@ bot.on('message', async message => {
 
     // if prefix + not valid command
     default:
-      message.channel.send('❌ The command is invalid! Do `!help` if you need help.')
+      message.channel.send(' The command is invalid! Do `!help` if you need help.')
       break
   }
+})
+
+// Express stuff for auto updating with GitHub
+
+app.get('/', function (req, res) {
+  res.send('GET request to the homepage')
+})
+
+app.post('/github/update', function (req, res) {
+  res.send('POST request to the homepage')
+  cmd.run('git pull')
+  cmd.run('npm install')
 })
 
 // PREMADE FUNCTIONS!
@@ -410,5 +429,7 @@ function setUserInfo (userID, info) {
 
   db.prepare(`UPDATE USERINFO SET FriendCode = @FriendCode, Name = @Name, Town = @Town, Fruit = @Fruit, Note = @Note WHERE UserID=?`).run(userID, row)
 }
+
+app.listen(3000)
 
 bot.login(botConfig.token)
