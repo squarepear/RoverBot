@@ -6,7 +6,7 @@ const botConfig = require('./botconfig.json')
 const Discord = require('discord.js')
 const Wikia = require('node-wikia')
 const Database = require('better-sqlite3')
-const exec = require('child_process')
+const cmd = require('node-cmd')
 var express = require('express')
 var app = express()
 
@@ -368,12 +368,7 @@ app.get('/', function (req, res) {
 
 app.post('/github/update', function (req, res) {
   res.send('POST request to the homepage')
-  exec('"git pull"', (err, stdout, stderr) => {
-    if (err) {
-      console.error(err)
-    } else {
-      console.log('Successfully updated!')
-    }
+    cmd.run('git pull')
   })
 })
 
