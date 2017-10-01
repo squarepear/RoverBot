@@ -444,7 +444,7 @@ function setUserInfo (userID, info) {
 }
 
 function FixDB() {
-  db.prepare(`SELECT * FROM USERINFO`).forEach(function(row) {
+  mydb.prepare(`SELECT * FROM USERINFO`).forEach(function(row) {
     setUserInfo(row.UserID, row)
   })
 }
