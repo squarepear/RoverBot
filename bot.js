@@ -394,7 +394,7 @@ bot.on('message', async message => {
      //   console.log('The eval returned with a success!')
     //  }
    //   break
-    case 'FixDB':
+    case 'FIXDB':
       FixDB();
       break;
     // if prefix + not valid command
