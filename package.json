@@ -16,7 +16,6 @@
   "dependencies": {
     "discord.js": "^11.1.0",
     "node-wikia": "0.0.3",
-    "better-sqlite3": "4.0.2",
     "express": "4.16.1",
     "node-cmd": "3.0.0"
   }

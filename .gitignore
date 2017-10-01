@@ -4,7 +4,6 @@ npm-debug.log
 .DS_Store
 update.command
 /.AppleDouble
-userInfo.db
 botconfig.json
 /db
 /*.env

@@ -6,7 +6,6 @@ const botConfig = require('./botconfig.json')
 const Discord = require('discord.js')
 const Wikia = require('node-wikia')
 const fs = require('fs')
-const Database = require('better-sqlite3')
 const cmd = require('node-cmd')
 var express = require('express')
 var app = express()
@@ -15,13 +14,12 @@ const bot = new Discord.Client()
 const fcpattern = new RegExp(/^(\d{4}-\d{4}-\d{4})$/g)
 
 var wikia = new Wikia('animalcrossing')
-var mydb = new Database('userInfo.db')
 var db = [];
 
 var normalizedPath = require(`path`).join(__dirname, `db`);
 
 fs.readdirSync(normalizedPath).forEach(function(file) {
-  db[(file-'.json')] = require('./db/' + file)
+  db[file.slice(0, -5)] = require('./db/' + file)
 })
 
 // Launching bot
@@ -440,12 +438,6 @@ function setUserInfo (userID, info) {
     if (err) return console.log('ERROR: ' + err)
     db[userID] = newInfo
     console.log('writing to ' + './db/' + userID + '.json')
-  })
-}
-
-function FixDB() {
-  mydb.prepare(`SELECT * FROM USERINFO`).all().forEach(function(row) {
-    setUserInfo(row.UserID, row)
   })
 }
 
