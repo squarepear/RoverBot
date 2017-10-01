@@ -15,6 +15,7 @@ const bot = new Discord.Client()
 const fcpattern = new RegExp(/^(\d{4}-\d{4}-\d{4})$/g)
 
 var wikia = new Wikia('animalcrossing')
+var mydb = new Database('userInfo.db')
 var db = [];
 
 var normalizedPath = require(`path`).join(__dirname, `db`);
