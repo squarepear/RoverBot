@@ -13,7 +13,7 @@ const fcpattern = new RegExp(/^(\d{4}-\d{4}-\d{4})$/g)
 var wikia = new Wikia('animalcrossing')
 var db = [];
 
-var normalizedPath = require(`path`).join(__dirname, `routes`);
+var normalizedPath = require(`path`).join(__dirname, `db`);
 
 fs.readdirSync(normalizedPath).forEach(function(file) {
   db[(file-'.json')] = require('./db/' + file)
@@ -367,18 +367,18 @@ function setUserInfo (userID, info) {
   if (newInfo == null) {
     newInfo = {}
   }
-  
+
   if (info.FriendCode != null) { newInfo.FriendCode = info.FriendCode.trim() }
   if (info.Name != null) { newInfo.Name = info.Name.trim() }
   if (info.Town != null) { newInfo.Town = info.Town.trim() }
   if (info.Fruit != null) { newInfo.Fruit = info.Fruit.trim() }
   if (info.Note != null) { newInfo.Note = info.Note.trim() }
 
-  fs.writeFile('./' + userID + '.json', JSON.stringify(newInfo, null, 2), { flag: 'wx' }, function (err) {
-    if (err) return console.log(err);
-    console.log(JSON.stringify(file, null, 2));
-    console.log('writing to ' + './' + userID + '.json');
-  });
+  fs.writeFile('./db/' + userID + '.json', JSON.stringify(newInfo, null, 2), { flag: 'wx' }, function (err) {
+    if (err) return console.log('ERROR: ' + err)
+    db[userID] = newInfo
+    console.log('writing to ' + './db/' + userID + '.json')
+  })
 }
 
 bot.login(botConfig.token)
