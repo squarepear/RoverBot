@@ -9,7 +9,7 @@ A bot specially designed for [AC:CF Wiimmfi Server](https://discord.gg/TW6aqZx).
 
 ## Inviting
 
-Since the bot is designed especially for a specific server, there is no bot invite link. You may setup the bot yourself since the code is open source but don't expect that it will work properly on your own server. *especially since the bot isn't coded very well*
+The bot is designed especially for a specific server, so there isn't a bot invite link. You may setup the bot yourself since the code is open source but don't expect that it will work properly on your own server. *especially since the bot isn't coded very well*
 
 ## Setting up on your own
 
