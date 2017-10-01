@@ -5,6 +5,7 @@ console.log('[INFO] I\'m starting up! Please wait until the next message!');
 const botConfig = require('./botconfig.json')
 const Discord = require('discord.js')
 const Wikia = require('node-wikia')
+const fs = require('fs')
 const Database = require('better-sqlite3')
 const cmd = require('node-cmd')
 var express = require('express')
@@ -14,7 +15,13 @@ const bot = new Discord.Client()
 const fcpattern = new RegExp(/^(\d{4}-\d{4}-\d{4})$/g)
 
 var wikia = new Wikia('animalcrossing')
-var db = new Database('userInfo.db')
+var db = [];
+
+var normalizedPath = require(`path`).join(__dirname, `db`);
+
+fs.readdirSync(normalizedPath).forEach(function(file) {
+  db[(file-'.json')] = require('./db/' + file)
+})
 
 // Launching bot
 bot.on('ready', async () => {
@@ -387,7 +394,9 @@ bot.on('message', async message => {
      //   console.log('The eval returned with a success!')
     //  }
    //   break
-
+    case 'FixDB':
+      FixDB();
+      break;
     // if prefix + not valid command
     default:
       message.channel.send(' The command is invalid! Do `!help` if you need help.')
@@ -410,23 +419,33 @@ app.post('/github/update', function (req, res) {
 // PREMADE FUNCTIONS!
 
 function getUserInfo (userID) {
-  return db.prepare(`SELECT * FROM USERINFO WHERE UserID=?`).get(userID)
+  return db[userID]
 }
 
 function setUserInfo (userID, info) {
-  var row = db.prepare(`SELECT * FROM USERINFO WHERE UserID=?`).get(userID)
+  var newInfo = db[userID]
 
-  if (row == null) {
-    db.prepare(`INSERT INTO USERINFO (UserID) VALUES (?)`).run(userID)
-    row = db.prepare(`SELECT * FROM USERINFO WHERE UserID=?`).get(userID)
+  if (newInfo == null) {
+    newInfo = {}
   }
-  if (info.FriendCode != null) { row.FriendCode = info.FriendCode.trim() }
-  if (info.Name != null) { row.Name = info.Name.trim() }
-  if (info.Town != null) { row.Town = info.Town.trim() }
-  if (info.Fruit != null) { row.Fruit = info.Fruit.trim() }
-  if (info.Note != null) { row.Note = info.Note.trim() }
 
-  db.prepare(`UPDATE USERINFO SET FriendCode = @FriendCode, Name = @Name, Town = @Town, Fruit = @Fruit, Note = @Note WHERE UserID=?`).run(userID, row)
+  if (info.FriendCode != null) { newInfo.FriendCode = info.FriendCode.trim() }
+  if (info.Name != null) { newInfo.Name = info.Name.trim() }
+  if (info.Town != null) { newInfo.Town = info.Town.trim() }
+  if (info.Fruit != null) { newInfo.Fruit = info.Fruit.trim() }
+  if (info.Note != null) { newInfo.Note = info.Note.trim() }
+
+  fs.writeFile('./db/' + userID + '.json', JSON.stringify(newInfo, null, 2), { flag: 'wx' }, function (err) {
+    if (err) return console.log('ERROR: ' + err)
+    db[userID] = newInfo
+    console.log('writing to ' + './db/' + userID + '.json')
+  })
+}
+
+function FixDB() {
+  db.prepare(`SELECT * FROM USERINFO`).forEach(function(row) {
+    setUserInfo(row.UserID, row)
+  })
 }
 
 app.listen(3000)

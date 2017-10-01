@@ -6,4 +6,5 @@ update.command
 /.AppleDouble
 userInfo.db
 botconfig.json
+/db
 /*.env
