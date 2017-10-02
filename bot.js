@@ -393,9 +393,6 @@ bot.on('message', async message => {
      //   console.log('The eval returned with a success!')
     //  }
    //   break
-    case 'FIXDB':
-      FixDB();
-      break;
     // if prefix + not valid command
     default:
       message.channel.send(' The command is invalid! Do `!help` if you need help.')
@@ -404,10 +401,6 @@ bot.on('message', async message => {
 })
 
 // Express stuff for auto updating with GitHub
-
-app.get('/', function (req, res) {
-  res.send('GET request to the homepage')
-})
 
 app.post('/github/update', function (req, res) {
   res.send('POST request to the homepage')
