@@ -1,0 +1,16 @@
+{
+  "GENERAL": {
+    "name": "General",
+    "description": "General commands",
+    "commands": [
+
+    ]
+  },
+  "ACCF": {
+    "name": "ACCF",
+    "description": "Villager information",
+    "commands": [
+
+    ]
+  }
+}
