@@ -23,7 +23,7 @@ this.Command = function(data) {
       console.log(`[WIKI] ${data.user.username} has requested a wiki about ${data.args.join(' ')} successfully!`);
     })
     .fail(function (e) {
-      return ' There isn\'t any wiki page about `' + data.args + '`'
+      return ' There isn\'t any wiki page about `' + data.args.join(' ') + '`'
       console.log(`[WIKI] ${data.user.username} has requested a wiki about ${data.args.join(' ')} and failed!`)
     })
   } else {

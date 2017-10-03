@@ -1,19 +1,19 @@
 const fs = require('fs')
 var Path = require(`path`).join(__dirname, 'db')
 
-function getUserInfo (userID) {
+this.getUserInfo = function (userID) {
   return require('./db/' + userID + '.json')
 }
 
-function setUserInfo (userID, info) {
+this.setUserInfo = function (userID, info) {
   var newInfo = require('./db/' + userID + '.json')
 
   if (newInfo == null) {
     newInfo = {}
   }
 
-  info.forEach(function (data) {
-    newInfo.FriendCode = data.trim()
+  Object.keys(info).forEach(function (key) {
+    newInfo.FriendCode = info[key].trim()
   })
 
   fs.writeFile('./db/' + userID + '.json', JSON.stringify(newInfo, null, 2), { flag: 'wx' }, function (err) {
