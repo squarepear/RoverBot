@@ -1,19 +1,20 @@
 var db = require('../dbAccess.js')
 
-var info = {
+this.info = {
   aliases: [
     'Ign',
     'Gamename'
   ],
   helpInfo: {
     show: true,
+    catagory: 'ACCF',
     name: 'Template',
     usage: 'temp [template]',
     desc: 'Templates a template'
   }
 }
 
-function Command(data) {
+this.Command = function(data) {
   if (data.args.length === 0) {
     usr = data.user
     usrinfo = db.getUserInfo(usr.id)

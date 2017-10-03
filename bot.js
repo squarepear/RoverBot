@@ -24,7 +24,7 @@ fs.readdirSync(commandsPath).forEach(function(file) {
     cmds[alias.toUpperCase()] = cmd
   })
   if (cmd.info.helpInfo.show) {
-    helpInfo[cmd.info.catagory.toUpperCase()].commands.push(cmd.info.helpInfo)
+    helpInfo[cmd.info.helpInfo.catagory.toUpperCase()].commands.push(cmd.info.helpInfo)
   }
 })
 
@@ -53,6 +53,7 @@ bot.on('message', async message => {
   let args = messageArray.slice(1)
 
   let data = {
+    user: message.author,
     command: command,
     args: args,
     message: message,
@@ -62,7 +63,12 @@ bot.on('message', async message => {
   let cmd = cmds[command.toUpperCase()]
 
   if (cmd != null) {
-    message.channel.send(cmd.Command(data))
+    var result = cmd.Command(data)
+    if (result != null) {
+      message.channel.send(result)
+    } else {
+      message.channel.send('`ERROR`')
+    }
   } else {
     message.channel.send('The command is invalid! Do `!help` if you need help.')
   }

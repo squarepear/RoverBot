@@ -1,19 +1,20 @@
 var db = require('../dbAccess.js')
 const fcpattern = new RegExp(/^(\d{4}-\d{4}-\d{4})$/g)
 
-var info = {
+this.info = {
   aliases: [
     'Friendcode'
   ],
   helpInfo: {
     show: true,
+    catagory: 'ACCF',
     name: 'Template',
     usage: 'temp [template]',
     desc: 'Templates a template'
   }
 }
 
-function Command(data) {
+this.Command = function(data) {
   if (data.args.length === 0) {
     var usr = data.user
     var usrinfo = getUserInfo(usr.id)

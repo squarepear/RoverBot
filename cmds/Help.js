@@ -1,17 +1,20 @@
-var info = {
+const Discord = require('discord.js')
+
+this.info = {
   aliases: [
     'SomeAlias',
     'AnoutherAlias'
   ],
   helpInfo: {
     show: true,
+    catagory: 'GENERAL',
     name: 'Template',
     usage: 'temp [template]',
     desc: 'Templates a template'
   }
 }
 
-function Command(data) {
+this.Command = function(data) {
   let helpCategory, helpUsage, helpMore, helpCategoryGeneral, helpCategoryACCF
 
   helpCategory = '- **General**: General commands - for you when you need to know stuff \n'
@@ -46,7 +49,7 @@ function Command(data) {
   if (data.args.length == 0) { // If no arguments, do this!
     let helpMessage = new Discord.RichEmbed()
       .setColor('RANDOM')
-      .setAuthor('RoverBot Help', bot.user.avatarURL)
+      .setAuthor('RoverBot Help', data.bot.avatarURL)
       .setDescription('Help has been sent!')
       .addField(' Categories', helpCategory)
       .addField('Usage', helpUsage)

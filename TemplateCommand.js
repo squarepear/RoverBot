@@ -1,10 +1,11 @@
-var info = {
+this.info = {
   aliases: [
     'SomeAlias',
     'AnoutherAlias'
   ],
   helpInfo: {
     show: true,
+    catagory: 'TEMPLATE',
     name: 'Template',
     usage: 'temp [template]',
     desc: 'Templates a template'
@@ -12,7 +13,7 @@ var info = {
 }
 
 // Function to run when user uses this command (Don't change the function name)
-function Command(data) {
+this.Command = function(data) {
   if (data.args.length > 0) {
     // Do stuff
   } else {
