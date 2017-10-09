@@ -9,7 +9,7 @@ this.info = {
   ],
   helpInfo: {
     show: true,
-    catagory: 'GENERAL',
+    category: 'GENERAL',
     name: 'Wiki',
     usage: 'wiki [search]',
     desc: 'Seraches the ACCF wikia'

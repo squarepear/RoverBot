@@ -6,7 +6,7 @@ this.info = {
   ],
   helpInfo: {
     show: true,
-    catagory: 'GENERAL',
+    category: 'GENERAL',
     name: 'Template',
     usage: 'temp [template]',
     desc: 'Templates a template'

@@ -5,7 +5,7 @@ this.info = {
   ],
   helpInfo: {
     show: true,
-    catagory: 'ACCF',
+    category: 'ACCF',
     name: 'Template',
     usage: 'temp [template]',
     desc: 'Templates a template'
