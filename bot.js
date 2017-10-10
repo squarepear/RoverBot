@@ -1,6 +1,6 @@
 // Setting variables
 
-console.log('[INFO] I\'m starting up! Please wait until the next message!');
+console.log('[INFO] I\'m starting up! Please wait until the next message!')
 
 const botConfig = require('./botconfig.json')
 const Discord = require('discord.js')
@@ -11,14 +11,14 @@ var express = require('express')
 var app = express()
 const bot = new Discord.Client()
 
-var helpInfo = require('./help.json');
+var helpInfo = require('./help.json')
 var commandsPath = require(`path`).join(__dirname, 'cmds')
 var cmds = []
 
 // Reading Commands
-fs.readdirSync(commandsPath).forEach(function(file) {
+fs.readdirSync(commandsPath).forEach(function (file) {
   let cmd = require('./cmds/' + file)
-  console.log('[COMMANDS] Loaded '+ file)
+  console.log('[COMMANDS] Loaded ' + file)
   cmds[file.slice(0, -3).toUpperCase()] = cmd
   cmd.info.aliases.forEach(function (alias) {
     cmds[alias.toUpperCase()] = cmd
@@ -30,13 +30,13 @@ fs.readdirSync(commandsPath).forEach(function(file) {
 
 // Launching bot
 bot.on('ready', async () => {
-  console.log(`[INFO] I\'m logged on as ${bot.user.username}!`)
-  console.log('[INFO] I\'m ready!');
+  console.log(`[INFO] I'm logged on as ${bot.user.username}!`)
+  console.log('[INFO] I\'m ready!')
   try {
     let link = await bot.generateInvite(['READ_MESSAGES', 'SEND_MESSAGES'])
-    console.log('[INFO] Here is my invite link: ' + link);
+    console.log('[INFO] Here is my invite link: ' + link)
   } catch (e) {
-    console.log('[ERROR] Can\'t create invite link! Am I a normal user?');
+    console.log('[ERROR] Can\'t create invite link! Am I a normal user?')
     console.log(e.stack)
   }
 })
@@ -61,8 +61,9 @@ bot.on('message', async message => {
   let cmd = cmds[command.toUpperCase()]
 
   if (cmd != null) {
-    var result = cmd.Command(data)
-    if (result != null) {
+    var result = cmd.Command(data) // Send data to each handler. Returns with var `result`
+
+    if (result != null) { // There should be always a result on each command.
       message.channel.send(result)
     } else {
       message.channel.send('`Great. This is RoverBot speaking. Now whoever sends command just broke my brain. Please mention Server Programmer to fix this otherwise I can\'t continue working.`')
@@ -73,7 +74,6 @@ bot.on('message', async message => {
 })
 
 // Express stuff for auto updating with GitHub
-
 app.post('/github/update', function (req, res) {
   res.send('POST request to the homepage')
   cmd.run('git pull')

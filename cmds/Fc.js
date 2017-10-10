@@ -14,10 +14,11 @@ this.info = {
   }
 }
 
-this.Command = function(data) {
+this.Command = function (data) {
   if (data.args.length === 0) {
     var usr = data.user
     var usrinfo = db.getUserInfo(usr.id)
+
     if (usrinfo.FriendCode != null) {
       return usr.username + "'s Friend Code is: `" + usrinfo.FriendCode + '`'
     } else {
@@ -25,10 +26,14 @@ this.Command = function(data) {
     }
   } else if (data.args.length === 1) {
     if (fcpattern.test(data.args[0])) {
+// Adding / Removing Roles
+      data.message.member.addRole(data.message.guild.roles.find('name', 'Villager'), 'Added friend code')
+      data.message.member.removeRole(data.message.guild.roles.find('name', 'Newbie'), 'Added friend code')
+
+// Stores info in database
+
       db.setUserInfo(data.user.id, { FriendCode: data.args[0] })
       return ' Your Friend Code is now `' + data.args[0] + '`'
-      member.addRole( server.roles.find('name', 'Villager') , 'Added friend code')
-      member.removeRole( server.roles.find('name', 'Newbie') , 'Added friend code')
     } else if (data.message.mentions.users.first() != null) {
       usr = data.message.mentions.users.first()
       usrinfo = db.getUserInfo(usr.id)

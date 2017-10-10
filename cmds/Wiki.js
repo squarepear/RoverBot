@@ -1,7 +1,6 @@
 const Wikia = require('node-wikia')
 const wikia = new Wikia('animalcrossing')
 
-
 this.info = {
   aliases: [
     'wikia',
