@@ -13,5 +13,5 @@ this.info = {
 
 this.Command = function (data) {
   console.log(data.ping)
-  return `*Ping!* \`${data.ping[0]}ms\``
+  return `*Ping!* \`${new Date().getTime() - data.message.createdTimestamp}ms\``
 }
