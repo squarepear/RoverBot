@@ -15,6 +15,7 @@
   "author": "SquarePear",
   "license": "ISC",
   "dependencies": {
+    "jsonfile": "^4",
     "discord.js": "^11.1.0",
     "node-wikia": "0.0.3",
     "express": "4.16.1",

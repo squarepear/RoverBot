@@ -1,13 +1,16 @@
-const fs = require('fs')
+const jsonfile = require('jsonfile')
 
 this.getUserInfo = function (userID) {
-  return require('./db/' + userID + '.json')
+  let dbPath = require('path').join(__dirname, 'db', userID + '.JSON')
+  let data = jsonfile.readFileSync(dbPath)
+  return data
 }
 
 this.setUserInfo = function (userID, info) {
   let dbPath = require('path').join(__dirname, 'db', userID + '.JSON')
+  var newInfo
   try {
-    var newInfo = require(dbPath)
+    newInfo = require(dbPath)
   } catch (e) {
     if (newInfo == null) {
       newInfo = {}
@@ -16,16 +19,6 @@ this.setUserInfo = function (userID, info) {
     Object.keys(info).forEach(function (key) {
       newInfo[key] = info[key].trim()
     })
-    console.log('Saving now')
-    let dbData = JSON.stringify(newInfo, null, 2)
-    console.log(dbData)
-    fs.writeFileSync(dbPath, dbData, { flag: 'wx', encoding: 'utf8' }, function (err) {
-      if (err) {
-        if (err.code === 'EEXIST') {
-          console.error('MyFile Existed')
-        }
-      }
-    })
-    console.log('saved')
+    jsonfile.writeFileSync(dbPath, newInfo)
   }
 }
