@@ -1,3 +1,5 @@
+var db = require('../dbAccess.js')
+
 this.info = {
   aliases: [
     'SomeAlias',
@@ -12,10 +14,10 @@ this.info = {
   }
 }
 
-this.Command = function(data) {
+this.Command = function (data) {
   if (data.args.length === 0) {
-    usr = data.user
-    usrinfo = db.getUserInfo(usr.id)
+    var usr = data.user
+    var usrinfo = db.getUserInfo(usr.id)
     if (usrinfo.Town != null) {
       return usr.username + "'s Town is: `" + usrinfo.Town + '`'
     } else {

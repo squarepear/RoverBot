@@ -16,7 +16,7 @@ var commandsPath = require(`path`).join(__dirname, 'cmds')
 var cmds = []
 
 // Reading Commands
-fs.readdirSync(commandsPath).forEach(function (file) {
+fs.readdirSync(commandsPath).forEach(function (file) { // For each file read, create a function
   let cmd = require('./cmds/' + file)
   console.log('[COMMANDS] Loaded ' + file)
   cmds[file.slice(0, -3).toUpperCase()] = cmd

@@ -14,8 +14,8 @@ this.info = {
   }
 }
 
-this.Command = function(data) {
-  if (data.args.length == 0) { // If no arguments, do this!
+this.Command = function (data) {
+  if (data.args.length === 0) { // If no arguments, do this!
     let helpMessage = new Discord.RichEmbed()
       .setColor('RANDOM')
       .setAuthor('RoverBot Help', data.bot.avatarURL)
@@ -24,21 +24,18 @@ this.Command = function(data) {
       .addField('Usage', helpUsage)
       .addField('More help?', helpMore)
       .addField('Author', 'This bot is made by <@237985610084777994> with help from <@189769721653100546> and GitHub Contributors!')
+    console.log(`[HELP] ${data.user.username} has requested help!`)
     return { embed: helpMessage }
-
-  }else { // If people sends Categories
+  } else { // If people sends Categories
     switch (data.args[0].toUpperCase()) {
       case 'GENERAL':
         return helpCategoryGeneral
-        break
       case 'ACCF':
         return helpCategoryACCF
-        break
       default:
         return ' Category invalid!'
     }
   }
-  console.log(`[HELP] ${data.user.username} has requested help!`);
 }
 
 // Please add variables here!

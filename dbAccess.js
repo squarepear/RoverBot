@@ -5,20 +5,26 @@ this.getUserInfo = function (userID) {
 }
 
 this.setUserInfo = function (userID, info) {
+  let dbPath = require('path').join(__dirname, 'db', userID + '.JSON')
   try {
-    var newInfo = require('./db/' + userID + '.json')
+    var newInfo = require(dbPath)
   } catch (e) {
     if (newInfo == null) {
       newInfo = {}
     }
   } finally {
     Object.keys(info).forEach(function (key) {
-      newInfo.FriendCode = info[key].trim()
+      newInfo[key] = info[key].trim()
     })
     console.log('Saving now')
-    fs.writeFileSync('./db/' + userID + '.json', JSON.stringify(newInfo, null, 2), { flag: 'wx' }, function (err) {
-      if (err) return console.log('ERROR: ' + err)
-      console.log('writing to ' + './db/' + userID + '.json')
+    let dbData = JSON.stringify(newInfo, null, 2)
+    console.log(dbData)
+    fs.writeFileSync(dbPath, dbData, { flag: 'wx', encoding: 'utf8' }, function (err) {
+      if (err) {
+        if (err.code === 'EEXIST') {
+          console.error('MyFile Existed')
+        }
+      }
     })
     console.log('saved')
   }

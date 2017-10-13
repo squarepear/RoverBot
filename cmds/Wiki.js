@@ -15,15 +15,15 @@ this.info = {
   }
 }
 
-this.Command = function(data) {
+this.Command = function (data) {
   if (data.args.length > 0) {
     wikia.getSearchList({'query': data.args.join(' ')}).then(function (data) {
+      console.log(`[WIKI] ${data.user.username} has requested a wiki about ${data.args.join(' ')} successfully!`)
       return data.items[0].url
-      console.log(`[WIKI] ${data.user.username} has requested a wiki about ${data.args.join(' ')} successfully!`);
     })
     .fail(function (e) {
-      return ' There isn\'t any wiki page about `' + data.args.join(' ') + '`'
       console.log(`[WIKI] ${data.user.username} has requested a wiki about ${data.args.join(' ')} and failed!`)
+      return ' There isn\'t any wiki page about `' + data.args.join(' ') + '`'
     })
   } else {
     return 'http://animalcrossing.wikia.com/wiki/Animal_Crossing_Wiki'
