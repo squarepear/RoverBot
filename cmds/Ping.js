@@ -12,5 +12,6 @@ this.info = {
 }
 
 this.Command = function (data) {
-
+  console.log(data.ping)
+  return `*Ping!* \`${data.ping[0]}ms\``
 }
