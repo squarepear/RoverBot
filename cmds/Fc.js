@@ -43,7 +43,7 @@ this.Command = function (data) {
         return '' + usr.username + ' has not set a Friend Code yet'
       }
     } else {
-      return ' Invalid Friend Code or User! \n The code format should be `xxxx-xxxx-xxxx`'
+      return ' Invalid Friend Code or User! \n The code format should be `xxxx-xxxx-xxxx` \n Input: ' + data.args[0]
     }
   } else {
     return 'Usage: `!fc [code]` or `!fc [mention]`'
