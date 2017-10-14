@@ -1,3 +1,4 @@
+const Discord = require('discord.js')
 var db = require('../dbAccess.js')
 
 this.info = {
@@ -20,4 +21,11 @@ this.info = {
 // Function to run when user uses this command (Don't change the function name)
 this.Command = function (data) {
   let onlineTowns = db.getOnlineTown()
+  let stuffToReturn = new Discord.RichEmbed()
+  .setColor('GREEN')
+  .setTitle('Towns that are Online')
+  onlineTowns.forEach(function (towns) {
+    stuffToReturn.addField(`<@${towns}>`)
+  })
+  return stuffToReturn
 }

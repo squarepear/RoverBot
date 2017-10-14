@@ -20,16 +20,16 @@ this.setUserInfo = function (userID, info) {
 // Online Towns DB
 
 this.setOnlineTown = function (userID) {
-  onlineDB.push(`[]`, userID)
+  onlineDB.push(`/online[]`, `[${userID}]`)
 }
 
 this.setOfflineTown = function (userID) {
-  onlineDB.delete(`[]`, userID)
+  onlineDB.delete(`/online[]`, `[${userID}]`)
 }
 
 this.getOnlineTown = function () {
   try {
-    return onlineDB.getData('[]')
+    return onlineDB.getData('/online[]')
   } catch (e) {
     return ''
   }
