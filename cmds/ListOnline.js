@@ -1,10 +1,15 @@
+var db = require('../dbAccess.js')
+
 this.info = {
   aliases: [
-    'SomeAlias',
-    'AnoutherAlias'
+    'ListOnlineTown',
+    'ListOnlineTowns',
+    'OnlineTownList',
+    'OnlineTownsList',
+    'GiveMeTheListOfOnlineTowns'
   ],
   helpInfo: {
-    show: true,
+    show: false,
     category: 'TEMPLATE',
     name: 'Template',
     usage: 'temp [template]',
@@ -14,10 +19,5 @@ this.info = {
 
 // Function to run when user uses this command (Don't change the function name)
 this.Command = function (data) {
-  if (data.args.length > 0) {
-    // Do stuff
-  } else {
-    // This is the message the bot sends
-    return 'Some Message'
-  }
+  let onlineTowns = db.getOnlineTown()
 }

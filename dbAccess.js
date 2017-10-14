@@ -1,25 +1,36 @@
-const jsonfile = require('jsonfile')
+const JsonDB = require('node-json-db')
+var friendcodeDB = new JsonDB('./db/friendcodeDB', true, true)
+var onlineDB = new JsonDB('./db/onlineDB', true, true)
+
+// Friend Code DB
 
 this.getUserInfo = function (userID) {
-  let dbPath = require('path').join(__dirname, 'db', userID + '.JSON')
-  let data = jsonfile.readFileSync(dbPath)
-  return data
+  friendcodeDB.reload()
+  try {
+    return friendcodeDB.getData(`/${userID}`)
+  } catch (e) {
+    return ''
+  }
 }
 
 this.setUserInfo = function (userID, info) {
-  let dbPath = require('path').join(__dirname, 'db', userID + '.JSON')
-  var newInfo
+  friendcodeDB.push(`/${userID}/`, info)
+}
+
+// Online Towns DB
+
+this.setOnlineTown = function (userID) {
+  onlineDB.push(`[]`, userID)
+}
+
+this.setOfflineTown = function (userID) {
+  onlineDB.delete(`[]`, userID)
+}
+
+this.getOnlineTown = function () {
   try {
-    newInfo = require(dbPath)
+    return onlineDB.getData('[]')
   } catch (e) {
-    console.log(e)
-    if (newInfo == null) {
-      newInfo = {}
-    }
-  } finally {
-    Object.keys(info).forEach(function (key) {
-      newInfo[key] = info[key].trim()
-    })
-    jsonfile.writeFileSync(dbPath, newInfo)
+    return ''
   }
 }
