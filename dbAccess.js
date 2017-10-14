@@ -12,6 +12,7 @@ this.setUserInfo = function (userID, info) {
   try {
     newInfo = require(dbPath)
   } catch (e) {
+    console.log(e)
     if (newInfo == null) {
       newInfo = {}
     }

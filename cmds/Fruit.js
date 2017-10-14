@@ -2,6 +2,7 @@ var db = require('../dbAccess.js')
 
 this.info = {
   aliases: [
+    'fruits'
   ],
   helpInfo: {
     show: true,
