@@ -12,6 +12,6 @@ this.info = {
 }
 
 this.Command = function (data) {
-  console.log(data.ping)
+  console.log(`[PING] ${data.user.username}#${data.user.discriminator} has requested a ping!`)
   return `*Ping!* \`${new Date().getTime() - data.message.createdTimestamp}ms\``
 }

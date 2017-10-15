@@ -36,7 +36,8 @@ this.Command = function (data) {
   }
 
   let townlist = ''
-  onlineTowns.forEach(function (ID) {
+
+  onlineTowns.forEach(function (ID) { // For each ID of online towns, add to variable
     townlist += `<@${ID}>\n`
   })
 

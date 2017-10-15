@@ -18,11 +18,11 @@ this.info = {
 this.Command = function (data) {
   if (data.args.length > 0) {
     wikia.getSearchList({'query': data.args.join(' ')}).then(function (data) {
-      console.log(`[WIKI] ${data.user.username} has requested a wiki about ${data.args.join(' ')} successfully!`)
+      console.log(`[WIKI] ${data.user.username}#${data.user.discriminator} has requested a wiki about ${data.args.join(' ')} successfully!`)
       return data.items[0].url
     })
     .fail(function (e) {
-      console.log(`[WIKI] ${data.user.username} has requested a wiki about ${data.args.join(' ')} and failed!`)
+      console.log(`[WIKI] ${data.user.username}#${data.user.discriminator} has requested a wiki about ${data.args.join(' ')} and failed!`)
       return ' There isn\'t any wiki page about `' + data.args.join(' ') + '`'
     })
   } else {

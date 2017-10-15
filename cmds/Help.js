@@ -57,6 +57,7 @@ helpCategoryGeneral += 'Commands                              Description       
 helpCategoryGeneral += '------------------------------------- ------------------------------\n'
 helpCategoryGeneral += 'help [Category / Command]             Displays help message         \n'
 helpCategoryGeneral += 'wiki [Wiki page name]                 Shows ACCF wiki page          \n'
+helpCategoryGeneral += 'ping                                  Shows the bot latency         \n'
 helpCategoryGeneral += '```'
 
 helpCategoryACCF = '```\n'
