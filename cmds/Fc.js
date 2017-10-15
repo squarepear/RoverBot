@@ -28,8 +28,15 @@ this.Command = function (data) {
     let regexCheck = fcPattern.test(data.args[0]) // Boolean. Check if message contains a correct FC
     if (regexCheck) { // If true
       let FC = fcPattern.exec(data.args[0]) // Make FC the result of FCPattern
-      db.setUserInfo(data.user.id, {'FriendCode': FC})
+      db.setUserInfo(data.user.id, {'FriendCode': data.args[0]})
+
+      // Setting role
+      data.message.member.addRole(data.message.guild.roles.find('name', 'Villager'), 'Added friend code')
+      data.message.member.removeRole(data.message.guild.roles.find('name', 'Newbie'), 'Added friend code')
+      return ' Your Friend Code is now `' + data.args[0] + '`'
       // TODO: Store data to db, add / remove roles, error handling message
+    } else {
+      return ' Invalid Friend Code or User! \n The code format should be `xxxx-xxxx-xxxx`'
     }
   }
 

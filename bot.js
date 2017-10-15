@@ -57,7 +57,6 @@ bot.on('message', async message => {
     args: args,
     message: message,
     bot: bot.user,
-    ping: bot.pings,
     botVar: bot
   }
   let cmd = cmds[command.toUpperCase()]
