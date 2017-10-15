@@ -2,6 +2,8 @@ var db = require('../dbAccess.js')
 
 this.info = {
   aliases: [
+    'Notes',
+    'Message'
   ],
   helpInfo: {
     show: true,

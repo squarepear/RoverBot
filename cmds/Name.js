@@ -14,18 +14,18 @@ this.info = {
   }
 }
 
-this.Command = function(data) {
+this.Command = function (data) {
   if (data.args.length === 0) {
-    usr = data.user
-    usrinfo = db.getUserInfo(usr.id)
+    let usr = data.user
+    let usrinfo = db.getUserInfo(usr.id)
     if (usrinfo.Name != null) {
       return usr.username + "'s Name is: `" + usrinfo.Name + '`'
     } else {
       return ' ' + usr.username + ' has not set a Name yet'
     }
   } else if (data.args.length === 1 && data.message.mentions.users.first() != null) {
-    usr = data.message.mentions.users.first()
-    usrinfo = db.getUserInfo(usr.id)
+    let usr = data.message.mentions.users.first()
+    let usrinfo = db.getUserInfo(usr.id)
     if (usrinfo.Name != null) {
       return usr.username + "'s Name is: `" + usrinfo.Name + '`'
     } else {
