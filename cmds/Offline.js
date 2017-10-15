@@ -17,7 +17,13 @@ this.info = {
 
 // Function to run when user uses this command (Don't change the function name)
 this.Command = function (data) {
-  db.setOfflineTown(data.user.id)
-  data.botVar.channels.get('368714134302359562').send(`<@${data.user.id}>'s town is Offline!`)
-  return 'Your town has been set Offline!'
+  let a = db.setOfflineTown(data.user.id)
+
+  if (a === 'alreadyOffline') {
+    return 'Your town is already Offline!'
+  } else if (a === 'deleted') {
+    return 'Your town has been set Offline!'
+  } else {
+    return 'Unknown error! Please contact the developer!'
+  }
 }

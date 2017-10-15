@@ -20,16 +20,33 @@ this.setUserInfo = function (userID, info) {
 // Online Towns DB
 
 this.setOnlineTown = function (userID) {
-  onlineDB.push(`/online[]`, `[${userID}]`)
+  let townsOnline = this.getOnlineTown()
+
+  for (var i = townsOnline.length - 1; i >= 0; i--) {  // Checks if town already online
+    if (townsOnline[i] === userID) {
+      return 'alreadyOnline'
+    }
+  }
+
+  onlineDB.push(`/online[]`, userID)  // If na, push this
+  return 'pushed'
 }
 
 this.setOfflineTown = function (userID) {
-  onlineDB.delete(`/online[]`, `[${userID}]`)
+  let townsOnline = this.getOnlineTown()
+
+  for (var i = townsOnline.length - 1; i >= 0; i--) {  // Checks is online
+    if (townsOnline[i] === userID) {
+      onlineDB.delete(`/online[${i}]`)
+      return 'deleted'
+    }
+  }
+  return 'alreadyOffline'
 }
 
 this.getOnlineTown = function () {
   try {
-    return onlineDB.getData('/online[]')
+    return onlineDB.getData('/online')
   } catch (e) {
     return ''
   }
