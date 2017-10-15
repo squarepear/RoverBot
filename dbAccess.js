@@ -48,6 +48,6 @@ this.getOnlineTown = function () {
   try {
     return onlineDB.getData('/online')
   } catch (e) {
-    return ''
+    return '[]'
   }
 }
