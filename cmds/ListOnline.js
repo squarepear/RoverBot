@@ -7,6 +7,10 @@ this.info = {
     'ListOnlineTowns',
     'OnlineTownList',
     'OnlineTownsList',
+    'OnlineTowns',
+    'OnlineTown',
+    'TownOnline',
+    'TownsOnline',
     'GiveMeTheListOfOnlineTowns'
   ],
   helpInfo: {
@@ -20,8 +24,9 @@ this.info = {
 
 // Function to run when user uses this command (Don't change the function name)
 this.Command = function (data) {
+  console.log(`[LISTONLINE] ${data.user.username}#${data.user.discriminator} requested for online towns!`)
+
   let onlineTowns = db.getOnlineTown()
-  console.log(onlineTowns)
   if (onlineTowns[0] == null) { // If there is no online town
     return new Discord.RichEmbed()
     .setColor('RED')
