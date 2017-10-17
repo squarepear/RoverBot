@@ -19,7 +19,6 @@ this.Command = function (data) {
       if (data.message.mentions.users.first() != null) {
         let usr = data.message.mentions.users.first()
         let usrinfo = db.getUserInfo(usr.id)
-        console.log(usrinfo)
         if (usrinfo.FriendCode != null) {
           return usr.username + "'s info is: \n Friend Code: `" + usrinfo.FriendCode + '` \n Name: `' + usrinfo.Name + '` \n Town: `' + usrinfo.Town + '` \n Fruit: `' + usrinfo.Fruit + '` \n Note: `' + usrinfo.Note + '`'
         } else {
