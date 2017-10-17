@@ -25,7 +25,7 @@ this.Command = function (data) {
         return ' ' + usr.username + ' has not set a Note yet'
       }
     } else if (data.message.mentions.users.first() == null && data.args.length > 0) {
-      db.setUserInfo(data.user.id, { Note: data.args.join(' ') })
+      db.setUserInfo(data.user.id, 'Note', data.args.join(''))
       return ' Your Note is now `' + data.args.join(' ') + '`'
     } else if (data.message.mentions.users.first() != null && data.args.length === 1) {
       let usr = data.message.mentions.users.first()

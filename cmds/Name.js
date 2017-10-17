@@ -32,7 +32,7 @@ this.Command = function (data) {
       return ' ' + usr.username + ' has not set a Name yet'
     }
   } else if (data.args.join(' ').length <= 8 && data.message.mentions.users.first() == null) {
-    db.setUserInfo(data.user.id, { Name: data.args.join(' ') })
+    db.setUserInfo(data.user.id, 'Name', data.args.join(' '))
     return ' Your Name is now `' + data.args.join(' ') + '`'
   } else if (data.args.join(' ').length > 8 && data.message.mentions.users.first() == null) {
     return ' Your Name can\'t be longer than 8 letters'

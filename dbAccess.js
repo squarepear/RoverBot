@@ -13,8 +13,8 @@ this.getUserInfo = function (userID) {
   }
 }
 
-this.setUserInfo = function (userID, info) {
-  friendcodeDB.push(`/${userID}/`, info, false)
+this.setUserInfo = function (userID, obj, info) {
+  friendcodeDB.push(`/${userID}/${obj}/`, info)
 }
 
 // Online Towns DB
