@@ -35,27 +35,27 @@ this.Command = function (data) {
       switch (data.args[0].toUpperCase()) {
         case 'ALL':
         case 'FULL':
-          db.setUserInfo(data.user.id, { Fruit: 'All' })
+          db.setUserInfo(data.user.id, 'Fruit', 'All')
           return 'Your Fruit is now `All`'
         case 'PEACH':
         case 'PEACHES':
-          db.setUserInfo(data.user.id, { Fruit: 'Peach' })
+          db.setUserInfo(data.user.id, 'Fruit', 'Peach')
           return '🍑 Your Fruit is now `Peach`'
         case 'PEAR':
         case 'PEARS':
-          db.setUserInfo(data.user.id, { Fruit: 'Pear' })
+          db.setUserInfo(data.user.id, 'Fruit', 'Pear')
           return '🍐 Your Fruit is now `Pear`'
         case 'APPLE':
         case 'APPLES':
-          db.setUserInfo(data.user.id, { Fruit: 'Apple' })
+          db.setUserInfo(data.user.id, 'Fruit', 'Apple')
           return '🍎 Your Fruit is now `Apple`'
         case 'ORANGE':
         case 'ORANGES':
-          db.setUserInfo(data.user.id, { Fruit: 'Orange' })
+          db.setUserInfo(data.user.id, 'Fruit', 'Orange')
           return '🍊 Your Fruit is now `Orange`'
         case 'CHERRY':
         case 'CHERRIES':
-          db.setUserInfo(data.user.id, { Fruit: 'Cherry' })
+          db.setUserInfo(data.user.id, 'Fruit', 'Cherry')
           return '🍒 Your Fruit is now `Cherry`'
         default:
           return ' Invalid Fruit!'
