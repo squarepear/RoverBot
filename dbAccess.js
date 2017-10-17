@@ -14,7 +14,9 @@ this.getUserInfo = function (userID) {
 }
 
 this.setUserInfo = function (userID, info) {
-  friendcodeDB.push(`/${userID}/`, info, false)
+  Object.keys(info).forEach(key => {
+    friendcodeDB.push(`/${userID}/${key}/`, info[key])
+  })
 }
 
 // Online Towns DB

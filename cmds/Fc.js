@@ -24,7 +24,7 @@ this.Command = function (data) {
     } else { // If no entry, do this
       return `${data.user.username} haven't set a Friend Code yet!\n To add a friend code, do \`!fc [insert your FC here]\`!`
     }
-  } else  { // If there is args
+  } else { // If there is args
     let regexCheck = fcPattern.test(data.args.join(' ')) // Boolean. Check if message contains a correct FC
     if (regexCheck) { // If true
       let FC = fcPattern.exec(data.args.join(' ')) // Make FC the result of FCPattern

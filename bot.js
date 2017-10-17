@@ -5,8 +5,8 @@ console.log('[INFO] I\'m starting up! Please wait until the next message!')
 const botConfig = require('./botconfig.json')
 const Discord = require('discord.js')
 const fs = require('fs')
-const cmd = require('node-cmd')
 var express = require('express')
+var path = require('path')
 
 var app = express()
 const bot = new Discord.Client()
@@ -73,13 +73,14 @@ bot.on('message', async message => {
     message.channel.send('The command is invalid! Do `!help` if you need help.')
   }
 })
+// view engine setup
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'pug')
 
-// Express stuff for auto updating with GitHub
-app.post('/github/update', function (req, res) {
-  res.send('POST request to the homepage')
-  cmd.run('git pull')
-  cmd.run('npm install')
-})
+// Express stuff
+app.use('/', require('./routes/index'))
+app.use('/edituserinfo', require('./routes/edituserinfo'))
+app.use('/github/update', require('./routes/githubupdate'))
 
 // Initalize!
 app.listen(3000) // Auto Update GitHub
