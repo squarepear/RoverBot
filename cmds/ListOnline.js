@@ -43,5 +43,5 @@ this.Command = function (data) {
 
   return new Discord.RichEmbed()
   .setColor('GREEN')
-  .addField('🌇 Towns that are online:', townlist)
+  .addField('🏙️  Towns that are online:', townlist)
 }
