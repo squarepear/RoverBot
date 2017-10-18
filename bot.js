@@ -73,12 +73,15 @@ bot.on('message', async message => {
     message.channel.send('The command is invalid! Do `!help` if you need help.')
   }
 })
-// view engine setup
+
+/*
+EXPRESS STUFF STARTS HERE
+*/
+
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 app.use(express.static(path.join(__dirname, 'public')))
 
-// Express stuff
 app.use('/', require('./routes/index'))
 app.use('/edituserinfo', require('./routes/edituserinfo'))
 app.use('/github/update', require('./routes/githubupdate'))
