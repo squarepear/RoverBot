@@ -1,23 +1,55 @@
-const fs = require('fs')
-var Path = require(`path`).join(__dirname, 'db')
+const JsonDB = require('node-json-db')
+var friendcodeDB = new JsonDB('./db/friendcodeDB', true, true)
+var onlineDB = new JsonDB('./db/onlineDB', true, true)
+
+// Friend Code DB
 
 this.getUserInfo = function (userID) {
-  return require('./db/' + userID + '.json')
+  friendcodeDB.reload()
+  try {
+    return friendcodeDB.getData(`/${userID}`)
+  } catch (e) {
+    return ''
+  }
 }
 
 this.setUserInfo = function (userID, info) {
-  var newInfo = require('./db/' + userID + '.json')
+  Object.keys(info).forEach(key => {
+    friendcodeDB.push(`/${userID}/${key}/`, info[key])
+  })
+}
 
-  if (newInfo == null) {
-    newInfo = {}
+// Online Towns DB
+
+this.setOnlineTown = function (userID) {
+  let townsOnline = this.getOnlineTown()
+
+  for (var i = townsOnline.length - 1; i >= 0; i--) {  // Checks if town already online
+    if (townsOnline[i] === userID) {
+      return 'alreadyOnline'
+    }
   }
 
-  Object.keys(info).forEach(function (key) {
-    newInfo.FriendCode = info[key].trim()
-  })
+  onlineDB.push(`/online[]`, userID)  // If na, push this
+  return 'pushed'
+}
 
-  fs.writeFile('./db/' + userID + '.json', JSON.stringify(newInfo, null, 2), { flag: 'wx' }, function (err) {
-    if (err) return console.log('ERROR: ' + err)
-    console.log('writing to ' + './db/' + userID + '.json')
-  })
+this.setOfflineTown = function (userID) {
+  let townsOnline = this.getOnlineTown()
+
+  for (var i = townsOnline.length - 1; i >= 0; i--) {  // Checks is online
+    if (townsOnline[i] === userID) {
+      onlineDB.delete(`/online[${i}]`)
+      return 'deleted'
+    }
+  }
+  return 'alreadyOffline'
+}
+
+this.getOnlineTown = function () {
+  try {
+    return onlineDB.getData('/online')
+  } catch (e) {
+    return '[]'
+  }
 }

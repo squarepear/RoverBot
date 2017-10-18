@@ -1,7 +1,7 @@
 # RoverBot
 [![Programming Language](https://img.shields.io/badge/language-NodeJS-yellow.svg)](https://nodejs.org/)  [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) ![Dependencies is up to date](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
 
-A bot specially designed for [AC:CF Wiimmfi Server](https://discord.gg/TW6aqZx). The server has a purpose of uniting people that still play AC:CF over [Wiimmfi](wiimmfi.de) so that they can play / collaborate easily.
+A bot specially designed for [AC:CF Wiimmfi Server](https://discord.gg/yB8qyQh). The server has a purpose of uniting people that still play AC:CF over [Wiimmfi](wiimmfi.de) so that they can play / collaborate easily.
 
 ## Commands
 

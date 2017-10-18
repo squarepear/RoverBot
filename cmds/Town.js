@@ -1,6 +1,8 @@
+var db = require('../dbAccess.js')
+
 this.info = {
   aliases: [
-    'SomeAlias',
+    'TownName',
     'AnoutherAlias'
   ],
   helpInfo: {
@@ -12,10 +14,10 @@ this.info = {
   }
 }
 
-this.Command = function(data) {
+this.Command = function (data) {
   if (data.args.length === 0) {
-    usr = data.user
-    usrinfo = db.getUserInfo(usr.id)
+    var usr = data.user
+    var usrinfo = db.getUserInfo(usr.id)
     if (usrinfo.Town != null) {
       return usr.username + "'s Town is: `" + usrinfo.Town + '`'
     } else {
@@ -30,7 +32,7 @@ this.Command = function(data) {
       return ' ' + usr.username + ' has not set a Town Name yet'
     }
   } else if (data.args.join(' ').length <= 8 && data.message.mentions.users.first() == null) {
-    db.setUserInfo(data.user.id, { Town: data.args.join(' ') })
+    db.setUserInfo(data.user.id, 'Town', data.args.join(' '))
     return ' Your Town is now `' + data.args.join(' ') + '`'
   } else if (data.args.join(' ').length > 8 && data.message.mentions.users.first() == null) {
     return ' Your Town Name can\'t be longer than 8 letters'

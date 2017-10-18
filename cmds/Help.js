@@ -14,8 +14,8 @@ this.info = {
   }
 }
 
-this.Command = function(data) {
-  if (data.args.length == 0) { // If no arguments, do this!
+this.Command = function (data) {
+  if (data.args.length === 0) { // If no arguments, do this!
     let helpMessage = new Discord.RichEmbed()
       .setColor('RANDOM')
       .setAuthor('RoverBot Help', data.bot.avatarURL)
@@ -24,21 +24,18 @@ this.Command = function(data) {
       .addField('Usage', helpUsage)
       .addField('More help?', helpMore)
       .addField('Author', 'This bot is made by <@237985610084777994> with help from <@189769721653100546> and GitHub Contributors!')
+    console.log(`[HELP] ${data.user.username} has requested help!`)
     return { embed: helpMessage }
-
-  }else { // If people sends Categories
+  } else { // If people sends Categories
     switch (data.args[0].toUpperCase()) {
       case 'GENERAL':
         return helpCategoryGeneral
-        break
       case 'ACCF':
         return helpCategoryACCF
-        break
       default:
         return ' Category invalid!'
     }
   }
-  console.log(`[HELP] ${data.user.username} has requested help!`);
 }
 
 // Please add variables here!
@@ -60,10 +57,11 @@ helpCategoryGeneral += 'Commands                              Description       
 helpCategoryGeneral += '------------------------------------- ------------------------------\n'
 helpCategoryGeneral += 'help [Category / Command]             Displays help message         \n'
 helpCategoryGeneral += 'wiki [Wiki page name]                 Shows ACCF wiki page          \n'
+helpCategoryGeneral += 'ping                                  Shows the bot latency         \n'
 helpCategoryGeneral += '```'
 
 helpCategoryACCF = '```\n'
-helpCategoryACCF += 'ACCF - Villager informations                                           \n'
+helpCategoryACCF += 'ACCF Related commands                                                  \n'
 helpCategoryACCF += '                                                                       \n'
 helpCategoryACCF += 'Commands                                 Description                   \n'
 helpCategoryACCF += '---------------------------------------- ------------------------------\n'
@@ -72,4 +70,9 @@ helpCategoryACCF += 'name [Mentions / Your character name]    Show / Set charact
 helpCategoryACCF += 'town [Mentions / Your town name]         Show / Set town name          \n'
 helpCategoryACCF += 'fruit [Mentions / Your fruit type]       Show / Set fruit type         \n'
 helpCategoryACCF += 'note [Mentions / Your note to players]   Show / Set notes to players   \n'
+helpCategoryACCF += '                                                                       \n'
+helpCategoryACCF += 'online                                   Set your town online          \n'
+helpCategoryACCF += '                                         Announce your online town     \n'
+helpCategoryACCF += 'offline                                  Set your town offline         \n'
+helpCategoryACCF += 'listonline                               List online towns             \n'
 helpCategoryACCF += '```'

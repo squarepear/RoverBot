@@ -1,7 +1,6 @@
 const Wikia = require('node-wikia')
 const wikia = new Wikia('animalcrossing')
 
-
 this.info = {
   aliases: [
     'wikia',
@@ -16,15 +15,16 @@ this.info = {
   }
 }
 
-this.Command = function(data) {
+this.Command = function (data) {
   if (data.args.length > 0) {
-    wikia.getSearchList({'query': data.args.join(' ')}).then(function (data) {
-      return data.items[0].url
-      console.log(`[WIKI] ${data.user.username} has requested a wiki about ${data.args.join(' ')} successfully!`);
+    wikia.getSearchList({'query': data.args.join(' ')}).then(function (returnedData) {
+      console.log(`[WIKI] ${data.user.username}#${data.user.discriminator} has requested a wiki about ${data.args.join(' ')} successfully!`)
+      console.log(`[WIKI] ${returnedData.items}`)
+      return returnedData.items
     })
     .fail(function (e) {
+      console.log(`[WIKI] ${data.user.username}#${data.user.discriminator} has requested a wiki about ${data.args.join(' ')} and failed!`)
       return ' There isn\'t any wiki page about `' + data.args.join(' ') + '`'
-      console.log(`[WIKI] ${data.user.username} has requested a wiki about ${data.args.join(' ')} and failed!`)
     })
   } else {
     return 'http://animalcrossing.wikia.com/wiki/Animal_Crossing_Wiki'

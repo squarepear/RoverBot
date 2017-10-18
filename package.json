@@ -16,8 +16,11 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.1.0",
-    "node-wikia": "0.0.3",
     "express": "4.16.1",
-    "node-cmd": "3.0.0"
+    "material-components-web": "^0.23.0",
+    "node-cmd": "3.0.0",
+    "node-json-db": "^0.7.3",
+    "node-wikia": "0.0.3",
+    "pug": "^2.0.0-rc.4"
   }
 }
