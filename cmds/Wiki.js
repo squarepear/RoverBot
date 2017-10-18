@@ -17,9 +17,10 @@ this.info = {
 
 this.Command = function (data) {
   if (data.args.length > 0) {
-    wikia.getSearchList({'query': data.args.join(' ')}).then(function (data) {
+    wikia.getSearchList({'query': data.args.join(' ')}).then(function (returnedData) {
       console.log(`[WIKI] ${data.user.username}#${data.user.discriminator} has requested a wiki about ${data.args.join(' ')} successfully!`)
-      return data.items[0].url
+      console.log(`[WIKI] ${returnedData.items}`)
+      return returnedData.items
     })
     .fail(function (e) {
       console.log(`[WIKI] ${data.user.username}#${data.user.discriminator} has requested a wiki about ${data.args.join(' ')} and failed!`)
