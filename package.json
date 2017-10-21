@@ -5,7 +5,8 @@
   "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node bot.js"
+    "start": "node bot.js",
+    "supervise": "supervisor bot.js"
   },
   "engines": {
     "node": "8.2.0",
@@ -15,8 +16,12 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.1.0",
-    "node-wikia": "0.0.3",
     "express": "4.16.1",
-    "node-cmd": "3.0.0"
+    "leo-profanity": "^1.2.4",
+    "material-components-web": "^0.23.0",
+    "node-cmd": "3.0.0",
+    "node-json-db": "^0.7.3",
+    "node-wikia": "0.0.3",
+    "pug": "^2.0.0-rc.4"
   }
 }
