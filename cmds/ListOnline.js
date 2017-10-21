@@ -11,6 +11,8 @@ this.info = {
     'OnlineTown',
     'TownOnline',
     'TownsOnline',
+    'onlineList',
+    'onlinesList',
     'GiveMeTheListOfOnlineTowns'
   ],
   helpInfo: {

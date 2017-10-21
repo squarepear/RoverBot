@@ -3,7 +3,7 @@ var db = require('../dbAccess.js')
 this.info = {
   aliases: [
     'TownName',
-    'AnoutherAlias'
+    'City'
   ],
   helpInfo: {
     show: true,

@@ -1,5 +1,3 @@
-// Setting variables
-
 console.log('[INFO] I\'m starting up! Please wait until the next message!')
 
 const botConfig = require('./botconfig.json')
@@ -15,6 +13,7 @@ const bot = new Discord.Client()
 var helpInfo = require('./help.json')
 var commandsPath = require(`path`).join(__dirname, 'cmds')
 var cmds = []
+var startupTime = Date.now()
 
 // Reading Commands
 fs.readdirSync(commandsPath).forEach(function (file) { // For each file read, create a function
@@ -65,7 +64,8 @@ bot.on('message', async message => {
     args: args,
     message: message,
     bot: bot.user,
-    botVar: bot
+    botVar: bot,
+    startup: startupTime
   }
   let cmd = cmds[command.toUpperCase()]
 
