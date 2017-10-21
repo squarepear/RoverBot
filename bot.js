@@ -49,7 +49,7 @@ bot.on('message', async message => {
   if (filter.check(message.content.trim())) {
     console.log(`[FILTER] ${message.author.username}#${message.author.discriminator} cursed`)
     message.delete()
-    message.channel.send(`${message.author.username} said ${filter.clean(message.content, 'o')}`)
+    message.channel.send(`${message.author.username} said \`${filter.clean(message.content, '*')}\``)
     return
   }
 

@@ -765,6 +765,10 @@ lazy-cache@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/lazy-cache/-/lazy-cache-1.0.4.tgz#a1d78fc3a50474cb80845d3b3b6e1da49a446e8e"
 
+leo-profanity@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/leo-profanity/-/leo-profanity-1.2.4.tgz#e5815e5d8b6c30a0e733ad11f5aaaa7f997b8573"
+
 long@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/long/-/long-3.2.0.tgz#d821b7138ca1cb581c172990ef14db200b5c474b"
