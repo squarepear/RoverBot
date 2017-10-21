@@ -46,19 +46,10 @@ bot.on('ready', async () => {
 
 bot.on('message', async message => {
   if (message.author.bot) return
-  if (message.content.trim() !== filter.clean(message.content.trim())) {
-    let wah = '`'
-    for (let i = 0; i < message.content.trim().split(' ').length; i++) {
-      wah += 'W'
-      for (let k = 0; k < message.content.trim().split(' ')[i].length; k++) {
-        wah += 'a'
-      }
-      wah += `h ${(((Math.random() * 20) < 1) && (i !== message.content.trim().split(' ').length - 1)) ? ', ' : ' '}`
-    }
-    wah += '`'
-    console.log(`[FILTER] ${message.author.username} cursed`)
+  if (filter.check(message.content.trim())) {
+    console.log(`[FILTER] ${message.author.username}#${message.author.discriminator} cursed`)
     message.delete()
-    message.channel.send(`${message.author.username} said ${wah}`)
+    message.channel.send(`${message.author.username} said ${filter.clean(message.content, 'o')}`)
     return
   }
 
