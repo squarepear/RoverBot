@@ -33,7 +33,7 @@ this.Command = function (data) {
       // Setting role
       data.message.member.addRole(data.message.guild.roles.find('name', 'Villager'), 'Added friend code')
       data.message.member.removeRole(data.message.guild.roles.find('name', 'Newbie'), 'Added friend code')
-      return ' Your Friend Code is now `' + FC + '`'
+      return ` Your Friend Code is now \`${FC[0]}\``
     } else {
       return ' Invalid Friend Code or User! \n The code format should be `xxxx-xxxx-xxxx`'
     }
