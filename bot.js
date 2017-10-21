@@ -79,6 +79,7 @@ bot.on('message', async message => {
     }
   } else {
     message.channel.send('The command is invalid! Do `!help` if you need help.')
+
   }
 })
 
