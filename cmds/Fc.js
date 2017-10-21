@@ -1,5 +1,5 @@
 var db = require('../dbAccess.js')
-const fcPattern = /\d{4}-\d{4}-\d{4}/
+const fcPattern = /^(\d{4}-\d{4}-\d{4})$/
 
 this.info = {
   aliases: [
