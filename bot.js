@@ -11,6 +11,7 @@ var app = express()
 const bot = new Discord.Client()
 
 var helpInfo = require('./help.json')
+var dbAccess = require('./dbAccess.js')
 var commandsPath = require(`path`).join(__dirname, 'cmds')
 var cmds = []
 var startupTime = Date.now()
@@ -79,7 +80,13 @@ bot.on('message', async message => {
     }
   } else {
     message.channel.send('The command is invalid! Do `!help` if you need help.')
+  }
+})
 
+bot.on('presenceUpdate', (oldMember, newMember) => { // Set town Offline
+  if (newMember.presence.status === 'offline' && dbAccess.setOfflineTown(newMember.id) === 'deleted') {
+    bot.channels.get('370250578703548417').send(`<@${newMember.id}>'s Town has been set offline automatically! *(The user is offline on Discord) \n @here*`)
+    console.log(`[AUTOOFFLINE] ${newMember.name}#${newMember.discriminator} town has been set offline automatically (Discord offline)`)
   }
 })
 
