@@ -3,6 +3,7 @@ console.log('[INFO] I\'m starting up! Please wait until the next message!')
 const botConfig = require('./botconfig.json')
 const Discord = require('discord.js')
 const fs = require('fs')
+const schedule = require('node-schedule')
 var express = require('express')
 var path = require('path')
 var filter = require('leo-profanity')
@@ -27,6 +28,18 @@ fs.readdirSync(commandsPath).forEach(function (file) { // For each file read, cr
   if (cmd.info.helpInfo.show) {
     helpInfo[cmd.info.helpInfo.category.toUpperCase()].commands.push(cmd.info.helpInfo)
   }
+})
+
+JSON.parse(fs.readFileSync('./events.json')).forEach((data) => { // Reading Events from events.json
+  schedule.scheduleJob(data.date, () => {
+    bot.channels.get('370250578703548417').send(new Discord.RichEmbed()
+    .setTitle(data.name)
+    .setColor('RANDOM')
+    .setDescription(data.info)
+    .setFooter(`Current Server Time: ${new Date()}`)
+    )
+  })
+  console.log(`[EVENTS] Loaded ${data.name}`)
 })
 
 // Launching bot
