@@ -21,6 +21,7 @@
     "material-components-web": "^0.23.0",
     "node-cmd": "3.0.0",
     "node-json-db": "^0.7.3",
+    "node-schedule": "^1.2.5",
     "node-wikia": "0.0.3",
     "pug": "^2.0.0-rc.4"
   }
