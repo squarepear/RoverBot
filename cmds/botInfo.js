@@ -23,6 +23,7 @@ this.info = {
 
 // Function to run when user uses this command (Don't change the function name)
 this.Command = function (data) {
+  console.log(`[STATS] ${data.user.username}#${data.user.discriminator} has checked for the bot's status`)
   return new Discord.RichEmbed()
   .setAuthor(`About ${data.botVar.user.username}`, data.botVar.user.avatarURL)
   .setColor('GOLD')

@@ -16,16 +16,15 @@ this.info = {
 
 this.Command = function (data) {
   if (data.args.length === 0) { // If no arguments, do this!
-    let helpMessage = new Discord.RichEmbed()
+    console.log(`[HELP] ${data.user.username} has requested help!`)
+    return new Discord.RichEmbed()
       .setColor('RANDOM')
       .setAuthor('RoverBot Help', data.bot.avatarURL)
-      .setDescription('Help has been sent!')
+      .setDescription('You need help? Take some help!')
       .addField(' Categories', helpCategory)
       .addField('Usage', helpUsage)
       .addField('More help?', helpMore)
       .addField('Author', 'This bot is made by <@237985610084777994> with help from <@189769721653100546> and GitHub Contributors!')
-    console.log(`[HELP] ${data.user.username} has requested help!`)
-    return { embed: helpMessage }
   } else { // If people sends Categories
     switch (data.args[0].toUpperCase()) {
       case 'GENERAL':

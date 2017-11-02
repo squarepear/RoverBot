@@ -85,7 +85,7 @@ bot.on('message', async message => {
 
 bot.on('presenceUpdate', (oldMember, newMember) => { // Set town Offline
   if (newMember.presence.status === 'offline' && dbAccess.setOfflineTown(newMember.id) === 'deleted') {
-    bot.channels.get('370250578703548417').send(`<@${newMember.id}>'s Town has been set offline automatically! *(The user is offline on Discord) \n @here*`)
+    bot.channels.get('371304544006701078').send(`<@${newMember.id}>'s Town has been set offline automatically! *(The user is offline on Discord) \n @here*`)
     console.log(`[AUTOOFFLINE] ${newMember.name}#${newMember.discriminator} town has been set offline automatically (Discord offline)`)
   }
 })

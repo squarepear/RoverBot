@@ -25,7 +25,7 @@ this.Command = function (data) {
     console.log(`[ONLINE] ${data.user.username}#${data.user.discriminator} has set their town online!`)
     data.botVar.channels.get('371304544006701078').send(`<@${data.user.id}>'s town is Online! \n Go ahead and join their town! @here`)
     return 'Your town has been set Online!'
-  } else {
+  } else { // Not alreadyonline nor pushed
     return 'Unknown error! Please contact the developer!'
   }
 }

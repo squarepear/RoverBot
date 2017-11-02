@@ -20,6 +20,7 @@ this.Command = function (data) {
     let userInfo = db.getUserInfo(data.user.id) // getUserInfo of userID and set to userInfo
 
     if (userInfo.FriendCode != null) { // If there is entry, do this
+      console.log(`[FC] ${data.user.username}#${data.user.discriminator} has checked their FC`)
       return `${data.user.username}'s' friend code is \`${userInfo.FriendCode}\`.`
     } else { // If no entry, do this
       return `${data.user.username} haven't set a Friend Code yet!\n To add a friend code, do \`!fc [insert your FC here]\`!`
@@ -33,8 +34,11 @@ this.Command = function (data) {
       // Setting role
       data.message.member.addRole(data.message.guild.roles.find('name', 'Villager'), 'Added friend code')
       data.message.member.removeRole(data.message.guild.roles.find('name', 'Newbie'), 'Added friend code')
+
+      console.log(`[FC] ${data.user.username}#${data.user.discriminator} has set their FC to ${FC[0]}`)
       return ` Your Friend Code is now \`${FC[0]}\``
     } else {
+      console.log(`[FC] ${data.user.username}#${data.user.discriminator} failed to set their FC!`)
       return ' Invalid Friend Code or User! \n The code format should be `xxxx-xxxx-xxxx`'
     }
   }

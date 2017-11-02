@@ -24,7 +24,7 @@ this.Command = function (data) {
   } else if (a === 'deleted') {
     console.log(`[OFFLINE] ${data.user.username}#${data.user.discriminator} has set their town offline!`)
     return 'Your town has been set Offline!'
-  } else {
+  } else { // Not online nor deleted
     return 'Unknown error! Please contact the developer!'
   }
 }
