@@ -47,5 +47,117 @@
     "name": "Fishing Tourney",
     "info": "Chip will be waiting for your catch of the day near the Town Hall. If you speak to him first, you will know what your competition is. He will award you a prize if you break the current record, so enter often! At the end of the day, whoever has the biggest fish will be awarded the Fish Trophy the following day.",
     "date": "0 0 0 8 4 *"
+  },{
+    "name": "Bunny Day",
+    "info": "It's Bunny day! Meet Zipper T. Bunny at the Town Hall and he will tell you all about the fun that he has set up. buried around town are eggs and gold foil. You don't know which ones until you dig them up. If you dig up some gold foil, take it to Zipper T. Bunny for some special furniture.",
+    "date": "0 0 0 16 4 *"
+  },{
+    "name": "Nature Day",
+    "info": "Go and meet Tortimer at the Town Hall to find out all about this holiday. Don't forget your gift too.",
+    "date": "0 0 0 22 4 *"
+  },{
+    "name": "Flea Market",
+    "info": "It doesn't matter if it has a little dust on it, or even a few cobwebs. If you are in your house today, townies will come by looking for a deal. So pull out those old clothes and fossils from your closet, because they are bringing bells. If you have been eying that one special item in one of your townies homes, today is the day to visit them too. If you catch them in their house, speak to them and then choose the item you would like to make an offer on. If you are lucky they will be willing to part with it. Just remember to bring your wallet.",
+    "date": "0 0 0 23 4 *"
+  },{
+    "name": "Mother's Day",
+    "info": "Today is the day that you spend with your mother. Send her flowers, gifts, let her know that she is special.",
+    "date": "0 0 0 14 5 *"
+  },{
+    "name": "Fishing Tourney",
+    "info": "Chip will be waiting for your catch of the day near the Town Hall. If you speak to him first, you will know what your competition is. He will award you a prize if you break the current record, so enter often! At the end of the day, whoever has the biggest fish will be awarded the Fish Trophy the following day.",
+    "date": "0 0 0 20 5 *"
+  },{
+    "name": "Flea Market",
+    "info": "It doesn't matter if it has a little dust on it, or even a few cobwebs. If you are in your house today, townies will come by looking for a deal. So pull out those old clothes and fossils from your closet, because they are bringing bells. If you have been eying that one special item in one of your townies homes, today is the day to visit them too. If you catch them in their house, speak to them and then choose the item you would like to make an offer on. If you are lucky they will be willing to part with it. Just remember to bring your wallet.",
+    "date": "0 0 0 28 5 *"
+  },{
+    "name": "Bug Off",
+    "info": "The squeamish may have difficulties landing the biggest bug to win the Bug Trophy. But Nat certainly doesn't have any qualms about pocketing the catches of the day. He will let you know how you are progressing as you take each bug to him for identification.",
+    "date": "0 0 0 17 6 *"
+  },{
+    "name": "Father's Day",
+    "info": "Today is the day to tell your dad that you love him. He's always been there for you. Don't forget to get that gift too.",
+    "date": "0 0 0 18 6 *"
+  },{
+    "name": "Flea Market",
+    "info": "It doesn't matter if it has a little dust on it, or even a few cobwebs. If you are in your house today, townies will come by looking for a deal. So pull out those old clothes and fossils from your closet, because they are bringing bells. If you have been eying that one special item in one of your townies homes, today is the day to visit them too. If you catch them in their house, speak to them and then choose the item you would like to make an offer on. If you are lucky they will be willing to part with it. Just remember to bring your wallet.",
+    "date": "0 0 0 28 6 *"
+  },{
+    "name": "Bug Off",
+    "info": "The squeamish may have difficulties landing the biggest bug to win the Bug Trophy. But Nat certainly doesn't have any qualms about pocketing the catches of the day. He will let you know how you are progressing as you take each bug to him for identification.",
+    "date": "0 0 9 15 7 *"
+  },{
+    "name": "Flea Market",
+    "info": "It doesn't matter if it has a little dust on it, or even a few cobwebs. If you are in your house today, townies will come by looking for a deal. So pull out those old clothes and fossils from your closet, because they are bringing bells. If you have been eying that one special item in one of your townies homes, today is the day to visit them too. If you catch them in their house, speak to them and then choose the item you would like to make an offer on. If you are lucky they will be willing to part with it. Just remember to bring your wallet.",
+    "date": "0 0 0 23 7 *"
+  },{
+    "name": "Firework Show",
+    "info": "Every Sunday in August will light up the night sky with wonderful displays. Sit back, relax and enjoy the festivities as the fireworks are set off.",
+    "date": "0 0 19 * 8 7"
+  },{
+    "name": "Bug off",
+    "info": "The squeamish may have difficulties landing the biggest bug to win the Bug Trophy. But Nat certainly doesn't have any qualms about pocketing the catches of the day. He will let you know how you are progressing as you take each bug to him for identification",
+    "date": "0 0 9 19 8 *"
+  },{
+    "name": "Labor Day",
+    "info": "Don't forget to get a picnic basket from Tortimer! You may have the day off, but other working animals in your town don't!",
+    "date": "0 0 0 4 9 *"
+  },{
+    "name": "Bug Off",
+    "info": "The squeamish may have difficulties landing the biggest bug to win the Bug Trophy. But Nat certainly doesn't have any qualms about pocketing the catches of the day. He will let you know how you are progressing as you take each bug to him for identification.",
+    "date": "0 0 9 16 9 *"
+  },{
+    "name": "Flea Market",
+    "info": "It doesn't matter if it has a little dust on it, or even a few cobwebs. If you are in your house today, townies will come by looking for a deal. So pull out those old clothes and fossils from your closet, because they are bringing bells. If you have been eying that one special item in one of your townies homes, today is the day to visit them too. If you catch them in their house, speak to them and then choose the item you would like to make an offer on. If you are lucky they will be willing to part with it. Just remember to bring your wallet.",
+    "date": "0 0 0 24 9 *"
+  },{
+    "name": "Autumn Moon",
+    "info": "The moon is in full view and at it's brightest tonight. Go to see Tortimer for more on this occasion and as always, pick up your gift for the event.",
+    "date": "0 0 0 5 10 *"
+  },{
+    "name": "Explorer's Day",
+    "info": "Today is a special day. Talk to Tortimer and he will explain about the Founding Fathers of your town. Listen long enough and he'll give you an odd gift commemorating them.",
+    "date": "0 0 0 9 10 *"
+  },{
+    "name": "Fishing Tourney",
+    "info": "Chip will be waiting for your catch of the day near the Town Hall. If you speak to him first, you will know what your competition is. He will award you a prize if you break the current record, so enter often! At the end of the day, whoever has the biggest fish will be awarded the Fish Trophy the following day.",
+    "date": "0 0 0 14 10 *"
+  },{
+    "name": "Flea Market",
+    "info": "It doesn't matter if it has a little dust on it, or even a few cobwebs. If you are in your house today, townies will come by looking for a deal. So pull out those old clothes and fossils from your closet, because they are bringing bells. If you have been eying that one special item in one of your townies homes, today is the day to visit them too. If you catch them in their house, speak to them and then choose the item you would like to make an offer on. If you are lucky they will be willing to part with it. Just remember to bring your wallet.",
+    "date": "0 0 0 22 10 *"
+  },{
+    "name": "Halloween",
+    "info": "Trick or treat!! Break out the Smarties and the SweetTarts, cause little Jimmy's gonna come a-knockin'! So you better fill his goody bag full of... well... goodies, or he may force you to have a good whiff of his hot sweaty bunions. HINT: Start buying your candy early or you'll be tricked!",
+    "date": "0 0 0 31 10 *"
+  },{
+    "name": "Mushroom Season",
+    "info": "For the whole of the month of November, you will find mushrooms growing by trees around you town. Pick them and you may find a special piece of Mush furniture. Decorate your house with your new found items. All other mushrooms can be sold to Nook. Go hunt them mushrooms!",
+    "date": "0 0 0 * 11 *"
+  },{
+    "name": "Fishing Tourney",
+    "info": "Chip will be waiting for your catch of the day near the Town Hall. If you speak to him first, you will know what your competition is. He will award you a prize if you break the current record, so enter often! At the end of the day, whoever has the biggest fish will be awarded the Fish Trophy the following day.",
+    "date": "0 0 0 18 11 *"
+  },{
+    "name": "Harvest Festival",
+    "info": "Get out those utensils and loosen those belt buckles, because today the biggest turkey dinner of the year is served! Mayor is working non-stop to make sure this year’s meal will be the best ever! But where will the animals find a turkey to join them for dinner? Check with Mayor Tortimer to see what he has planned (taking your axe with you is optional). This could be the start of a big Thanksgiving adventure. HINT: Be nice to the special invited guest because he will be nice to you!",
+    "date": "0 0 15 23 11 *"
+  },{
+    "name": "Flea Market",
+    "info": "It doesn’t matter if it has a little dust on it, or even a few cobwebs. If you are in your house today, townies will come by looking for a deal. So pull out those old clothes and fossils from your closet, because they are bringing bells. If you have been eyeing that one special item in one of your townies homes, today is the day to visit them too. If you catch them in their house, speak to them and then choose the item you would like to make an offer on. If you are lucky they will be willing to part with it. Just remember to bring your wallet.",
+    "date": "0 0 0 26 11 *"
+  },{
+    "name": "Fishing Tourney",
+    "info": "Chip will be waiting for your catch of the day near the Town Hall. If you speak to him first, you will know what your competition is. He will award you a prize if you break the current record, so enter often! At the end of the day, whoever has the biggest fish will be awarded the Fish Trophy the following day.",
+    "date": "0 0 0 10 12 *"
+  },{
+    "name": "The Night that Jingle Comes to Town",
+    "info": "Since Rudolph always seems to get all the attention, Jingle tries to one-up him by giving out free furniture. Talk to Jingle from 8pm on December 24th to 12am on December 25th and he will give you a piece of rare Jingle Series furniture. You can get the whole series but you will have to be clever. After you receive a piece of furniture you can walk away, change the accessory that you are wearing, and talk to Jingle again. He may not recognize you and will give you another piece of furniture. HINT: Stock up on your shirt collection!",
+    "date": "0 0 20 24 12 *"
+  },{
+    "name": "New Year's Eve Countdown",
+    "info": "Join your townies at the Town Hall for the New Year's Countdown. Tortimer will be there to give you as many party poppers as you want. So stay up late, and enjoy the fireworks!",
+    "date": "0 0 6 31 12 *"
   }
 ]
