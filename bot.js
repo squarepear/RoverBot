@@ -32,12 +32,20 @@ fs.readdirSync(commandsPath).forEach(function (file) { // For each file read, cr
 
 JSON.parse(fs.readFileSync('./events.json')).forEach((data) => { // Reading Events from events.json
   schedule.scheduleJob(data.date, () => {
+    let color
+    if (data.color) {
+      color = data.color
+    } else {
+      color = 'RANDOM'
+    }
+
     bot.channels.get('370250578703548417').send(new Discord.RichEmbed()
     .setTitle(data.name)
-    .setColor('RANDOM')
+    .setColor(color)
     .setDescription(data.info)
     .setFooter(`Current Server Time: ${new Date()}`)
     )
+    console.log(`[EVENTS] Running ${data.name} on ${new Date()}`)
   })
   console.log(`[EVENTS] Loaded ${data.name}`)
 })
@@ -89,7 +97,12 @@ bot.on('message', async message => {
     if (result != null) { // There should be always a result on each command.
       message.channel.send(result)
     } else {
-      message.channel.send('`Great. This is RoverBot speaking. Now whoever sends command just broke my brain. Please mention Server Programmer to fix this otherwise I can\'t continue working.`')
+      message.channel.send(new Discord.RichEmbed()
+      .setTitle('ERROR')
+      .setURL('https://github.com/rey2952/RoverBot/issues')
+      .setColor('DARK_RED')
+      .addField(`Returned Value`, `\`result\``)
+      .addField('What should I do?', 'If you see this and if it is unintentional, please report this to the bot developer or create an issue on Github!'))
     }
   } else {
     message.channel.send('The command is invalid! Do `!help` if you need help.')
@@ -99,7 +112,7 @@ bot.on('message', async message => {
 bot.on('presenceUpdate', (oldMember, newMember) => { // Set town Offline
   if (newMember.presence.status === 'offline' && dbAccess.setOfflineTown(newMember.id) === 'deleted') {
     bot.channels.get('371304544006701078').send(`<@${newMember.id}>'s Town has been set offline automatically! *(The user is offline on Discord) \n @here*`)
-    console.log(`[AUTOOFFLINE] ${newMember.name}#${newMember.discriminator} town has been set offline automatically (Discord offline)`)
+    console.log(`[AUTOOFFLINE] ${newMember.user.username}#${newMember.user.discriminator} town has been set offline automatically (Discord offline)`)
   }
 })
 

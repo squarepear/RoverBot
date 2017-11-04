@@ -2,6 +2,7 @@
   {
     "name": "New Year's Day",
     "info": "It's time to make sure that your new year starts off the right way. Talk to Tortimer at the Town Hall for your one of a kind New Year shirt!",
+    "color": [255, 255, 255],
     "date": "0 0 0 1 1 *"
   },{
     "name": "Fishing Tourney",
@@ -130,10 +131,12 @@
   },{
     "name": "Halloween",
     "info": "Trick or treat!! Break out the Smarties and the SweetTarts, cause little Jimmy's gonna come a-knockin'! So you better fill his goody bag full of... well... goodies, or he may force you to have a good whiff of his hot sweaty bunions. HINT: Start buying your candy early or you'll be tricked!",
+    "color": "ORANGE",
     "date": "0 0 0 31 10 *"
   },{
     "name": "Mushroom Season",
     "info": "For the whole of the month of November, you will find mushrooms growing by trees around you town. Pick them and you may find a special piece of Mush furniture. Decorate your house with your new found items. All other mushrooms can be sold to Nook. Go hunt them mushrooms!",
+    "color": "DARKER_GREY",
     "date": "0 0 0 * 11 *"
   },{
     "name": "Fishing Tourney",

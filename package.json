@@ -24,5 +24,11 @@
     "node-schedule": "^1.2.5",
     "node-wikia": "0.0.3",
     "pug": "^2.0.0-rc.4"
+  },
+  "devDependencies": {
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1"
   }
 }
