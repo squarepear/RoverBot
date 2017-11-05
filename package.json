@@ -5,7 +5,7 @@
   "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node bot.js",
+    "start": "supervisor bot.js",
     "supervise": "supervisor bot.js"
   },
   "engines": {
@@ -26,6 +26,7 @@
     "pug": "^2.0.0-rc.4"
   },
   "devDependencies": {
+    "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",

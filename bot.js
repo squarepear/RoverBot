@@ -39,7 +39,7 @@ JSON.parse(fs.readFileSync('./events.json')).forEach((data) => { // Reading Even
       color = 'RANDOM'
     }
 
-    bot.channels.get('370250578703548417').send(new Discord.RichEmbed()
+    bot.channels.get(botConfig.channelID.event).send(new Discord.RichEmbed()
     .setTitle(data.name)
     .setColor(color)
     .setDescription(data.info)
@@ -68,8 +68,14 @@ bot.on('ready', async () => {
 bot.on('message', async message => {
   if (message.author.bot) return
   if (filter.check(message.content.trim())) {
-    console.log(`[FILTER] ${message.author.username}#${message.author.discriminator} cursed`)
+    console.log(`[FILTER] ${message.author.username}#${message.author.discriminator} cursed. Message: ${message}`)
     message.delete()
+    bot.channels.get(botConfig.channelID.log).send(new Discord.RichEmbed()
+    .setColor('ORANGE')
+    .setAuthor(message.author.username + '#' + message.author.discriminator, message.author.avatarURL)
+    .setDescription(`Message sent by <@${message.author.id}> has been replaced in #${message.channel.name}`)
+    .addField('Message', message)
+    .setFooter(`ID: ${message.author.id} | ${new Date()}`))
     message.channel.send(`${message.author.username} said \`${filter.clean(message.content, '*')}\``)
     return
   }
@@ -111,7 +117,7 @@ bot.on('message', async message => {
 
 bot.on('presenceUpdate', (oldMember, newMember) => { // Set town Offline
   if (newMember.presence.status === 'offline' && dbAccess.setOfflineTown(newMember.id) === 'deleted') {
-    bot.channels.get('371304544006701078').send(`<@${newMember.id}>'s Town has been set offline automatically! *(The user is offline on Discord) \n @here*`)
+    bot.channels.get(botConfig.channelID.townAnnouncement).send(`<@${newMember.id}>'s Town has been set offline automatically! *(The user is offline on Discord) \n @here*`)
     console.log(`[AUTOOFFLINE] ${newMember.user.username}#${newMember.user.discriminator} town has been set offline automatically (Discord offline)`)
   }
 })

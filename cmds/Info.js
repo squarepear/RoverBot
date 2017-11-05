@@ -62,7 +62,7 @@ Start constructing returns!
 
   return new Discord.RichEmbed()
   .setColor(`GREEN`)
-  .setAuthor(`${user.username}'s Details`, user.avatarURL)
+  .setAuthor(`${user.username}'s Details`, user.displayAvatarURL)
   .addField(`ACCF Town Info`, constructedTownInfo)
 }
 
