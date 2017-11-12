@@ -43,7 +43,7 @@ JSON.parse(fs.readFileSync('./events.json')).forEach((data) => { // Reading Even
     .setTitle(data.name)
     .setColor(color)
     .setDescription(data.info)
-    .setFooter(`Current Server Time: ${new Date()}`)
+    .setFooter(`Current Server Time: ${new Date().toString()}`)
     )
     console.log(`[EVENTS] Running ${data.name} on ${new Date()}`)
   })
@@ -68,13 +68,13 @@ bot.on('ready', async () => {
 bot.on('message', async message => {
   if (message.author.bot) return
   if (filter.check(message.content.trim())) {
-    console.log(`[FILTER] ${message.author.username}#${message.author.discriminator} cursed. Message: ${message}`)
+    console.log(`[FILTER] ${message.author.username}#${message.author.discriminator} cursed. Message: ${filter.clean(message.content, '*')}`)
     message.delete()
     bot.channels.get(botConfig.channelID.log).send(new Discord.RichEmbed()
     .setColor('ORANGE')
     .setAuthor(message.author.username + '#' + message.author.discriminator, message.author.avatarURL)
     .setDescription(`Message sent by <@${message.author.id}> has been replaced in #${message.channel.name}`)
-    .addField('Message', message)
+    .addField('Message', filter.clean(message.content, '*'))
     .setFooter(`ID: ${message.author.id} | ${new Date()}`))
     message.channel.send(`${message.author.username} said \`${filter.clean(message.content, '*')}\``)
     return
