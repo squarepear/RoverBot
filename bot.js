@@ -98,17 +98,18 @@ bot.on('message', async message => {
   let cmd = cmds[command.toUpperCase()]
 
   if (cmd != null) {
-    var result = cmd.Command(data) // Send data to each handler. Returns with var `result`
+    let result = cmd.Command(data) // Send data to each handler. Returns with var `result`
 
     if (result != null) { // There should be always a result on each command.
       message.channel.send(result)
     } else {
       message.channel.send(new Discord.RichEmbed()
-      .setTitle('ERROR')
+      .setTitle('❌ Something isn\'t looking right...')
       .setURL('https://github.com/rey2952/RoverBot/issues')
+      .setDescription('Your command returned something weird! 😱')
       .setColor('DARK_RED')
-      .addField(`Returned Value`, `\`result\``)
-      .addField('What should I do?', 'If you see this and if it is unintentional, please report this to the bot developer or create an issue on Github!'))
+      .addField(`Returned Value`, `\`${result}\``)
+      .addField('What should I do?', 'If you see this, please report this to the bot developer or create an issue on GitHub by clicking the title of this text!'))
     }
   } else {
     message.channel.send('The command is invalid! Do `!help` if you need help.')
@@ -120,6 +121,39 @@ bot.on('presenceUpdate', (oldMember, newMember) => { // Set town Offline
     bot.channels.get(botConfig.channelID.townAnnouncement).send(`<@${newMember.id}>'s Town has been set offline automatically! *(The user is offline on Discord) \n @here*`)
     console.log(`[AUTOOFFLINE] ${newMember.user.username}#${newMember.user.discriminator} town has been set offline automatically (Discord offline)`)
   }
+})
+
+/*
+Logging things should start from here. Send to channel `logs` please
+*/
+
+bot.on('guildMemberAdd', async guildMember => { // When someone joins a guild that Bot joins
+  if (!botConfig.log) return
+
+  let user = guildMember.user
+  let sendData = new Discord.RichEmbed()
+  .setColor([35, 209, 96])
+  .setAuthor('Member Joined', user.displayAvatarURL)
+  .setDescription(`<@${user.id}> ${user.username}#${user.discriminator}`)
+  .setFooter(`UserID: ${user.id} | ${new Date()}`)
+
+  bot.channels.get(botConfig.channelID.log).send(sendData)
+})
+
+bot.on('guildBanAdd', async (guild, user) => {
+  if (!botConfig.log) return
+
+  let sendData = new Discord.RichEmbed()
+  .setColor(`RED`)
+  .setAuthor('Member Banned', user.displayAvatarURL)
+  .setDescription(`<@${user.id}> ${user.username}#${user.discriminator}`)
+  .setFooter(`UserID: ${user.id} | ${new Date()}`)
+
+  bot.channels.get(botConfig.channelID.log).send(sendData)
+})
+
+bot.on('guildMemberUpdate', async (oldMember, newMember) => {
+  // TODO: Detect Changes between old and new, Output the corresponding RichEmbed.
 })
 
 /*
@@ -137,3 +171,9 @@ app.use('/github/update', require('./routes/githubupdate'))
 // Initalize!
 app.listen(3000) // Auto Update GitHub
 bot.login(botConfig.token) // Bot Itself
+
+// On exit
+
+process.on('exit', (code) => {
+  console.log(`[EXIT] About to exit with code ${code}`)
+})
