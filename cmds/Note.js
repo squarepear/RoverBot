@@ -22,7 +22,7 @@ this.Command = function (data) {
       if (usrinfo.Note != null) {
         return usr.username + "'s Note is: `" + usrinfo.Note + '`'
       } else {
-        return ' ' + usr.username + ' has not set a Note yet'
+        return ' ' + usr.username + ' hasn\'t set a Note yet'
       }
     } else if (data.message.mentions.users.first() == null && data.args.length > 0) {
       db.setUserInfo(data.user.id, {'Note': data.args.join(' ')})
@@ -33,12 +33,12 @@ this.Command = function (data) {
       if (usrinfo.Note != null) {
         return usr.username + "'s Note is: `" + usrinfo.Note + '`'
       } else {
-        return ' ' + usr.username + ' has not set a Note yet'
+        return ' ' + usr.username + ' hasn\'t set a Note yet'
       }
     } else {
       return 'Usage: `!note [note]` or `!note [mention]`'
     }
   } catch (e) {
-    return ' ' + data.user.username + ' has not set a Note yet'
+    return ' ' + data.user.username + ' hasn\'t set a Note yet'
   }
 }

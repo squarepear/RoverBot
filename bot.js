@@ -12,6 +12,7 @@ var app = express()
 const bot = new Discord.Client()
 
 var helpInfo = require('./help.json')
+var messageReactions = require('./messageReactions.json');
 var dbAccess = require('./dbAccess.js')
 var commandsPath = require(`path`).join(__dirname, 'cmds')
 var cmds = []
@@ -66,7 +67,15 @@ bot.on('ready', async () => {
 // on message
 
 bot.on('message', async message => {
+
   if (message.author.bot) return
+
+  Object.keys(messageReactions).forEach(key => {
+    if (new RegExp(key, 'g').test(message.content)) {
+      message.react(messageReactions[key])
+    }
+  })
+
   if (filter.check(message.content.trim())) {
     console.log(`[FILTER] ${message.author.username}#${message.author.discriminator} cursed. Message: ${filter.clean(message.content, '*')}`)
     message.delete()
@@ -116,10 +125,28 @@ bot.on('message', async message => {
   }
 })
 
+bot.on('messageReactionAdd', (reaction, user) => {
+  if (user.bot) return
+  if (reaction.emoji.name == '💾') {
+    if (reaction.message.embeds.length == 0) {
+      let embed = new Discord.RichEmbed()
+      .setTitle(`Saved message from ${reaction.message.author.username}#${reaction.message.author.discriminator}`)
+      .setDescription(reaction.message.content)
+      .setFooter('Just your friendly neighborhood bot here')
+      .setTimestamp()
+      user.send(embed).then( message => {
+        message.pin()
+      })
+    } else {
+      reaction.message.channel.send('I don\'t support saving embeds yet 😞');
+    }
+  }
+})
+
 bot.on('presenceUpdate', (oldMember, newMember) => { // Set town Offline
   if (newMember.presence.status === 'offline' && dbAccess.setOfflineTown(newMember.id) === 'deleted') {
     bot.channels.get(botConfig.channelID.townAnnouncement).send(`<@${newMember.id}>'s Town has been set offline automatically! *(The user is offline on Discord) \n @here*`)
-    console.log(`[AUTOOFFLINE] ${newMember.user.username}#${newMember.user.discriminator} town has been set offline automatically (Discord offline)`)
+    console.log(`[AUTOOFFLINE] ${newMember.user.username}#${newMember.user.discriminator}'s town has been set offline automatically (Discord offline)`)
   }
 })
 

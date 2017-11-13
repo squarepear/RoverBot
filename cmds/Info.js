@@ -33,25 +33,25 @@ Start constructing returns!
   if (userInfo.Name) { // Character Name
     constructedTownInfo += `**Character Name**: ${userInfo.Name}\n`
   } else {
-    constructedTownInfo += `**Character Name**: User haven't set their Character Name!\n`
+    constructedTownInfo += `**Character Name**: User hasn't set their Character Name!\n`
   }
 
   if (userInfo.Town) { // Town Name
     constructedTownInfo += `**Town Name**: ${userInfo.Town}\n`
   } else {
-    constructedTownInfo += `**Town Name**: User haven't set their Town Name!\n`
+    constructedTownInfo += `**Town Name**: User hasn't set their Town Name!\n`
   }
 
   if (userInfo.FriendCode) { // Friend Code
     constructedTownInfo += `**Friend Code**: \`${userInfo.FriendCode}\`\n`
   } else {
-    constructedTownInfo += `**Friend Code**: User haven't set their Friend Code!\n`
+    constructedTownInfo += `**Friend Code**: User hasn't set their Friend Code!\n`
   }
 
   if (userInfo.Fruit) { // Fruits
     constructedTownInfo += `**Town Fruit**: ${userInfo.Fruit}\n`
   } else {
-    constructedTownInfo += `**Town Fruit**: User haven't set their Town Fruit!\n`
+    constructedTownInfo += `**Town Fruit**: User hasn't set their Town Fruit!\n`
   }
 
   if (userInfo.Note) {
@@ -65,31 +65,3 @@ Start constructing returns!
   .setAuthor(`${user.username}'s Details`, user.displayAvatarURL)
   .addField(`ACCF Town Info`, constructedTownInfo)
 }
-
-  // try {
-  //   if (data.args.length === 1) {
-  //     if (data.message.mentions.users.first() != null) {
-  //       let usr = data.message.mentions.users.first()
-  //       let usrinfo = db.getUserInfo(usr.id)
-  //       if (usrinfo.FriendCode != null) {
-  //         return usr.username + "'s info is: \n Friend Code: `" + usrinfo.FriendCode + '` \n Name: `' + usrinfo.Name + '` \n Town: `' + usrinfo.Town + '` \n Fruit: `' + usrinfo.Fruit + '` \n Note: `' + usrinfo.Note + '`'
-  //       } else {
-  //         return ' ' + usr.username + ' has not set a Friend Code yet'
-  //       }
-  //     } else {
-  //       return 'Usage: `!info [mention]`'
-  //     }
-  //   } else if (data.args.length === 0) {
-  //     let usr = data.user
-  //     let usrinfo = db.getUserInfo(usr.id)
-  //     if (usrinfo.FriendCode != null) {
-  //       return usr.username + "'s info is: \n Friend Code: `" + usrinfo.FriendCode + '` \n Name: `' + usrinfo.Name + '` \n Town: `' + usrinfo.Town + '` \n Fruit: `' + usrinfo.Fruit + '` \n Note: `' + usrinfo.Note + '`'
-  //     } else {
-  //       return ' ' + usr.username + ' has not set a Friend Code yet'
-  //     }
-  //   } else {
-  //     return 'Usage: `!info [mention]`'
-  //   }
-  // } catch (e) {
-  //   return ' The user hasn\'t given any information to the bot!'
-  // }
