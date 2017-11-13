@@ -71,7 +71,7 @@ bot.on('message', async message => {
   if (message.author.bot) return
 
   Object.keys(messageReactions).forEach(key => {
-    if (new RegExp(key, 'g').test(message.content)) {
+    if (new RegExp(key, 'i').test(message.content)) {
       message.react(messageReactions[key])
     }
   })
