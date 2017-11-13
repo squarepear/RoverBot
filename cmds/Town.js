@@ -21,7 +21,7 @@ this.Command = function (data) {
     if (usrinfo.Town != null) {
       return usr.username + "'s Town is: `" + usrinfo.Town + '`'
     } else {
-      return ' ' + usr.username + ' has not set a Town Name yet!'
+      return ' ' + usr.username + ' hasn\'t set a Town Name yet!'
     }
   } else if (data.args.length === 1 && data.message.mentions.users.first() != null) {
     usr = data.message.mentions.users.first()
@@ -29,7 +29,7 @@ this.Command = function (data) {
     if (usrinfo.Town != null) {
       return usr.username + "'s Town is: `" + usrinfo.Town + '`'
     } else {
-      return ' ' + usr.username + ' has not set a Town Name yet'
+      return ' ' + usr.username + ' hasn\'t set a Town Name yet'
     }
   } else if (data.args.join(' ').length <= 8 && data.message.mentions.users.first() == null) {
     db.setUserInfo(data.user.id, {'Town': data.args.join(' ')})

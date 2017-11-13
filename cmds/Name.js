@@ -21,7 +21,7 @@ this.Command = function (data) {
     if (usrinfo.Name != null) {
       return usr.username + "'s Name is: `" + usrinfo.Name + '`'
     } else {
-      return ' ' + usr.username + ' has not set a Name yet'
+      return ' ' + usr.username + ' hasn\'t set a Name yet'
     }
   } else if (data.args.length === 1 && data.message.mentions.users.first() != null) {
     let usr = data.message.mentions.users.first()
@@ -30,7 +30,7 @@ this.Command = function (data) {
     if (usrinfo.Name != null) {
       return usr.username + "'s Name is: `" + usrinfo.Name + '`'
     } else {
-      return ' ' + usr.username + ' has not set a Name yet'
+      return ' ' + usr.username + ' hasn\'t set a Name yet'
     }
   } else if (data.args.join(' ').length <= 8 && data.message.mentions.users.first() == null) {
     db.setUserInfo(data.user.id, {'Name': data.args.join(' ')})
