@@ -62,32 +62,32 @@ bot.on('ready', async () => {
     console.log('[ERROR] Can\'t create invite link! Am I a normal user?')
     console.log(e.stack)
   }
+  bot.user.setGame(`Do ${botConfig.prefix}help to get help!`);
 })
 
 // on message
 
 bot.on('message', async message => {
-
   if (message.author.bot) return
+
+  if (filter.check(message.content.trim())) {
+    console.log(`[FILTER] ${message.author.username}#${message.author.discriminator} cursed. Message: ${filter.clean(message.content, '*')}`)
+    bot.channels.get(botConfig.channelID.log).send(new Discord.RichEmbed()
+    //setThumbnail(message.author.displayAvatarURL)
+    .setAuthor(`${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
+    .setDescription(`<@${message.author.id}> just said \`${filter.clean(message.content, '*')}\` in <#${message.channel.id}>`)
+    .setColor('ORANGE')
+    .setFooter(`Current Server Time: ${new Date().toString()}`))
+    message.channel.send(`${message.author.username} said \`${filter.clean(message.content, '*')}\``)
+    message.delete()
+    return
+  }
 
   Object.keys(messageReactions).forEach(key => {
     if (new RegExp(key, 'i').test(message.content)) {
       message.react(messageReactions[key])
     }
   })
-
-  if (filter.check(message.content.trim())) {
-    console.log(`[FILTER] ${message.author.username}#${message.author.discriminator} cursed. Message: ${filter.clean(message.content, '*')}`)
-    message.delete()
-    bot.channels.get(botConfig.channelID.log).send(new Discord.RichEmbed()
-    .setColor('ORANGE')
-    .setAuthor(message.author.username + '#' + message.author.discriminator, message.author.avatarURL)
-    .setDescription(`Message sent by <@${message.author.id}> has been replaced in #${message.channel.name}`)
-    .addField('Message', filter.clean(message.content, '*'))
-    .setFooter(`ID: ${message.author.id} | ${new Date()}`))
-    message.channel.send(`${message.author.username} said \`${filter.clean(message.content, '*')}\``)
-    return
-  }
 
   // bot message or not start with prefix = return
   if (!message.content.startsWith(botConfig.prefix)) return
@@ -119,6 +119,7 @@ bot.on('message', async message => {
       .setColor('DARK_RED')
       .addField(`Returned Value`, `\`${result}\``)
       .addField('What should I do?', 'If you see this, please report this to the bot developer or create an issue on GitHub by clicking the title of this text!'))
+      .setFooter(`Current Server Time: ${new Date().toString()}`)
     }
   } else {
     message.channel.send('The command is invalid! Do `!help` if you need help.')
@@ -132,8 +133,7 @@ bot.on('messageReactionAdd', (reaction, user) => {
       let embed = new Discord.RichEmbed()
       .setTitle(`Saved message from ${reaction.message.author.username}#${reaction.message.author.discriminator}`)
       .setDescription(reaction.message.content)
-      .setFooter('Just your friendly neighborhood bot here')
-      .setTimestamp()
+      .setFooter(`Current Server Time: ${new Date().toString()}`)
       user.send(embed).then( message => {
         message.pin()
       })
