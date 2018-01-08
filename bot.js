@@ -12,7 +12,7 @@ var app = express()
 const bot = new Discord.Client()
 
 var helpInfo = require('./help.json')
-var messageReactions = require('./messageReactions.json');
+var messageReactions = require('./messageReactions.json')
 var dbAccess = require('./dbAccess.js')
 var commandsPath = require(`path`).join(__dirname, 'cmds')
 var cmds = []
@@ -62,7 +62,7 @@ bot.on('ready', async () => {
     console.log('[ERROR] Can\'t create invite link! Am I a normal user?')
     console.log(e.stack)
   }
-  bot.user.setGame(`Do ${botConfig.prefix}help to get help!`);
+  bot.user.setGame(`Do ${botConfig.prefix}help to get help!`)
 })
 
 // on message
@@ -73,7 +73,7 @@ bot.on('message', async message => {
   if (filter.check(message.content.trim())) {
     console.log(`[FILTER] ${message.author.username}#${message.author.discriminator} cursed. Message: ${filter.clean(message.content, '*')}`)
     bot.channels.get(botConfig.channelID.log).send(new Discord.RichEmbed()
-    //setThumbnail(message.author.displayAvatarURL)
+    // setThumbnail(message.author.displayAvatarURL)
     .setAuthor(`${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
     .setDescription(`<@${message.author.id}> just said \`${filter.clean(message.content, '*')}\` in <#${message.channel.id}>`)
     .setColor('ORANGE')
@@ -128,17 +128,17 @@ bot.on('message', async message => {
 
 bot.on('messageReactionAdd', (reaction, user) => {
   if (user.bot) return
-  if (reaction.emoji.name == '💾') {
-    if (reaction.message.embeds.length == 0) {
+  if (reaction.emoji.name === '💾') {
+    if (reaction.message.embeds.length === 0) {
       let embed = new Discord.RichEmbed()
       .setTitle(`Saved message from ${reaction.message.author.username}#${reaction.message.author.discriminator}`)
       .setDescription(reaction.message.content)
       .setFooter(`Current Server Time: ${new Date().toString()}`)
-      user.send(embed).then( message => {
+      user.send(embed).then(message => {
         message.pin()
       })
     } else {
-      reaction.message.channel.send('I don\'t support saving embeds yet 😞');
+      reaction.message.channel.send('I don\'t support saving embeds yet 😞')
     }
   }
 })
