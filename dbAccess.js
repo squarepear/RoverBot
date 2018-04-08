@@ -23,6 +23,29 @@ this.getUserInfo = (userID, onFind) => {
   })
 }
 
+this.getUserInfoFromFC = (fc, onFind) => {
+  User.findOne({ 'fc' : fc }, (err, user) => {
+    if (err) {
+      throw err
+    }
+    if (!user) {
+      user = new User()
+      user.discordId = userID
+      user.save(function (err) {
+        if (err) {
+          throw err
+        }
+      })
+    }
+
+    if (onFind) {
+      onFind[0](user, onFind[1])
+    } else {
+      return user
+    }
+  })
+}
+
 this.setUserInfo = (userID, info) => {
     User.findOneAndUpdate({ 'discordId' : userID }, info, (err, resp) => {
       if (err) {

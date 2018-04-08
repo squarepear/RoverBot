@@ -22,7 +22,8 @@ this.Command = function (data) {
   let regexCheck = fcPattern.test(data.args.join(' ')) // Boolean. Check if message contains a correct FC
   if (regexCheck) { // If true
     let FC = fcPattern.exec(data.args.join(' '))
-    db.getUserInfo(FC[0], [onFind, data])
+    data.CreateRichEmbed = infoCommand.CreateRichEmbed
+    db.getUserInfoFromFC(FC[0], [onFind, data])
     return ''
   } else {
     return ' Invalid Friend Code! \n The code format should be `xxxx-xxxx-xxxx`'
@@ -58,7 +59,7 @@ function onFind(userInfo, data) {
     data.message.channel.send('Nobody has registered with that friend code')
   } else {
     data.botVar.fetchUser(userInfo.discordId).then((user) => {
-      data.message.channel.send(infoCommand.CreateRichEmbed(userInfo, user))
+      data.message.channel.send(data.CreateRichEmbed(userInfo, user))
     })
   }
 }

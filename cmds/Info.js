@@ -15,6 +15,7 @@ this.info = {
 }
 
 this.Command = (data) => {
+  data.CreateRichEmbed = this.CreateRichEmbed
   if (data.args.length === 0) { // Self info
     db.getUserInfo(data.user.id, [onFind, data])
     return ''
@@ -68,12 +69,12 @@ this.CreateRichEmbed = (userInfo, user) => {
 
   return new Discord.RichEmbed()
   .setColor(`GREEN`)
-  .setAuthor(`${user.username}'s Details`, user.displayAvatarURL)
+  .setAuthor(`<@${user.id}>'s Details`, user.displayAvatarURL)
   .addField(`ACCF Town Info`, constructedTownInfo)
 }
 
 function onFind(userInfo, data) {
   data.botVar.fetchUser(userInfo.discordId).then((user) => {
-    data.message.channel.send(this.CreateRichEmbed(userInfo, user))
+    data.message.channel.send(data.CreateRichEmbed(userInfo, user))
   })
 }
