@@ -27,7 +27,7 @@ function onFind(info, data) {
     data.message.channel.send('Your town is already Online!')
   } else if (info === 'online') {
     console.log(`[ONLINE] ${data.user.username}#${data.user.discriminator} has set their town online!`)
-    data.botVar.channels.get(botConfig.channelID.online).send(`<@${data.user.id}>'s town is Online! \n Go ahead and join their town! @here`)
+    data.onlineChannel.get(botConfig.channelID.online).send(`<@${data.user.id}>'s town is Online! \n Go ahead and join their town! @here`)
     data.message.channel.send('Your town has been set Online!')
   } else { // Not alreadyonline nor pushed
     data.message.channel.send('Unknown error! Please contact the developer!')

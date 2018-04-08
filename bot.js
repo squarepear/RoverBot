@@ -104,6 +104,7 @@ bot.on('message', async message => {
     message: message,
     bot: bot.user,
     botVar: bot,
+    onlineChannel: bot.channels.get(botConfig.channelID.online),
     startup: startupTime
   }
   let cmd = cmds[command.toUpperCase()]
