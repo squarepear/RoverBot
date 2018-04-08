@@ -27,8 +27,8 @@ this.Command = function (data) {
 function searchWiki(query, data) {
   wikia.getSearchList({'query': query}).then(function (returnedData) {
     console.log(`[WIKI] ${data.user.username}#${data.user.discriminator} has requested a wiki about ${data.args.join(' ')} successfully!`)
-    console.log(`[WIKI] ${returnedData.items}`)
-    data.message.channel.send(returnedData.items)
+    console.log(`[WIKI] ${returnedData.items[0].url}`)
+    data.message.channel.send(returnedData.items[0].url)
   })
   .fail(function (e) {
     console.log(`[WIKI] ${data.user.username}#${data.user.discriminator} has requested a wiki about ${data.args.join(' ')} and failed!`)
