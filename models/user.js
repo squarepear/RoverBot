@@ -17,6 +17,10 @@ var userSchema = mongoose.Schema({
     type: String,
     default: ''
   },
+  device: {
+    type: String,
+    default: ''
+  },
   note: {
     type: String,
     default: ''

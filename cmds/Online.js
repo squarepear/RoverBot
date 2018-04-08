@@ -1,5 +1,5 @@
 const botConfig = require('../botconfig.json')
-var db = require('../dbAccess.js')
+var db = require('../dbAccess')
 
 this.info = {
   aliases: [
@@ -9,10 +9,10 @@ this.info = {
   ],
   helpInfo: {
     show: false,
-    category: 'TEMPLATE',
-    name: 'Template',
-    usage: 'temp [template]',
-    desc: 'Templates a template'
+    category: 'ACCF',
+    name: 'Online',
+    usage: 'online',
+    desc: 'Set your town online'
   }
 }
 

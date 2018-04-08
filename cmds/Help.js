@@ -1,10 +1,7 @@
 const Discord = require('discord.js')
 
 this.info = {
-  aliases: [
-    'SomeAlias',
-    'AnoutherAlias'
-  ],
+  aliases: [],
   helpInfo: {
     show: true,
     category: 'GENERAL',
@@ -42,7 +39,7 @@ this.Command = function (data) {
 var helpCategory, helpUsage, helpMore, helpCategoryGeneral, helpCategoryACCF
 
 helpCategory = '- **General**: General commands - for you when you need to know stuff \n'
-helpCategory += '- **ACCF**: ACCF commands for ACCF informations'
+helpCategory += '- **ACCF**: ACCF commands for ACCF information'
 
 helpUsage = '**To find out what commands are in a category**, use `!help [Category]`. \n'
 helpUsage += 'If you need additional information for each command, use `!command [Command].`'
@@ -64,15 +61,15 @@ helpCategoryACCF += 'ACCF Related commands                                      
 helpCategoryACCF += '                                                                       \n'
 helpCategoryACCF += 'Commands                                 Description                   \n'
 helpCategoryACCF += '---------------------------------------- ------------------------------\n'
-helpCategoryACCF += 'info [Optional mentions]                 Shows town informations       \n'
-helpCategoryACCF += 'fc [Mentions / Your friend code]         Show / Set friend code        \n'
-helpCategoryACCF += 'name [Mentions / Your character name]    Show / Set character name     \n'
-helpCategoryACCF += 'town [Mentions / Your town name]         Show / Set town name          \n'
-helpCategoryACCF += 'fruit [Mentions / Your fruit type]       Show / Set fruit type         \n'
-helpCategoryACCF += 'note [Mentions / Your note to players]   Show / Set notes to players   \n'
-helpCategoryACCF += '                                                                       \n'
+helpCategoryACCF += 'info [Optional mention]                  Shows town informations       \n'
+helpCategoryACCF += 'fc [Mention / Your friend code]          Show / Set friend code        \n'
+helpCategoryACCF += 'name [Mention / Your character name]     Show / Set character name     \n'
+helpCategoryACCF += 'town [Mention / Your town name]          Show / Set town name          \n'
+helpCategoryACCF += 'fruit [Mention / Your fruit type]        Show / Set fruit type         \n'
+helpCategoryACCF += 'device [Mention / Your device type]       Show / Set device type       \n'
+helpCategoryACCF += 'note [Mention / Your note to players]    Show / Set notes to players   \n'
+helpCategoryACCF += 'whois [Friend code]                      Finds user with friend code   \n'
 helpCategoryACCF += 'online                                   Set your town online          \n'
-helpCategoryACCF += '                                         Announce your online town     \n'
 helpCategoryACCF += 'offline                                  Set your town offline         \n'
 helpCategoryACCF += 'listonline                               List online towns             \n'
 helpCategoryACCF += '```'

@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-var db = require('../dbAccess.js')
+var db = require('../dbAccess')
 
 this.info = {
   aliases: [
@@ -14,7 +14,7 @@ this.info = {
   }
 }
 
-this.Command = function (data) {
+this.Command = (data) => {
   if (data.args.length === 0) { // Self info
     db.getUserInfo(data.user.id, [onFind, data])
     return ''
@@ -27,43 +27,47 @@ this.Command = function (data) {
   }
 }
 
+this.CreateRichEmbed = (userInfo, user) => {
+  let constructedTownInfo = ''
+
+  if (userInfo.name != '') { // Character Name
+    constructedTownInfo += `**Character Name**: ${userInfo.name}\n`
+  } else {
+    constructedTownInfo += `**Character Name**: User hasn't set their Character Name!\n`
+  }
+
+  if (userInfo.town != '') { // Town Name
+    constructedTownInfo += `**Town Name**: ${userInfo.town}\n`
+  } else {
+    constructedTownInfo += `**Town Name**: User hasn't set their Town Name!\n`
+  }
+
+  if (userInfo.fc != '') { // Friend Code
+    constructedTownInfo += `**Friend Code**: \`${userInfo.fc}\`\n`
+  } else {
+    constructedTownInfo += `**Friend Code**: User hasn't set their Friend Code!\n`
+  }
+
+  if (userInfo.fruit != '') { // Fruits
+    constructedTownInfo += `**Town Fruit**: ${userInfo.fruit}\n`
+  } else {
+    constructedTownInfo += `**Town Fruit**: User hasn't set their Town Fruit!\n`
+  }
+
+  if (userInfo.note != '') {
+    constructedTownInfo += `**User Note**: ${userInfo.note}`
+  } else {
+    constructedTownInfo += `**User Note**: User didn't set any notes!`
+  }
+
+  return new Discord.RichEmbed()
+  .setColor(`GREEN`)
+  .setAuthor(`${user.username}'s Details`, user.displayAvatarURL)
+  .addField(`ACCF Town Info`, constructedTownInfo)
+}
+
 function onFind(userInfo, data) {
   data.botVar.fetchUser(userInfo.discordId).then((user) => {
-    let constructedTownInfo = ''
-
-    if (userInfo.name != '') { // Character Name
-      constructedTownInfo += `**Character Name**: ${userInfo.name}\n`
-    } else {
-      constructedTownInfo += `**Character Name**: User hasn't set their Character Name!\n`
-    }
-
-    if (userInfo.town != '') { // Town Name
-      constructedTownInfo += `**Town Name**: ${userInfo.town}\n`
-    } else {
-      constructedTownInfo += `**Town Name**: User hasn't set their Town Name!\n`
-    }
-
-    if (userInfo.fc != '') { // Friend Code
-      constructedTownInfo += `**Friend Code**: \`${userInfo.fc}\`\n`
-    } else {
-      constructedTownInfo += `**Friend Code**: User hasn't set their Friend Code!\n`
-    }
-
-    if (userInfo.fruit != '') { // Fruits
-      constructedTownInfo += `**Town Fruit**: ${userInfo.fruit}\n`
-    } else {
-      constructedTownInfo += `**Town Fruit**: User hasn't set their Town Fruit!\n`
-    }
-
-    if (userInfo.note != '') {
-      constructedTownInfo += `**User Note**: ${userInfo.note}`
-    } else {
-      constructedTownInfo += `**User Note**: User didn't set any notes!`
-    }
-
-    data.message.channel.send(new Discord.RichEmbed()
-    .setColor(`GREEN`)
-    .setAuthor(`${user.username}'s Details`, user.displayAvatarURL)
-    .addField(`ACCF Town Info`, constructedTownInfo))
+    data.message.channel.send(this.CreateRichEmbed(userInfo, user))
   })
 }

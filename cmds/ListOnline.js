@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-var db = require('../dbAccess.js')
+var db = require('../dbAccess')
 
 this.info = {
   aliases: [

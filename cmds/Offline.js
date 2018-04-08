@@ -1,4 +1,4 @@
-var db = require('../dbAccess.js')
+var db = require('../dbAccess')
 
 this.info = {
   aliases: [

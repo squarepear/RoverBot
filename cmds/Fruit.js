@@ -50,7 +50,7 @@ this.Command = function (data) {
           return ' Invalid fruit!'
       }
   } else {
-    return 'Usage: `!fruit [fruit]` or `!fruit [mention]`'
+    return `Usage: \`${data.prefix}fruit [fruit]\` or \`${data.prefix}fruit [mention]\``
   }
 }
 

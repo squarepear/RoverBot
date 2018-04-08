@@ -14,7 +14,7 @@ const bot = new Discord.Client()
 
 var helpInfo = require('./help.json')
 var messageReactions = require('./messageReactions.json')
-var dbAccess = require('./dbAccess.js')
+var dbAccess = require('./dbAccess')
 var commandsPath = require(`path`).join(__dirname, 'cmds')
 var cmds = []
 var startupTime = Date.now()
@@ -105,7 +105,8 @@ bot.on('message', async message => {
     bot: bot.user,
     botVar: bot,
     onlineChannel: bot.channels.get(botConfig.channelID.online),
-    startup: startupTime
+    startup: startupTime,
+    prefix: botConfig.prefix
   }
   let cmd = cmds[command.toUpperCase()]
 
