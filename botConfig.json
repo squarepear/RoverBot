@@ -1,0 +1,13 @@
+{
+  "token": "<bot token>",
+  "prefix": "!",
+  "port": 8080,
+  "mongodb": {
+    "uri": "<mongodb uri>"
+  },
+  "channelID": {
+    "event": "<Where to announce events>",
+    "online": "<Where to announce a player is online>",
+    "log": "<Where to log stuff>"
+  }
+}
