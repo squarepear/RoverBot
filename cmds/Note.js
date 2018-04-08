@@ -2,7 +2,7 @@ var db = require('../dbAccess.js')
 
 this.info = {
   aliases: [
-    'Notes',
+    'notes',
     'Message'
   ],
   helpInfo: {
@@ -15,30 +15,26 @@ this.info = {
 }
 
 this.Command = function (data) {
-  try {
-    if (data.args.length === 0) {
-      let usr = data.user
-      let usrinfo = db.getUserInfo(usr.id)
-      if (usrinfo.Note != null) {
-        return usr.username + "'s Note is: `" + usrinfo.Note + '`'
-      } else {
-        return ' ' + usr.username + ' hasn\'t set a Note yet'
-      }
-    } else if (data.message.mentions.users.first() == null && data.args.length > 0) {
-      db.setUserInfo(data.user.id, {'Note': data.args.join('')})
-      return ' Your Note is now `' + data.args.join(' ') + '`'
-    } else if (data.message.mentions.users.first() != null && data.args.length === 1) {
-      let usr = data.message.mentions.users.first()
-      let usrinfo = db.getUserInfo(usr.id)
-      if (usrinfo.Note != null) {
-        return usr.username + "'s Note is: `" + usrinfo.Note + '`'
-      } else {
-        return ' ' + usr.username + ' hasn\'t set a Note yet'
-      }
-    } else {
-      return 'Usage: `!note [note]` or `!note [mention]`'
-    }
-  } catch (e) {
-    return ' ' + data.user.username + ' hasn\'t set a Note yet'
+  if (data.args.length === 0) {
+    db.getUserInfo(data.user.id, [onFind, data])
+    return ''
+  } else if (data.message.mentions.users.first() == null && data.args.length > 0) {
+    db.setUserInfo(data.user.id, {'note': data.args.join('')})
+    return ' Your note is now `' + data.args.join(' ') + '`'
+  } else if (data.message.mentions.users.first() != null && data.args.length === 1) {
+    db.getUserInfo(data.message.mentions.users.first().id, [onFind, data])
+    return ''
+  } else {
+    return 'Usage: `!note [note]` or `!note [mention]`'
   }
+}
+
+function onFind(userInfo, data) {
+  data.botVar.fetchUser(userInfo.discordId).then((user) => {
+    if (userInfo.note != '') {
+      data.message.channel.send(user.username + "'s note is: `" + userInfo.note + '`')
+    } else {
+      data.message.channel.send(user.username + ' hasn\'t set a note yet')
+    }
+  })
 }

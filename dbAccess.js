@@ -1,16 +1,14 @@
-var mongoose = require('mongoose')
 var User = require('./models/user')
 
 // const JsonDB = require('node-json-db')
 // var friendcodeDB = new JsonDB('./db/friendcodeDB', true, true)
 // var onlineDB = new JsonDB('./db/onlineDB', true, true)
 
-this.getUserInfo = function (userID) {
+this.getUserInfo = function (userID, onFind) {
   User.findOne({ 'discordId' : userID }, (err, user) => {
     if (err) {
       throw err
     }
-    console.log('1: ' + user)
     if (!user) {
       user = new User()
       user.discordId = userID
@@ -20,8 +18,12 @@ this.getUserInfo = function (userID) {
         }
       })
     }
-    console.log('2: ' + user)
-    return user
+
+    if (onFind) {
+      onFind[0](user, onFind[1])
+    } else {
+      return user
+    }
   })
 
   // friendcodeDB.reload()
@@ -33,15 +35,12 @@ this.getUserInfo = function (userID) {
 }
 
 this.setUserInfo = function (userID, info) {
-  Object.keys(info).forEach(key => {
-    User.findOneAndUpdate({ 'discordId' : userID }, { key : info[key] }, (err, resp) => {
+    User.findOneAndUpdate({ 'discordId' : userID }, info, (err, resp) => {
       if (err) {
         throw err
       }
     })
-
     // friendcodeDB.push(`/${userID}/${key}/`, info[key])
-  })
 }
 
 // Online Towns DB

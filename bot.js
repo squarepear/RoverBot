@@ -111,8 +111,8 @@ bot.on('message', async message => {
 
   if (cmd != null) {
     let result = cmd.Command(data) // Send data to each handler. Returns with var `result`
-
-    if (result != null) { // There should be always a result on each command.
+    if (result === '') {
+    } else if (result != null) { // There should be always a result on each command.
       message.channel.send(result)
     } else {
       message.channel.send(new Discord.RichEmbed()

@@ -16,28 +16,27 @@ this.info = {
 
 this.Command = function (data) {
   if (data.args.length === 0) {
-    let usr = data.user
-    let usrinfo = db.getUserInfo(usr.id)
-    if (usrinfo.Name != null) {
-      return usr.username + "'s Name is: `" + usrinfo.Name + '`'
-    } else {
-      return ' ' + usr.username + ' hasn\'t set a Name yet'
-    }
+    db.getUserInfo(data.user.id, [onFind, data])
+    return ''
   } else if (data.args.length === 1 && data.message.mentions.users.first() != null) {
-    let usr = data.message.mentions.users.first()
-    let usrinfo = db.getUserInfo(usr.id)
-
-    if (usrinfo.Name != null) {
-      return usr.username + "'s Name is: `" + usrinfo.Name + '`'
-    } else {
-      return ' ' + usr.username + ' hasn\'t set a Name yet'
-    }
+    db.getUserInfo(data.message.mentions.users.first().id, [onFind, data])
+    return ''
   } else if (data.args.join(' ').length <= 8 && data.message.mentions.users.first() == null) {
-    db.setUserInfo(data.user.id, {'Name': data.args.join(' ')})
-    return ' Your Name is now `' + data.args.join(' ') + '`'
+    db.setUserInfo(data.user.id, {'name': data.args.join(' ')})
+    return ' Your name is now `' + data.args.join(' ') + '`'
   } else if (data.args.join(' ').length > 8 && data.message.mentions.users.first() == null) {
-    return ' Your Name can\'t be longer than 8 letters'
+    return ' Your name can\'t be longer than 8 letters'
   } else {
     return 'Usage: `!name [name]` or `!name [mention]`'
   }
+}
+
+function onFind(userInfo, data) {
+  data.botVar.fetchUser(userInfo.discordId).then((user) => {
+    if (userInfo.name != '') {
+      data.message.channel.send(user.username + "'s name is: `" + userInfo.name + '`')
+    } else {
+      data.message.channel.send(user.username + ' hasn\'t set a name yet')
+    }
+  })
 }
