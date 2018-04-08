@@ -7,6 +7,7 @@ const schedule = require('node-schedule')
 var express = require('express')
 var path = require('path')
 var filter = require('leo-profanity')
+var mongoose = require('mongoose')
 
 var app = express()
 const bot = new Discord.Client()
@@ -17,6 +18,8 @@ var dbAccess = require('./dbAccess.js')
 var commandsPath = require(`path`).join(__dirname, 'cmds')
 var cmds = []
 var startupTime = Date.now()
+
+mongoose.connect(botConfig.mongodb.uri)
 
 // Reading Commands
 fs.readdirSync(commandsPath).forEach(function (file) { // For each file read, create a function
@@ -196,7 +199,7 @@ app.use('/edituserinfo', require('./routes/edituserinfo'))
 app.use('/github/update', require('./routes/githubupdate'))
 
 // Initalize!
-app.listen(3000) // Auto Update GitHub
+app.listen(80) // Auto Update GitHub
 bot.login(botConfig.token) // Bot Itself
 
 // On exit

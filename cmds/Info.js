@@ -20,6 +20,7 @@ this.Command = function (data) {
   if (data.args.length === 0) { // Self info
     user = data.user
     userInfo = db.getUserInfo(data.user.id)
+    console.log('3: ' + userInfo)
   } else if (data.args.length === 1 && data.message.mentions.users.first()) { // If there is args and mentions
     user = data.message.mentions.users.first()
     userInfo = db.getUserInfo(data.message.mentions.users.first().id)

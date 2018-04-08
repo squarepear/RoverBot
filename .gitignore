@@ -1,9 +1,8 @@
 /node_modules
-/database
 npm-debug.log
 .DS_Store
 update.command
 /.AppleDouble
 botconfig.json
-/db
 /*.env
+.openode
