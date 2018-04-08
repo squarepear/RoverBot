@@ -54,6 +54,12 @@ this.CreateRichEmbed = (userInfo, user) => {
     constructedTownInfo += `**Town Fruit**: User hasn't set their Town Fruit!\n`
   }
 
+  if (userInfo.device != '') { // Device
+    constructedTownInfo += `**Device**: ${userInfo.device}\n`
+  } else {
+    constructedTownInfo += `**Device**: User hasn't set their device!\n`
+  }
+
   if (userInfo.note != '') {
     constructedTownInfo += `**User Note**: ${userInfo.note}`
   } else {
