@@ -146,9 +146,11 @@ bot.on('messageReactionAdd', (reaction, user) => {
 })
 
 bot.on('presenceUpdate', (oldMember, newMember) => { // Set town Offline
-  if (newMember.presence.status === 'offline' && dbAccess.setOfflineTown(newMember.id) === 'deleted') {
-    bot.channels.get(botConfig.channelID.townAnnouncement).send(`<@${newMember.id}>'s Town has been set offline automatically! *(The user is offline on Discord) \n @here*`)
-    console.log(`[AUTOOFFLINE] ${newMember.user.username}#${newMember.user.discriminator}'s town has been set offline automatically (Discord offline)`)
+  if (newMember.presence.status === 'offline') {
+    dbAccess.setOfflineTown(newMember.id, [(offline, data) => {
+      bot.channels.get(botConfig.channelID.online).send(`<@${data.newMember.id}>'s Town has been set offline automatically! *(The user is offline on Discord) \n @here*`)
+      console.log(`[AUTOOFFLINE] ${data.newMember.user.username}#${data.newMember.user.discriminator}'s town has been set offline automatically (Discord offline)`)
+    }, { 'newMember' : newMember }])
   }
 })
 
