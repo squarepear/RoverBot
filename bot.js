@@ -7,6 +7,7 @@ const schedule = require('node-schedule')
 var express = require('express')
 var path = require('path')
 var filter = require('leo-profanity')
+var mongoose = require('mongoose')
 
 var app = express()
 const bot = new Discord.Client()
@@ -17,6 +18,8 @@ var dbAccess = require('./dbAccess.js')
 var commandsPath = require(`path`).join(__dirname, 'cmds')
 var cmds = []
 var startupTime = Date.now()
+
+mongoose.connect(botConfig.mongodb.uri)
 
 // Reading Commands
 fs.readdirSync(commandsPath).forEach(function (file) { // For each file read, create a function
@@ -73,7 +76,6 @@ bot.on('message', async message => {
   if (filter.check(message.content.trim())) {
     console.log(`[FILTER] ${message.author.username}#${message.author.discriminator} cursed. Message: ${filter.clean(message.content, '*')}`)
     bot.channels.get(botConfig.channelID.log).send(new Discord.RichEmbed()
-    // setThumbnail(message.author.displayAvatarURL)
     .setAuthor(`${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
     .setDescription(`<@${message.author.id}> just said \`${filter.clean(message.content, '*')}\` in <#${message.channel.id}>`)
     .setColor('ORANGE')
@@ -108,8 +110,8 @@ bot.on('message', async message => {
 
   if (cmd != null) {
     let result = cmd.Command(data) // Send data to each handler. Returns with var `result`
-
-    if (result != null) { // There should be always a result on each command.
+    if (result === '') {
+    } else if (result != null) { // There should be always a result on each command.
       message.channel.send(result)
     } else {
       message.channel.send(new Discord.RichEmbed()
@@ -196,7 +198,7 @@ app.use('/edituserinfo', require('./routes/edituserinfo'))
 app.use('/github/update', require('./routes/githubupdate'))
 
 // Initalize!
-app.listen(3000) // Auto Update GitHub
+app.listen(80) // Auto Update GitHub
 bot.login(botConfig.token) // Bot Itself
 
 // On exit

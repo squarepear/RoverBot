@@ -15,53 +15,51 @@ this.info = {
 
 this.Command = function (data) {
   if (data.args.length === 0) {
-    let usr = data.user
-    let usrinfo = db.getUserInfo(usr.id)
-    if (usrinfo.Fruit != null) {
-      return usr.username + "'s Fruit is: `" + usrinfo.Fruit + '`'
-    } else {
-      return ' ' + usr.username + ' has not set a Fruit yet'
-    }
+    db.getUserInfo(data.user.id, [onFind, data])
+    return ''
+  } else if (data.args.length === 1 && data.message.mentions.users.first() != null) {
+    db.getUserInfo(data.message.mentions.users.first().id, [onFind, data])
+    return ''
   } else if (data.args.length === 1) {
-    if (data.message.mentions.users.first() != null) {
-      let usr = data.message.mentions.users.first()
-      let usrinfo = db.getUserInfo(usr.id)
-      if (usrinfo.Fruit != null) {
-        return usr.username + "'s Fruit is: `" + usrinfo.Fruit + '`'
-      } else {
-        return ' ' + usr.username + ' has not set a Fruit yet'
-      }
-    } else {
       switch (data.args[0].toUpperCase()) {
         case 'ALL':
         case 'FULL':
-          db.setUserInfo(data.user.id, {'Fruit': 'All'})
-          return 'Your Fruit is now `All`'
+          db.setUserInfo(data.user.id, {'fruit': 'All'})
+          return 'Your fruit is now `All`'
         case 'PEACH':
         case 'PEACHES':
-          db.setUserInfo(data.user.id, {'Fruit': 'Peach'})
-          return '🍑 Your Fruit is now `Peach`'
+          db.setUserInfo(data.user.id, {'fruit': 'Peach'})
+          return '🍑 Your fruit is now `Peach`'
         case 'PEAR':
         case 'PEARS':
-          db.setUserInfo(data.user.id, {'Fruit': 'Pear'})
-          return '🍐 Your Fruit is now `Pear`'
+          db.setUserInfo(data.user.id, {'fruit': 'Pear'})
+          return '🍐 Your fruit is now `Pear`'
         case 'APPLE':
         case 'APPLES':
-          db.setUserInfo(data.user.id, {'Fruit': 'Apple'})
-          return '🍎 Your Fruit is now `Apple`'
+          db.setUserInfo(data.user.id, {'fruit': 'Apple'})
+          return '🍎 Your fruit is now `Apple`'
         case 'ORANGE':
         case 'ORANGES':
-          db.setUserInfo(data.user.id, {'Fruit': 'Orange'})
-          return '🍊 Your Fruit is now `Orange`'
+          db.setUserInfo(data.user.id, {'fruit': 'Orange'})
+          return '🍊 Your fruit is now `Orange`'
         case 'CHERRY':
         case 'CHERRIES':
-          db.setUserInfo(data.user.id, {'Fruit': 'Cherry'})
-          return '🍒 Your Fruit is now `Cherry`'
+          db.setUserInfo(data.user.id, {'fruit': 'Cherry'})
+          return '🍒 Your fruit is now `Cherry`'
         default:
-          return ' Invalid Fruit!'
+          return ' Invalid fruit!'
       }
-    }
   } else {
     return 'Usage: `!fruit [fruit]` or `!fruit [mention]`'
   }
+}
+
+function onFind(userInfo, data) {
+  data.botVar.fetchUser(userInfo.discordId).then((user) => {
+    if (userInfo.fruit != '') {
+      data.message.channel.send(user.username + "'s fruit is: `" + userInfo.fruit + '`')
+    } else {
+      data.message.channel.send(user.username + ' hasn\'t set a fruit yet')
+    }
+  })
 }

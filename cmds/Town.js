@@ -2,7 +2,7 @@ var db = require('../dbAccess.js')
 
 this.info = {
   aliases: [
-    'TownName',
+    'townName',
     'City'
   ],
   helpInfo: {
@@ -16,27 +16,27 @@ this.info = {
 
 this.Command = function (data) {
   if (data.args.length === 0) {
-    var usr = data.user
-    var usrinfo = db.getUserInfo(usr.id)
-    if (usrinfo.Town != null) {
-      return usr.username + "'s Town is: `" + usrinfo.Town + '`'
-    } else {
-      return ' ' + usr.username + ' hasn\'t set a Town Name yet!'
-    }
+    db.getUserInfo(data.user.id, [onFind, data])
+    return ''
   } else if (data.args.length === 1 && data.message.mentions.users.first() != null) {
-    usr = data.message.mentions.users.first()
-    usrinfo = db.getUserInfo(usr.id)
-    if (usrinfo.Town != null) {
-      return usr.username + "'s Town is: `" + usrinfo.Town + '`'
-    } else {
-      return ' ' + usr.username + ' hasn\'t set a Town Name yet'
-    }
+    db.getUserInfo(data.message.mentions.users.first().id, [onFind, data])
+    return ''
   } else if (data.args.join(' ').length <= 8 && data.message.mentions.users.first() == null) {
-    db.setUserInfo(data.user.id, {'Town': data.args.join(' ')})
-    return ' Your Town is now `' + data.args.join(' ') + '`'
+    db.setUserInfo(data.user.id, {'town': data.args.join(' ')})
+    return ' Your town is now `' + data.args.join(' ') + '`'
   } else if (data.args.join(' ').length > 8 && data.message.mentions.users.first() == null) {
-    return ' Your Town Name can\'t be longer than 8 letters'
+    return ' Your town Name can\'t be longer than 8 letters'
   } else {
     return 'Usage: `!town [town]` or `!town [mention]`'
   }
+}
+
+function onFind(userInfo, data) {
+  data.botVar.fetchUser(userInfo.discordId).then((user) => {
+    if (userInfo.town != '') {
+      data.message.channel.send(user.username + "'s town is: `" + userInfo.town + '`')
+    } else {
+      data.message.channel.send(user.username + ' hasn\'t set a town name yet!')
+    }
+  })
 }

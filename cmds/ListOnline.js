@@ -28,7 +28,7 @@ this.info = {
 this.Command = function (data) {
   console.log(`[LISTONLINE] ${data.user.username}#${data.user.discriminator} requested for online towns!`)
 
-  let onlineTowns = db.getOnlineTown()
+  let onlineTowns = db.getOnlineTowns()
   if (onlineTowns[0] == null) { // If there is no online town
     return new Discord.RichEmbed()
     .setColor('DARK_RED')

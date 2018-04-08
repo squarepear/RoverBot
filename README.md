@@ -13,7 +13,7 @@ The bot is designed especially for a specific server, so there isn't a bot invit
 
 ## Setting up on your own
 
-1. `git clone`
+1. `git clone https://github.com/rey2952/RoverBot.git`
 2. `cd RoverBot`
 3. Edit config files (Fill in your bot token and edit prefixes)
 4. `npm install`
