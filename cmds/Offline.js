@@ -17,14 +17,17 @@ this.info = {
 
 // Function to run when user uses this command (Don't change the function name)
 this.Command = function (data) {
-  let a = db.setOfflineTown(data.user.id)
+  db.setOfflineTown(data.user.id, [onFind, data])
+  return ''
+}
 
-  if (a === 'alreadyOffline') {
-    return 'Your town is already Offline!'
-  } else if (a === 'offline') {
+function onFind(info, data) {
+  if (info === 'alreadyOffline') {
+    data.message.channel.send('Your town is already Offline!')
+  } else if (info === 'offline') {
     console.log(`[OFFLINE] ${data.user.username}#${data.user.discriminator} has set their town offline!`)
-    return 'Your town has been set Offline!'
+    data.message.channel.send('Your town has been set Offline!')
   } else { // Not online nor deleted
-    return 'Unknown error! Please contact the developer!'
+    data.message.channel.send('Unknown error! Please contact the developer!')
   }
 }

@@ -27,23 +27,26 @@ this.info = {
 // Function to run when user uses this command (Don't change the function name)
 this.Command = function (data) {
   console.log(`[LISTONLINE] ${data.user.username}#${data.user.discriminator} requested for online towns!`)
+  db.getOnlineTowns([onFind, data])
+  return ''
+}
 
-  let onlineTowns = db.getOnlineTowns()
+function onFind(onlineTowns, data) {
   if (onlineTowns[0] == null) { // If there is no online town
-    return new Discord.RichEmbed()
+    data.message.channel.send(new Discord.RichEmbed()
     .setColor('DARK_RED')
     .setTitle('❌ Whoops!')
     .addField(`There aren't any online towns right now! 😔`, `Online towns should appear here.`)
-    .addField('How do I set my town online?', `Do \`!online\` in #bot-commands to set your town online!`)
+    .addField('How do I set my town online?', `Do \`!online\` in #bot-commands to set your town online!`))
   }
 
   let townlist = ''
 
-  onlineTowns.forEach(function (ID) { // For each ID of online towns, add to variable
-    townlist += `<@${ID}>\n`
+  onlineTowns.forEach((town) => { // For each ID of online towns, add to variable
+    townlist += `<@${town.discordId}>\n`
   })
 
-  return new Discord.RichEmbed()
+  data.message.channel.send(new Discord.RichEmbed()
   .setColor('GREEN')
-  .addField('🏙️  Towns that are online:', townlist)
+  .addField('🏙️  Towns that are online:', townlist))
 }

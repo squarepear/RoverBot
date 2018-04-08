@@ -198,11 +198,12 @@ app.use('/edituserinfo', require('./routes/edituserinfo'))
 app.use('/github/update', require('./routes/githubupdate'))
 
 // Initalize!
-app.listen(80) // Auto Update GitHub
+app.listen(botConfig.port) // Auto Update GitHub
 bot.login(botConfig.token) // Bot Itself
 
 // On exit
 
 process.on('exit', (code) => {
+  bot.destroy()
   console.log(`[EXIT] About to exit with code ${code}`)
 })

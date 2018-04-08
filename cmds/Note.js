@@ -19,7 +19,7 @@ this.Command = function (data) {
     db.getUserInfo(data.user.id, [onFind, data])
     return ''
   } else if (data.message.mentions.users.first() == null && data.args.length > 0) {
-    db.setUserInfo(data.user.id, {'note': data.args.join('')})
+    db.setUserInfo(data.user.id, {'note': data.args.join(' ')})
     return ' Your note is now `' + data.args.join(' ') + '`'
   } else if (data.message.mentions.users.first() != null && data.args.length === 1) {
     db.getUserInfo(data.message.mentions.users.first().id, [onFind, data])

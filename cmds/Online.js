@@ -1,3 +1,4 @@
+const botConfig = require('../botconfig.json')
 var db = require('../dbAccess.js')
 
 this.info = {
@@ -17,15 +18,18 @@ this.info = {
 
 // Function to run when user uses this command (Don't change the function name)
 this.Command = function (data) {
-  let a = db.setOnlineTown(data.user.id)
+  db.setOnlineTown(data.user.id, [onFind, data])
+  return ''
+}
 
-  if (a === 'alreadyOnline') {
-    return 'Your town is already Online!'
-  } else if (a === 'online') {
+function onFind(info, data) {
+  if (info === 'alreadyOnline') {
+    data.message.channel.send('Your town is already Online!')
+  } else if (info === 'online') {
     console.log(`[ONLINE] ${data.user.username}#${data.user.discriminator} has set their town online!`)
-    data.botVar.channels.get('371304544006701078').send(`<@${data.user.id}>'s town is Online! \n Go ahead and join their town! @here`)
-    return 'Your town has been set Online!'
+    data.botVar.channels.get(botConfig.channelID.online).send(`<@${data.user.id}>'s town is Online! \n Go ahead and join their town! @here`)
+    data.message.channel.send('Your town has been set Online!')
   } else { // Not alreadyonline nor pushed
-    return 'Unknown error! Please contact the developer!'
+    data.message.channel.send('Unknown error! Please contact the developer!')
   }
 }
