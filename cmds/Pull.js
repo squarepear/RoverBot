@@ -15,7 +15,7 @@ this.info = {
 
 this.Command = function (data) {
   if (data.message.member.hasPermission('ADMINISTRATOR')) {
-    console.log(`[STATS] ${data.user.username}#${data.user.discriminator} has checked for the bot's status`)
+    console.log(`[GIT] ${data.user.username}#${data.user.discriminator} ran git pull`)
     cmd.run('git pull')
     cmd.run('npm install')
     return 'Pulling'
