@@ -1,6 +1,6 @@
 {
   "name": "roverbot",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Discord bot for AC:CF discord server",
   "main": "bot.js",
   "scripts": {
