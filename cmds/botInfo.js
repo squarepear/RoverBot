@@ -35,7 +35,7 @@ this.Command = function (data) {
   .addField('Bot ID', data.botVar.user.id, true)
   .addField('Bot Library', 'discord.js', true)
 
-  .addField('Bot Creator', '<@237985610084777994>\n<@189769721653100546>', true)
+  .addField('Bot Creators', '<@237985610084777994>\n<@189769721653100546>', true)
   .addField('Node.js Version', process.version, true)
 
   .addField('Platform', process.platform, true)
