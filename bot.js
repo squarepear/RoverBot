@@ -6,7 +6,8 @@ const fs = require('fs')
 const schedule = require('node-schedule')
 var express = require('express')
 var path = require('path')
-var filter = require('leo-profanity')
+var badWords = require('bad-words')
+var filter = new badWords()
 var mongoose = require('mongoose')
 
 var app = express()
@@ -18,6 +19,7 @@ var dbAccess = require('./dbAccess')
 var commandsPath = require(`path`).join(__dirname, 'cmds')
 var cmds = []
 var startupTime = Date.now()
+var townChannel
 
 mongoose.connect(botConfig.mongodb.uri)
 
@@ -65,6 +67,7 @@ bot.on('ready', async () => {
     console.log('[ERROR] Can\'t create invite link! Am I a normal user?')
     console.log(e.stack)
   }
+  townChannel = bot.channels.get(botConfig.channelID.online)
   bot.user.setGame(`Do ${botConfig.prefix}help to get help!`)
 })
 
@@ -73,14 +76,14 @@ bot.on('ready', async () => {
 bot.on('message', async message => {
   if (message.author.bot) return
 
-  if (filter.check(message.content.trim())) {
-    console.log(`[FILTER] ${message.author.username}#${message.author.discriminator} cursed. Message: ${filter.clean(message.content, '*')}`)
+  if (filter.isProfane(message.content)) {
+    console.log(`[FILTER] ${message.author.username}#${message.author.discriminator} cursed. Message: ${filter.clean(message.content)}`)
     bot.channels.get(botConfig.channelID.log).send(new Discord.RichEmbed()
     .setAuthor(`${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
-    .setDescription(`<@${message.author.id}> just said \`${filter.clean(message.content, '*')}\` in <#${message.channel.id}>`)
+    .setDescription(`<@${message.author.id}> just said \`${filter.clean(message.content)}\` in <#${message.channel.id}>`)
     .setColor('ORANGE')
     .setFooter(`Current Server Time: ${new Date().toString()}`))
-    message.channel.send(`${message.author.username} said \`${filter.clean(message.content, '*')}\``)
+    message.channel.send(`<@${message.author.id}> just said bad words. Don't you know that's illegal?`)
     message.delete()
     return
   }
@@ -104,7 +107,7 @@ bot.on('message', async message => {
     message: message,
     bot: bot.user,
     botVar: bot,
-    onlineChannel: bot.channels.get(botConfig.channelID.online),
+    onlineChannel: townChannel,
     startup: startupTime,
     prefix: botConfig.prefix
   }
@@ -154,7 +157,7 @@ bot.on('presenceUpdate', (oldMember, newMember) => { // Set town Offline
         data.channel.send(`<@${data.newMember.id}>'s Town has been set offline automatically! *(The user is offline on Discord)*`)
         console.log(`[AUTOOFFLINE] ${data.newMember.user.username}#${data.newMember.user.discriminator}'s town has been set offline automatically (Discord offline)`)
       }
-    }, { 'newMember' : newMember, 'channel' : bot.channels.get(botConfig.channelID.online) }])
+    }, { 'newMember' : newMember, 'channel' : townChannel }])
   }
 })
 

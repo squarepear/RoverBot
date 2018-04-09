@@ -32,7 +32,7 @@ this.Command = function (data) {
 }
 
 function onFind(onlineTowns, data) {
-  if (onlineTowns[0] == null) { // If there is no online town
+  if (onlineTowns == null || onlineTowns.length === 0) { // If there is no online town
     data.message.channel.send(new Discord.RichEmbed()
     .setColor('DARK_RED')
     .setTitle('❌ Whoops!')

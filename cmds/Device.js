@@ -19,7 +19,7 @@ this.Command = function (data) {
     db.getUserInfo(data.message.mentions.users.first().id, [onFind, data])
     return ''
   } else if (data.args.length >= 1) {
-      switch (data.args[0].toUpperCase()) {
+      switch (data.args.join(' ').trim().toUpperCase()) {
         case 'WII':
           db.setUserInfo(data.user.id, {'device': 'Wii'})
           return 'Your device is now `Wii`'

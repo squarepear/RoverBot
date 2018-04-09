@@ -16,9 +16,9 @@
   "author": "SquarePear",
   "license": "MIT",
   "dependencies": {
+    "bad-words": "^1.6.1",
     "discord.js": "^11.1.0",
     "express": "4.16.1",
-    "leo-profanity": "^1.2.4",
     "material-components-web": "^0.23.0",
     "mongoose": "^5.0.13",
     "node-cmd": "3.0.0",
