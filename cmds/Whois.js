@@ -23,7 +23,7 @@ this.Command = function (data) {
   if (regexCheck) { // If true
     let FC = fcPattern.exec(data.args.join(' '))
     data.CreateRichEmbed = infoCommand.CreateRichEmbed
-    db.getUserInfoFromFC(FC[0], [onFind, data])
+    db.getUserInfoFromFC(data.user.id, FC[0], [onFind, data])
     return ''
   } else {
     return ' Invalid Friend Code! \n The code format should be `xxxx-xxxx-xxxx`'

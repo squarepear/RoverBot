@@ -23,7 +23,7 @@ this.getUserInfo = (userID, onFind) => {
   })
 }
 
-this.getUserInfoFromFC = (fc, onFind) => {
+this.getUserInfoFromFC = (userID, fc, onFind) => {
   User.findOne({ 'fc' : fc }, (err, user) => {
     if (err) {
       throw err
