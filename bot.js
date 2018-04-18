@@ -115,7 +115,7 @@ bot.on('message', async message => {
 
   if (cmd != null) {
 
-    if (cmd.info.notInDM && message.channel.type.equals('dm')) {
+    if (cmd.info.notInDM && message.channel.type == 'dm') {
       message.channel.send('You can\'t use this command in a dm channel')
       return
     }
