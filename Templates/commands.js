@@ -9,7 +9,8 @@ this.info = {
     name: 'Template',
     usage: 'temp [template]',
     desc: 'Templates a template'
-  }
+  },
+  notInDM: false
 }
 
 // Function to run when user uses this command (Don't change the function name)

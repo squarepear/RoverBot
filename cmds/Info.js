@@ -11,7 +11,8 @@ this.info = {
     name: 'Template',
     usage: 'temp [template]',
     desc: 'Templates a template'
-  }
+  },
+  notInDM: true
 }
 
 this.Command = (data) => {
@@ -28,7 +29,13 @@ this.Command = (data) => {
   }
 }
 
-this.CreateRichEmbed = (userInfo, user) => {
+this.CreateRichEmbed = (userInfo, message) => {
+  let name = message.author.username
+
+  if (message.channel.guild.members.get(message.author.id).nickname) {
+    name = message.channel.guild.members.get(message.author.id).nickname
+  }
+
   let constructedTownInfo = ''
 
   if (userInfo.name != '') { // Character Name
@@ -69,12 +76,12 @@ this.CreateRichEmbed = (userInfo, user) => {
 
   return new Discord.RichEmbed()
   .setColor(`GREEN`)
-  .setAuthor(`<@${user.id}>'s Details`, user.displayAvatarURL)
+  .setAuthor(`${name}'s Details`, message.author.displayAvatarURL)
   .addField(`ACCF Town Info`, constructedTownInfo)
 }
 
 function onFind(userInfo, data) {
   data.botVar.fetchUser(userInfo.discordId).then((user) => {
-    data.message.channel.send(data.CreateRichEmbed(userInfo, user))
+    data.message.channel.send(data.CreateRichEmbed(userInfo, data.message))
   })
 }

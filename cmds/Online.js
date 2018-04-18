@@ -13,7 +13,8 @@ this.info = {
     name: 'Online',
     usage: 'online',
     desc: 'Set your town online'
-  }
+  },
+  notInDM: false
 }
 
 // Function to run when user uses this command (Don't change the function name)

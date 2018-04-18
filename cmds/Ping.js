@@ -8,7 +8,8 @@ this.info = {
     name: 'Template',
     usage: 'temp [template]',
     desc: 'Templates a template'
-  }
+  },
+  notInDM: false
 }
 
 this.Command = function (data) {

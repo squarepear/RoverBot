@@ -12,7 +12,8 @@ this.info = {
     name: 'Wiki',
     usage: 'wiki [search]',
     desc: 'Seraches the ACCF wikia'
-  }
+  },
+  notInDM: false
 }
 
 this.Command = function (data) {
@@ -32,6 +33,6 @@ function searchWiki(query, data) {
   })
   .fail(function (e) {
     console.log(`[WIKI] ${data.user.username}#${data.user.discriminator} has requested a wiki about ${data.args.join(' ')} and failed!`)
-    data.message.channel.send('There isn\'t any wiki page about `' + data.args.join(' ') + '`')
+    data.message.channel.send(`There isn\'t any wiki page about \`${data.args.join(' ')}\``)
   })
 }

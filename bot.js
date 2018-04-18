@@ -114,6 +114,12 @@ bot.on('message', async message => {
   let cmd = cmds[command.toUpperCase()]
 
   if (cmd != null) {
+
+    if (cmd.info.notInDM && message.channel.type.equals('dm')) {
+      message.channel.send('You can\'t use this command in a dm channel')
+      return
+    }
+
     let result = cmd.Command(data) // Send data to each handler. Returns with var `result`
     if (result === '') {
     } else if (result != null) { // There should be always a result on each command.
