@@ -76,17 +76,17 @@ bot.on('ready', async () => {
 bot.on('message', async message => {
   if (message.author.bot) return
 
-  if (filter.isProfane(message.content)) {
-    console.log(`[FILTER] ${message.author.username}#${message.author.discriminator} cursed. Message: ${filter.clean(message.content)}`)
-    bot.channels.get(botConfig.channelID.log).send(new Discord.RichEmbed()
-    .setAuthor(`${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
-    .setDescription(`<@${message.author.id}> just said \`${filter.clean(message.content)}\` in <#${message.channel.id}>`)
-    .setColor('ORANGE')
-    .setFooter(`Current Server Time: ${new Date().toString()}`))
-    message.channel.send(`<@${message.author.id}> just said bad words. Don't you know that's illegal?`)
-    message.delete()
-    return
-  }
+  // if (filter.isProfane(message.content)) {
+  //   console.log(`[FILTER] ${message.author.username}#${message.author.discriminator} cursed. Message: ${filter.clean(message.content)}`)
+  //   bot.channels.get(botConfig.channelID.log).send(new Discord.RichEmbed()
+  //   .setAuthor(`${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
+  //   .setDescription(`<@${message.author.id}> just said \`${filter.clean(message.content)}\` in <#${message.channel.id}>`)
+  //   .setColor('ORANGE')
+  //   .setFooter(`Current Server Time: ${new Date().toString()}`))
+  //   message.channel.send(`<@${message.author.id}> just said bad words. Don't you know that's illegal?`)
+  //   message.delete()
+  //   return
+  // }
 
   Object.keys(messageReactions).forEach(key => {
     if (new RegExp(key, 'i').test(message.content)) {
