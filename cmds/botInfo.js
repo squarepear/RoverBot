@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-const config = require('../botconfig.json')
+const config = require('../botConfig.json')
 const thisPackage = require('../package.json')
 
 this.info = {
