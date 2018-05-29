@@ -1,6 +1,6 @@
 console.log('[INFO] I\'m starting up! Please wait until the next message!')
 
-const botConfig = require('./botconfig.json')
+const botConfig = require('./botConfig.json')
 const Discord = require('discord.js')
 const fs = require('fs')
 const schedule = require('node-schedule')
