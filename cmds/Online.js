@@ -1,4 +1,4 @@
-const botConfig = require('../botconfig.json')
+const botConfig = require('../botConfig.json')
 var db = require('../dbAccess')
 
 this.info = {
