@@ -128,9 +128,6 @@ bot.on('message', async message => {
 bot.on('messageReactionAdd', async (reaction, user) => {
   if (user.bot) return
 
-  console.log(botConfig.channelIDs.onlineTowns)
-  // bot.channels.get(botConfig.channelIDs.onlineTowns).send(botConfig.channelIDs.onlineTowns)
-
   if (reaction.emoji.name === '💾') {
     if (reaction.message.embeds.length === 0) {
       let embed = new Discord.RichEmbed()
@@ -150,7 +147,8 @@ bot.on('presenceUpdate', async (oldMember, newMember) => { // Set town Offline
   if (newMember.presence.status === 'offline') {
     dbAccess.setOfflineTown(newMember.id).then((offline) => {
       if (offline === 'offline') {
-        data.channel.send(`<@${data.newMember.id}>'s Town has been set offline automatically! *(The user is offline on Discord)*`)
+
+        bot.channels.get(botConfig.channelIDs.onlineTowns).send(`<@${data.newMember.id}>'s Town has been set offline automatically! *(The user is offline on Discord)*`)
         console.log(`[AUTOOFFLINE] ${data.newMember.user.username}#${data.newMember.user.discriminator}'s town has been set offline automatically (Discord offline)`)
       }
     })
