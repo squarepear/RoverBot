@@ -13,13 +13,14 @@ this.info = {
     usage: 'temp [template]',
     desc: 'Templates a template'
   },
-  notInDM: false
+  notInDM: true
 }
 
 // Function to run when user uses this command (Don't change the function name)
 this.Command = function (data) {
-  db.setOfflineTown(data.user.id, [onFind, data])
-  return ''
+  db.setOfflineTown(data.user.id).then((info) => {
+    onFind(info, data)
+  })
 }
 
 function onFind(info, data) {

@@ -14,13 +14,14 @@ this.info = {
     usage: 'online',
     desc: 'Set your town online'
   },
-  notInDM: false
+  notInDM: true
 }
 
 // Function to run when user uses this command (Don't change the function name)
 this.Command = function (data) {
-  db.setOnlineTown(data.user.id, [onFind, data])
-  return ''
+  db.setOnlineTown(data.user.id).then((info) => {
+    onFind(info, data)
+  })
 }
 
 function onFind(info, data) {

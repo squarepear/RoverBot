@@ -18,22 +18,24 @@ this.info = {
 this.Command = (data) => {
   data.CreateRichEmbed = this.CreateRichEmbed
   if (data.args.length === 0) { // Self info
-    db.getUserInfo(data.user.id, [onFind, data])
-    return ''
+    db.getUserInfo(data.user.id).then((userInfo) => {
+      onFind(userInfo, data)
+    })
   } else if (data.args.length === 1 && data.message.mentions.users.first()) { // If there is args and mentions
-    db.getUserInfo(data.message.mentions.users.first().id, [onFind, data])
-    return ''
+    db.getUserInfo(data.message.mentions.users.first().id).then((userInfo) => {
+      onFind(userInfo, data)
+    })
   } else { // If na
     console.log(`[ERROR] ${data.user.username}#${data.user.discriminator} had an error running \`!info\``)
-    return `Unknown Error! Did you mention a username?\n Please report this to the developer!`
+    data.message.channel.send(`Unknown Error! Did you mention a username?\nPlease report this to the developer!`)
   }
 }
 
-this.CreateRichEmbed = (userInfo, message) => {
-  let name = message.author.username
+this.CreateInfoEmbed = (userInfo, user, guild) => {
+  let name = user.username
 
-  if (message.channel.guild.members.get(message.author.id).nickname) {
-    name = message.channel.guild.members.get(message.author.id).nickname
+  if (guild.members.get(user.id) && guild.members.get(user.id).nickname) {
+    name = guild.members.get(user.id).nickname
   }
 
   let constructedTownInfo = ''
@@ -76,12 +78,10 @@ this.CreateRichEmbed = (userInfo, message) => {
 
   return new Discord.RichEmbed()
   .setColor(`GREEN`)
-  .setAuthor(`${name}'s Details`, message.author.displayAvatarURL)
+  .setAuthor(`${name}'s Details`, user.displayAvatarURL)
   .addField(`ACCF Town Info`, constructedTownInfo)
 }
 
-function onFind(userInfo, data) {
-  data.botVar.fetchUser(userInfo.discordId).then((user) => {
-    data.message.channel.send(data.CreateRichEmbed(userInfo, data.message))
-  })
+const onFind = (userInfo, data) => {
+  data.message.channel.send(this.CreateInfoEmbed(userInfo, data.message.author, data.message.channel.guild))
 }

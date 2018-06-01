@@ -1,117 +1,101 @@
 var User = require('./models/user')
 
-this.getUserInfo = (userID, onFind) => {
-  User.findOne({ 'discordId' : userID }, (err, user) => {
-    if (err) {
-      throw err
-    }
-    if (!user) {
-      user = new User()
-      user.discordId = userID
-      user.save(function (err) {
-        if (err) {
-          throw err
-        }
-      })
-    }
+this.getUserInfo = (userID) => {
+  return new Promise((resolve, reject) => {
+    User.findOne({ 'discordId' : userID }, (err, user) => {
+      if (err) reject(err)
 
-    if (onFind) {
-      onFind[0](user, onFind[1])
-    } else {
-      return user
-    }
+      if (!user) {
+        user = new User()
+        user.discordId = userID
+        user.save(function (err) {
+          if (err) reject(err)
+        })
+      }
+
+      resolve(user)
+    })
   })
 }
 
-this.getUserInfoFromFC = (fc, onFind) => {
-  User.findOne({ 'fc' : fc }, (err, user) => {
-    if (err) {
-      throw err
-    }
+this.getUserInfoFromFC = (fc) => {
+  return new Promise((resolve, reject) => {
+    User.findOne({ 'fc' : fc }, (err, user) => {
+      if (err) reject(err)
 
-    if (onFind) {
-      onFind[0](user, onFind[1])
-    } else {
-      return user
-    }
+      resolve(user)
+    })
   })
 }
 
 this.setUserInfo = (userID, info) => {
+  return new Promise((resolve, reject) => {
     User.findOneAndUpdate({ 'discordId' : userID }, info, (err, resp) => {
-      if (err) {
-        throw err
+      if (err) reject(err)
+
+      resolve(resp)
+    })
+  })
+}
+
+this.setOnlineTown = (userID) => {
+  return new Promise((resolve, reject) => {
+    User.findOne({ 'discordId' : userID }, (err, user) => {
+      if (err) reject(err)
+
+      if (!user) {
+        user = new User()
+        user.discordId = userID
+        user.save(function (err) {
+          if (err) reject(err)
+        })
+      }
+
+      if (user.online) {
+        resolve('alreadyOnline')
+      } else {
+        User.findOneAndUpdate({ 'discordId' : userID }, { 'online' : true }, (err, resp) => {
+            if (err) reject(err)
+
+            resolve('online')
+        })
       }
     })
-}
-
-this.setOnlineTown = (userID, onFind) => {
-  User.findOne({ 'discordId' : userID }, (err, user) => {
-    if (err) {
-      throw err
-    }
-
-    if (!user) {
-      user = new User()
-      user.discordId = userID
-      user.save(function (err) {
-        if (err) {
-          throw err
-        }
-      })
-    }
-
-    if (user.online) {
-      onFind[0]('alreadyOnline', onFind[1])
-    } else {
-      User.findOneAndUpdate({ 'discordId' : userID }, { 'online' : true }, (err, resp) => {
-          if (err) {
-            throw err
-          }
-
-          onFind[0]('online', onFind[1])
-      })
-    }
   })
 }
 
-this.setOfflineTown = (userID, onFind) => {
+this.setOfflineTown = (userID) => {
+  return new Promise((resolve, reject) => {
+    User.findOne({ 'discordId' : userID }, (err, user) => {
+      if (err) reject(err)
 
-  User.findOne({ 'discordId' : userID }, (err, user) => {
-    if (err) {
-      throw err
-    }
+      if (!user) {
+        user = new User()
+        user.discordId = userID
+        user.save(function (err) {
+          if (err) reject(err)
+        })
+      }
 
-    if (!user) {
-      user = new User()
-      user.discordId = userID
-      user.save(function (err) {
-        if (err) {
-          throw err
-        }
-      })
-    }
+      if (!user.online) {
+        resolve('alreadyOffline')
+      } else {
+        User.findOneAndUpdate({ 'discordId' : userID }, { 'online' : false }, (err, resp) => {
+            if (err) reject(err)
 
-    if (!user.online) {
-      onFind[0]('alreadyOffline', onFind[1])
-    } else {
-      User.findOneAndUpdate({ 'discordId' : userID }, { 'online' : false }, (err, resp) => {
-          if (err) {
-            throw err
-          }
-
-          onFind[0]('offline', onFind[1])
-      })
-    }
+            resolve('offline')
+        })
+      }
+    })
   })
 }
 
-this.getOnlineTowns = (onFind) => {
-  User.find({ 'online' : true }, (err, users) => {
-    if (onFind) {
-      onFind[0](users, onFind[1])
-    } else {
-      return users
-    }
+this.getOnlineTowns = () => {
+  return new Promise((resolve, reject) => {
+    User.find({ 'online' : true }, (err, users) => {
+      if (err) reject(err)
+
+      resolve(users)
+    })
   })
 }

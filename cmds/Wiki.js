@@ -19,9 +19,8 @@ this.info = {
 this.Command = function (data) {
   if (data.args.length > 0) {
     searchWiki(data.args.join(' '), data)
-    return ''
   } else {
-    return 'http://animalcrossing.wikia.com/wiki/Animal_Crossing_Wiki'
+    data.message.channel.send('http://animalcrossing.wikia.com/wiki/Animal_Crossing_Wiki')
   }
 }
 

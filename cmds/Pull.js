@@ -19,8 +19,8 @@ this.Command = function (data) {
     console.log(`[GIT] ${data.user.username}#${data.user.discriminator} ran git pull`)
     cmd.run('git pull')
     cmd.run('npm install')
-    return 'Pulling'
+    data.message.channel.send('Pulling')
   } else {
-    return 'Hey! You can\'t do that!'
+    data.message.channel.send('Hey! You can\'t do that!')
   }
 }
