@@ -6,8 +6,8 @@
     "uri": "<mongodb uri>"
   },
   "channelIDs": {
-    "events": 0,
-    "onlineTowns": 0,
-    "logs": 0
+    "events": "<Where to announce events>",
+    "onlineTowns": "<Where to announce a player is online>",
+    "logs": "<Where to log stuff>"
   }
 }
