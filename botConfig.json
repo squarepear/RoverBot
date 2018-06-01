@@ -5,9 +5,9 @@
   "mongodb": {
     "uri": "<mongodb uri>"
   },
-  "channelID": {
-    "event": "<Where to announce events>",
-    "online": "<Where to announce a player is online>",
-    "log": "<Where to log stuff>"
+  "channelIDs": {
+    "events": 0,
+    "onlineTowns": 0,
+    "logs": 0
   }
 }
