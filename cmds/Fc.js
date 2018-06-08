@@ -1,4 +1,4 @@
-var db = require('../dbAccess.js')
+var db = require('../dbAccess')
 const fcPattern = /^(\d{4}-\d{4}-\d{4})$/
 
 this.info = {

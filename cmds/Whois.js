@@ -1,5 +1,5 @@
 var db = require('../dbAccess')
-var { CreateInfoEmbed } = require('./Info.js')
+var { CreateInfoEmbed } = require('./Info')
 const fcPattern = /^(\d{4}-\d{4}-\d{4})$/
 
 this.info = {

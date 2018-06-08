@@ -1,4 +1,4 @@
-const botConfig = require('../botConfig.json')
+const config = require('../config')
 var db = require('../dbAccess')
 
 this.info = {
@@ -29,7 +29,7 @@ function onFind(info, data) {
     data.message.channel.send('Your town is already Offline!')
   } else if (info === 'offline') {
     console.log(`[OFFLINE] ${data.user.username}#${data.user.discriminator} has set their town offline!`)
-    data.message.guild.channels.get(botConfig.channelIDs.onlineTowns).send(`<@${data.user.id}>'s town is now Offline!`)
+    data.message.guild.channels.get(config.channelIDs.onlineTowns).send(`<@${data.user.id}>'s town is now Offline!`)
     data.message.channel.send('Your town has been set Offline!')
   } else { // Not online nor deleted
     data.message.channel.send('Unknown error! Please contact the developer!')

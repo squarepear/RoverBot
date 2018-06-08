@@ -9,10 +9,6 @@
     "supervise": "supervisor bot.js",
     "nodemon": "nodemon bot.js"
   },
-  "engines": {
-    "node": "10.1.0",
-    "npm": "6.1.0"
-  },
   "author": "SquarePear",
   "license": "MIT",
   "dependencies": {
