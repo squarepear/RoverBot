@@ -28,10 +28,13 @@ this.Command = function (data) {
     switch (data.args[0].toUpperCase()) {
       case 'GENERAL':
         data.message.channel.send(helpCategoryGeneral)
+        break
       case 'ACCF':
         data.message.channel.send(helpCategoryACCF)
+        break
       default:
         data.message.channel.send('Category invalid!')
+        break
     }
   }
 }
