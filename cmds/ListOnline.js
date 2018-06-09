@@ -13,7 +13,8 @@ this.info = {
     'TownsOnline',
     'onlineList',
     'onlinesList',
-    'GiveMeTheListOfOnlineTowns'
+    'GiveMeTheListOfOnlineTowns',
+    'OnlinePlayers'
   ],
   helpInfo: {
     show: false,
@@ -22,14 +23,15 @@ this.info = {
     usage: 'temp [template]',
     desc: 'Templates a template'
   },
-  notInDM: false
+  notInDM: true
 }
 
 // Function to run when user uses this command (Don't change the function name)
 this.Command = function (data) {
   console.log(`[LISTONLINE] ${data.user.username}#${data.user.discriminator} requested for online towns!`)
-  db.getOnlineTowns([onFind, data])
-  return ''
+  db.getOnlineTowns().then((onlineTowns) => {
+    onFind(onlineTowns, data)
+  })
 }
 
 function onFind(onlineTowns, data) {
@@ -37,8 +39,8 @@ function onFind(onlineTowns, data) {
     data.message.channel.send(new Discord.RichEmbed()
     .setColor('DARK_RED')
     .setTitle('❌ Whoops!')
-    .addField(`There aren't any online towns right now! 😔`, `Online towns should appear here.`)
-    .addField('How do I set my town online?', `Do \`!online\` in #bot-commands to set your town online!`))
+    .addField(`There aren't any towns online right now! 😔`, `Online towns should appear here.`)
+    .addField('How do I set my town as online?', `Do \`!online\` in #bot-commands to set your town online!`))
   }
 
   let townlist = ''

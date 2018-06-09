@@ -19,6 +19,6 @@ this.Command = function (data) {
     // Do stuff
   } else {
     // This is the message the bot sends
-    return 'Some Message'
+    data.message.channel.send('Message')
   }
 }

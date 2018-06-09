@@ -1,6 +1,6 @@
 console.log('[INFO] I\'m starting up! Please wait until the next message!')
 
-const botConfig = require('./botConfig.json')
+const config = require('./config')
 const Discord = require('discord.js')
 const fs = require('fs')
 const schedule = require('node-schedule')
@@ -21,7 +21,7 @@ var cmds = []
 var startupTime = Date.now()
 var townChannel
 
-mongoose.connect(botConfig.mongodb.uri)
+mongoose.connect(config.mongodb.uri)
 
 // Reading Commands
 fs.readdirSync(commandsPath).forEach(function (file) { // For each file read, create a function
@@ -45,7 +45,7 @@ JSON.parse(fs.readFileSync('./events.json')).forEach((data) => { // Reading Even
       color = 'RANDOM'
     }
 
-    bot.channels.get(botConfig.channelID.event).send(new Discord.RichEmbed()
+    bot.channels.get(config.channelIDs.events).send(new Discord.RichEmbed()
     .setTitle(data.name)
     .setColor(color)
     .setDescription(data.info)
@@ -67,8 +67,8 @@ bot.on('ready', async () => {
     console.log('[ERROR] Can\'t create invite link! Am I a normal user?')
     console.log(e.stack)
   }
-  townChannel = bot.channels.get(botConfig.channelID.online)
-  bot.user.setGame(`Do ${botConfig.prefix}help to get help!`)
+  townChannel = bot.channels.get(config.channelIDs.onlineTowns)
+  bot.user.setGame(`Do ${config.prefix}help to get help!`)
 })
 
 // on message
@@ -78,7 +78,7 @@ bot.on('message', async message => {
 
   // if (filter.isProfane(message.content)) {
   //   console.log(`[FILTER] ${message.author.username}#${message.author.discriminator} cursed. Message: ${filter.clean(message.content)}`)
-  //   bot.channels.get(botConfig.channelID.log).send(new Discord.RichEmbed()
+  //   bot.channels.get(config.channelIDs.logs).send(new Discord.RichEmbed()
   //   .setAuthor(`${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
   //   .setDescription(`<@${message.author.id}> just said \`${filter.clean(message.content)}\` in <#${message.channel.id}>`)
   //   .setColor('ORANGE')
@@ -95,10 +95,10 @@ bot.on('message', async message => {
   })
 
   // bot message or not start with prefix = return
-  if (!message.content.startsWith(botConfig.prefix)) return
+  if (!message.content.startsWith(config.prefix)) return
 
   let messageArray = message.content.trim().split(' ')
-  let command = messageArray[0].replace(botConfig.prefix, '')
+  let command = messageArray[0].replace(config.prefix, '')
   let args = messageArray.slice(1)
   let data = {
     user: message.author,
@@ -108,8 +108,7 @@ bot.on('message', async message => {
     bot: bot.user,
     botVar: bot,
     onlineChannel: townChannel,
-    startup: startupTime,
-    prefix: botConfig.prefix
+    startup: startupTime
   }
   let cmd = cmds[command.toUpperCase()]
 
@@ -120,27 +119,15 @@ bot.on('message', async message => {
       return
     }
 
-    let result = cmd.Command(data) // Send data to each handler. Returns with var `result`
-    if (result === '') {
-    } else if (result != null) { // There should be always a result on each command.
-      message.channel.send(result)
-    } else {
-      message.channel.send(new Discord.RichEmbed()
-      .setTitle('❌ Something isn\'t looking right...')
-      .setURL('https://github.com/rey2952/RoverBot/issues')
-      .setDescription('Your command returned something weird! 😱')
-      .setColor('DARK_RED')
-      .addField(`Returned Value`, `\`${result}\``)
-      .addField('What should I do?', 'If you see this, please report this to the bot developer or create an issue on GitHub by clicking the title of this text!'))
-      .setFooter(`Current Server Time: ${new Date().toString()}`)
-    }
+    cmd.Command(data)
   } else {
     message.channel.send('The command is invalid! Do `!help` if you need help.')
   }
 })
 
-bot.on('messageReactionAdd', (reaction, user) => {
+bot.on('messageReactionAdd', async (reaction, user) => {
   if (user.bot) return
+
   if (reaction.emoji.name === '💾') {
     if (reaction.message.embeds.length === 0) {
       let embed = new Discord.RichEmbed()
@@ -156,15 +143,25 @@ bot.on('messageReactionAdd', (reaction, user) => {
   }
 })
 
-bot.on('presenceUpdate', (oldMember, newMember) => { // Set town Offline
+bot.on('presenceUpdate', async (oldMember, newMember) => { // Set town Offline
   if (newMember.presence.status === 'offline') {
-    dbAccess.setOfflineTown(newMember.id, [(offline, data) => {
+    dbAccess.setOfflineTown(newMember.id).then((offline) => {
       if (offline === 'offline') {
-        data.channel.send(`<@${data.newMember.id}>'s Town has been set offline automatically! *(The user is offline on Discord)*`)
+
+        bot.channels.get(config.channelIDs.onlineTowns).send(`<@${data.newMember.id}>'s Town has been set offline automatically! *(The user is offline on Discord)*`)
         console.log(`[AUTOOFFLINE] ${data.newMember.user.username}#${data.newMember.user.discriminator}'s town has been set offline automatically (Discord offline)`)
       }
-    }, { 'newMember' : newMember, 'channel' : townChannel }])
+    })
   }
+
+  // if (newMember.presence.status === 'offline') {
+  //   dbAccess.setOfflineTown(newMember.id, [(offline, data) => {
+  //     if (offline === 'offline') {
+  //       data.channel.send(`<@${data.newMember.id}>'s Town has been set offline automatically! *(The user is offline on Discord)*`)
+  //       console.log(`[AUTOOFFLINE] ${data.newMember.user.username}#${data.newMember.user.discriminator}'s town has been set offline automatically (Discord offline)`)
+  //     }
+  //   }, { 'newMember' : newMember, 'channel' : townChannel }])
+  // }
 })
 
 /*
@@ -172,7 +169,7 @@ Logging things should start from here. Send to channel `logs` please
 */
 
 bot.on('guildMemberAdd', async guildMember => { // When someone joins a guild that Bot joins
-  if (!botConfig.log) return
+  if (!config.channelIDs.logs) return
 
   let user = guildMember.user
   let sendData = new Discord.RichEmbed()
@@ -181,11 +178,11 @@ bot.on('guildMemberAdd', async guildMember => { // When someone joins a guild th
   .setDescription(`<@${user.id}> ${user.username}#${user.discriminator}`)
   .setFooter(`UserID: ${user.id} | ${new Date()}`)
 
-  bot.channels.get(botConfig.channelID.log).send(sendData)
+  bot.channels.get(config.channelIDs.logs).send(sendData)
 })
 
 bot.on('guildBanAdd', async (guild, user) => {
-  if (!botConfig.log) return
+  if (!config.channelIDs.logs) return
 
   let sendData = new Discord.RichEmbed()
   .setColor(`RED`)
@@ -193,7 +190,7 @@ bot.on('guildBanAdd', async (guild, user) => {
   .setDescription(`<@${user.id}> ${user.username}#${user.discriminator}`)
   .setFooter(`UserID: ${user.id} | ${new Date()}`)
 
-  bot.channels.get(botConfig.channelID.log).send(sendData)
+  bot.channels.get(config.channelIDs.logs).send(sendData)
 })
 
 bot.on('guildMemberUpdate', async (oldMember, newMember) => {
@@ -213,8 +210,8 @@ app.use('/edituserinfo', require('./routes/edituserinfo'))
 app.use('/github/update', require('./routes/githubupdate'))
 
 // Initalize!
-app.listen(botConfig.port) // Auto Update GitHub
-bot.login(botConfig.token) // Bot Itself
+app.listen(config.port) // Auto Update GitHub
+bot.login(config.token) // Bot Itself
 
 // On exit
 

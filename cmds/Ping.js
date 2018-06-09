@@ -16,5 +16,5 @@ this.Command = function (data) {
   let ping = new Date().getTime() - data.message.createdTimestamp
 
   console.log(`[PING] ${data.user.username}#${data.user.discriminator} has asked for bot's ping (${ping}ms)`)
-  return `*Pong!* \`${ping}ms\``
+  data.message.channel.send(`*Pong!* \`${ping}ms\``)
 }

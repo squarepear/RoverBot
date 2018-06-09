@@ -1,6 +1,6 @@
 {
   "name": "roverbot",
-  "version": "2.3.0",
+  "version": "3.0.0-beta",
   "description": "Discord bot for AC:CF discord server",
   "main": "bot.js",
   "scripts": {
@@ -8,10 +8,6 @@
     "start": "node bot.js",
     "supervise": "supervisor bot.js",
     "nodemon": "nodemon bot.js"
-  },
-  "engines": {
-    "node": "8.2.0",
-    "npm": "5.3.0"
   },
   "author": "SquarePear",
   "license": "MIT",
@@ -26,12 +22,5 @@
     "node-wikia": "0.0.3",
     "pug": "^2.0.0-rc.4",
     "request": "^2.85.0"
-  },
-  "devDependencies": {
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1"
   }
 }

@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-const config = require('../botConfig.json')
+const config = require('../config')
 const thisPackage = require('../package.json')
 
 this.info = {
@@ -18,36 +18,38 @@ this.info = {
     name: 'Template',
     usage: 'temp [template]',
     desc: 'Templates a template'
-  }
+  },
+  notInDM: false
 }
 
 // Function to run when user uses this command (Don't change the function name)
 this.Command = function (data) {
   console.log(`[STATS] ${data.user.username}#${data.user.discriminator} has checked for the bot's status`)
-  return new Discord.RichEmbed()
-  .setAuthor(`About ${data.botVar.user.username}`, data.botVar.user.avatarURL)
-  .setColor('GOLD')
-  .setThumbnail(data.botVar.user.avatarURL)
-  .setDescription('In-Depth Bot Information')
-  .setURL('https://github.com/rey2952/RoverBot')
-  .setTimestamp()
+  data.message.channel.send(new Discord.RichEmbed()
+    .setAuthor(`About ${data.botVar.user.username}`, data.botVar.user.avatarURL)
+    .setColor('GOLD')
+    .setThumbnail(data.botVar.user.avatarURL)
+    .setDescription('In-Depth Bot Information')
+    .setURL('https://github.com/rey2952/RoverBot')
+    .setTimestamp()
 
-  .addField('Bot ID', data.botVar.user.id, true)
-  .addField('Bot Library', 'discord.js', true)
+    .addField('Bot ID', data.botVar.user.id, true)
+    .addField('Bot Library', 'discord.js', true)
 
-  .addField('Bot Creators', '<@237985610084777994>\n<@189769721653100546>', true)
-  .addField('Node.js Version', process.version, true)
+    .addField('Bot Creators', '<@237985610084777994>\n<@189769721653100546>', true)
+    .addField('Node.js Version', process.version, true)
 
-  .addField('Platform', process.platform, true)
-  .addField('Memory Usage', `${Math.round(process.memoryUsage().rss / 1000000)} MB`, true)
+    .addField('Platform', process.platform, true)
+    .addField('Memory Usage', `${Math.round(process.memoryUsage().rss / 1000000)} MB`, true)
 
-  .addField('Command Prefix', config.prefix, true)
-  .addField('Used Modules', Object.keys(process.versions).length, true)
+    .addField('Command Prefix', config.prefix, true)
+    .addField('Used Modules', Object.keys(process.versions).length, true)
 
-  .addField('Bot Version', thisPackage.version, true)
-  .addField('Bot Uptime', uptimeCount(Date.now(), data.startup), true)
+    .addField('Bot Version', thisPackage.version, true)
+    .addField('Bot Uptime', uptimeCount(Date.now(), data.startup), true)
 
-  .setFooter('Get help with bot commands using !help')
+    .setFooter('Get help with bot commands using !help')
+  )
 }
 
 function uptimeCount (newTime, oldTime) {

@@ -13,22 +13,22 @@ this.info = {
     name: 'Error',
     usage: 'error [code]',
     desc: 'Seraches the ACCF Wiimmifi error codes'
-  }
+  },
+  notInDM: false
 }
 
 this.Command = function (data) {
   if (data.args.length > 0) {
     searchError(data.args.join(''), data)
-    return ''
   } else {
-    return 'https://wiimmfi.de/error'
+    data.message.channel.send('https://wiimmfi.de/error')
   }
 }
 
 function searchError(query, data) {
   request(`https://wiimmfi.de/error?e=${data.args.join('')}&&m=json`, function (error, response, body) {
     if (error) {
-      console.log('error:', error)
+      console.log('[ERROR] ' + error)
     }
 
     let bodyJSON = JSON.parse(body)
